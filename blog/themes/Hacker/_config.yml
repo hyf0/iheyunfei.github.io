@@ -1,0 +1,22 @@
+menu:
+  Home: /
+  Archives: /archives
+
+# gitment
+gitment: false
+gitment_owner:
+gitment_repo:
+gitment_client_id:
+gitment_client_secret:
+
+# valine comment
+valine: false
+leancloud_id: 
+leancloud_key: 
+
+# disqus comment
+disqus: false
+disqus_shortname:
+
+# google analytics
+googleTrackId:
