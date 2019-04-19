@@ -1,85 +1,694 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="网络回声">
+<meta property="og:url" content="http://yunfeihe.me/blog/index.html">
+<meta property="og:site_name" content="网络回声">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络回声">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yunfeihe.me/blog/">
+
+
+
+
+
   <title>网络回声</title>
-
-  
-  <meta name="author" content="Yunfei He">
   
 
-  
 
-  
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
 
-  <meta property="og:site_name" content="网络回声">
 
-  
-  <meta property="og:image" content="/blog/favicon.ico">
-  
 
-  <link href="/blog/favicon.ico" rel="icon">
-  <link rel="alternate" href="/blog/atom.xml" title="网络回声" type="application/atom+xml">
-  <link rel="stylesheet" href="/blog/css/style.css" media="screen" type="text/css">
+
 </head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
 
-<body>
-<div class="blog">
-  <div class="content">
+  
+  
+    
+  
 
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/blog/">网络回声</a>
-    </h1>
-    <p class="site-description"></p>
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">网络回声</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
   </div>
-  <nav class="site-navigation">
-    <ul>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
       
-        <li><a href="/blog/">Home</a></li>
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
       
-        <li><a href="/blog/archives">Archives</a></li>
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
       
     </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/blog/2019/04/17/《把时间当朋友》阅读笔记/"><span></span></a></h3>
-    
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/blog/2019/04/17/《把时间当朋友》阅读笔记/" rel="bookmark">
-        <time class="entry-date published" datetime="2019-04-17T07:14:20.250Z">
-          2019-04-17
-        </time>
-      </a>
-    </span>
-  </div>
-
-
   
+</nav>
 
-  <div class="article-content">
-    <div class="entry">
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
       
-        <h2 id="第零章-困境"><a href="#第零章-困境" class="headerlink" title="第零章 困境"></a>第零章 困境</h2><h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>本章阐述了两个现象</p>
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunfeihe.me/blog/blog/2019/04/18/《原则》阅读笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yunfei He">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="网络回声">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/04/18/《原则》阅读笔记/" itemprop="url">post</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-18T08:13:45+08:00">
+                2019-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>作者提出了这样两种种观点</p>
+<ul>
+<li><p>把生活想象为一场游戏，我面临的每个问题都是一个需要破解的谜。我通过解谜获得一块宝石，即一项原则，它能帮助我在未来避免同样的问题。不断收集这样的宝石能够提高我的决策水平，这样我就能进入更高一级的游戏，游戏变得更难，涉及的利益也变得越来越大。</p>
+</li>
+<li><p>我至今依然害怕跌倒，依然觉得跌倒很痛苦。但我会思考这种痛苦，并明白我将克服这些挫折，而且我学到的东西将主要来自对挫折的反思。 就像长跑者忍耐痛苦去体验“跑步者的愉悦感”一样，我已经基本上走出了为犯错而痛苦的阶段，而是享受从犯错中学习的愉悦。</p>
+</li>
+</ul>
+<p>作者认为第一条大原则应该是 <strong>1 拥抱现实，应对现实</strong></p>
+<p>作者提出自己是个有着梦想的现实主义者，并认为读者也应该 <strong>1 成为一个现实主义者</strong>，说这并不矛盾，梦想使生活有了韵味。<br>并提出，成功的人一般都脚踏实地，以此提出 <strong>1.1a 成功的生活=梦想＋现实＋决心（坚定不移的意志）</strong><br>现实的好处在于使你能明智的选择自己的们梦想并实现它。成功要求对现实背后因果的了解，对原则的利用</p>
+<p>作者表示他不关心读者的理想是什么，但是读者都需要选择实现梦想的路径。并提出舒适的生活和改变世界的梦想，往往是一回事。</p>
+<p>作者认为 <strong>有效工作比工作辛苦更重要</strong>，能否从生活中获得更多，问题不在于你的工作辛苦程度，（作者并没有说收获更多的工作不幸苦，而是指出他们之间没有必然的联系，举个例子来讲就是，有的人每天都在努力学习，成绩却一直提不上去）而是是否<strong>有效</strong>。</p>
+<p>于是，作者在尝试教授读者，如何从每一次努力中获取最大收获</p>
+<p>首当其冲的就是要 <strong>1.2 真相，对真相的精确理解是良好结果的重要基石</strong></p>
+<blockquote>
+<p>当真相与愿望不符时，大多数人抗拒真相。这很糟糕，因为好东西会自己照顾自己，而理解和应对不好的东西才是更重要的。 </p>
+</blockquote>
+<p>（对这段话的理解是，假如你去找工作，如果你具有工作所需的技能，那你基本没有忧虑。但真相是你但并没有掌握所需的技能，意识到这一点可以使你作出正确有针对性的的行动。但如果逃避，忽略真相，你就无法达成找到工作这一目标。）</p>
+<p>其次是 <strong>1.3 做到头脑极度开放、极度透明</strong></p>
+<blockquote>
+<p>任何人都不是生来就知道真相是什么。我们必须或者自己发现真<br>相，或者相信、追随其他人。关键在于知道哪种做法将带来更好的结<br>果。</p>
+</blockquote>
+<p>随后作者解释了，为什么要遵守这条原则的原因</p>
+<ul>
+<li><strong>1.3a 对于快速学习和有效改变而言，头脑极度开放、极度透明<br>是价值无限的。</strong></li>
+</ul>
+<p>首先作者解释了学习的过程其实是一种循环：做决定 -&gt; 看到结果 -&gt; 根据结果作出新的决定。而头脑开放最终会提升 <strong>学习循环的效率</strong>。这是因为，头脑开放会导致以下几个直接结果</p>
+<ul>
+<li>使自己的行为，以及其原因暴露出来，从而不会产生误解。</li>
+<li>不会自欺欺人</li>
+<li>别人也会因为你的头脑开放，给你真实的反馈</li>
+</ul>
+<p>但是，头脑开放也有负面的地方</p>
+<ul>
+<li>可能招致批评</li>
+</ul>
+<p>作者认为读者必须克服这点，做到坦然的极度透明，否则你就学不到东西，所以提出了相应的原则 <strong>1.3b 不要担心其他人的看法，使之成为你的障碍</strong>，并提出读者必须以自己认为最好的独特的方式行事，而这样做会导致反馈，而读者必须开明的思考这些反馈。然后作者鼓励了读者，<em>变得极度透明</em>如同学习公开发言，开始难堪，但会越来越容易。作者表示，无法忍受因恐惧导致不透明所产生的对自身的不满。</p>
+<p>作者又阐述了，极度透明带给他的好处</p>
+<ul>
+<li>让自己自由</li>
+<li>和其他人相互理解</li>
+<li>改善自身的决策水平和人际关系</li>
+</ul>
+<p>然后劝诫读者 <strong>1.3c 拥抱极度求真和极度透明将带来更有意义的工作和更有意<br>义的人际关系</strong>。作者用他观察得来的经验，勉励读者，只要勤加练习，都会感到如此行事的收获和快乐，又强调了这<strong>需要练习和改变自身的习惯</strong>。</p>
+<p>作者提出</p>
+<blockquote>
+<p>通过理解规律，我们能利用规律促进自身的进化，实现我们的目标。例<br>如，人类能飞行，能在全世界发送手机信号，这些能力来自理解和应用<br>已有的现实规律——物理规律或自然世界的法则。</p>
+</blockquote>
+<p>又提了自己在生活和工作中的经验，感受，这使得作者看待生活的态度发生了变化。以下几点是作者的发现和思考</p>
+<ul>
+<li>大脑的进化使我们能够思考现实的运行方式</li>
+<li>只有人类能超脱个体，在更高维度上看待现实，总结对现实的理解。</li>
+<li>其他生物依存本能生活，而只有人类能超越自身，思考各种事物，他们的规律，以及如何相互作用。</li>
+<li>大脑进化使得我们有了抽象思考和逻辑思考的能力。</li>
+</ul>
+<p>但这些也导致了一些负面的事实</p>
+<ul>
+<li>思考导致了复杂，混淆的发生</li>
+<li>由于同时受到兽性和理性的控制，我们需要努力调和自身的情感，本能，和理性。</li>
+<li>是我们混淆了事实和自己想要的事实</li>
+</ul>
+<p>作者为了达成理解 <strong>现实的规律</strong>，提出人尝试理解事物的两个视角</p>
+<ul>
+<li>自上而下（宏观层面）</li>
+<li>自下而上（微观层面）</li>
+</ul>
+<p>并解释了，自上而下和自下而上是相互辅助的，我们通过自下而上的观察来检验自上而下观察得到的规律。即，我们从宏观层面上得到总体的规律，应用到微观上，检验个体是否符合这种规律。而通过自上而下的观察自然，作者发现了我们所说的 <strong>人性</strong>其实很大一部分是 <strong>动物性</strong>，然后解释了这背后的生物学原理。提出了，如果我们只观察人类自身的话，是无法清楚的看到这些事实的。</p>
+<p>作者为了弄清现实的普适规律和对待它们的原则，发现有效的做法是努力的从自然的角度观察事物，也就是原则 <strong>1.4 观察自然，学习现实规律</strong>。作者之所以这样做，是因为作者觉得自然比自己更聪明，应该努力让自然教自我认识现实规律。</p>
+<p>作者暗示了，人总是倾向于自己是对的，并且固守己见。所以提出了 <strong>1.4a 不要固守你对事物“应该”是什么样的看法，这将使你无法了解真实的情况</strong>，并表示，这很重要，偏见会阻碍我们保持客观，而想取得良好的结果需要客观和冷静而不是情绪化。作者给出他自己在面对这种情况时的做法，然后举了一个自身的例子。</p>
+<blockquote>
+<p>当我看到一些我（或人类）认为是错误的自然事物时，我会先假定我是错的，然后努力弄明白，为什么说自然如此运行是合理的。这让我认识了到很多东西，改变了我对以下问题的看法：（1）什么是好什么是坏；（2）我的人生目标是什么；（3）当面对最重要的抉择时我该怎么做。</p>
+</blockquote>
+<blockquote>
+<p>多年前我去非洲时，看到一群鬣狗扑倒了一只幼小的角马。这让我觉得反胃。我对那只角马感到同情，并且认为我看到的景象很糟糕。但问题是，这件事是真的很糟糕，还是因为我有偏见所以认为它很糟糕，<br>而事实上它好极了？这让我陷入思索。假如我看到的事情没有发生，世界会变好还是变差？这个视角促使我考虑这件事后续、再后续的影响，<br>于是我发现那样的话世界将会变差。我现在认识到，自然会走向<strong>整体的最优化</strong>，而不是<strong>个体的最优化</strong>，但多数人只是根据事物对自身的影响判断好坏。我看到的情况是正在运行的自然进程，它能有效促进整个世界的改善，比人类发明的任何程序都有效得多。</p>
+</blockquote>
+<p>然后作者表示了自己对“好”和“坏”的看法</p>
+<blockquote>
+<p>在我看来，自然似乎把“好”定义为对整体好的东西，并通过最优化进程实现这种“好”</p>
+</blockquote>
+<p>提出了 <strong>1.4b 一个东西要“好”，就必须符合现实的规律，并促进整体的进化，这能带来最大的回报</strong>，并指出一个误区</p>
+<blockquote>
+<p>人们常因为很多东西和善体贴而认为它“好”，但这些东西无法带来人们想要的东西，自然会认为这些东西是“坏”的，而我会赞同自然。</p>
+</blockquote>
+<p>当作者在探求所有事物的真相时，作者领悟了并相信 <strong>1.4c 进化是宇宙中最强大的力量，是唯一永恒的东西，是一切的驱动力</strong>，这是作者在观察从粒子到银河系的所有事物都在进化发现的。作者意识到，在进化的并非只有生命，一些抽象上的东西也在进化。例如，知识，科技，语言等。作者讲述了进化是一种 <strong>要么适应，改进，要么死亡</strong> 的过程，其好处在于会推动 <strong>事物的改善</strong>。作者指出，每一次进化带来的价值会不断降低，降低的过程可能又会引发新的进化，一次次把事物推向高端，但也可能引发衰落和死亡。</p>
+<p>作者指出没有事物是永恒的，长远的看都会衰落，所以完美是不存在的。与其隐藏自己的不完美，不如找出自身的缺陷，从自己的错误中获益。</p>
+<p>在介绍完进化的运作机制以及作用后，作者用 <strong>1.4d 不进化就死亡</strong> 督促读者要注意进化的重要性，然后指出了<em>进化循环</em>的对象并不局限于个体，还适用于国家，经济体，任何事物。作者认为防止不进化就死亡关键在于 <strong>经历失败，学习，快速改进</strong> 循环。如果读者能保持这种循环，就可以得到进化的正面效果，否则就会被淘汰掉。</p>
+<p>在经过这些分析以后，作者相信 <strong>1.5 进化是生命最大的成就和最大的回报</strong>，并表示自己对进化的相关看法</p>
+<blockquote>
+<p>进化是出于本能的，所以大多数人都会感觉到内心深处的这种动力，也就是说，我们本能地希望把事情做得更好，本能地创造和改进技术以帮助自己。</p>
+</blockquote>
+<p>随后作者，自然界一个奇妙现象（类似经济学中看不见的手的概念）</p>
+<blockquote>
+<p>自然的一个奇妙之处是，自然中充满了个体生物，各自以符合自身利益的方式行动，不理解也不引导整体的变化，但它们构成了一个美妙运转且不断进化的整体系统。</p>
+</blockquote>
+<p>作者给出自己解释，是因为进化创造了：</p>
+<ul>
+<li>促使个体追求自身利益、最终使整体进步的激励和互动机制</li>
+<li>自然选择过程</li>
+<li>快速的试验和适应</li>
+</ul>
+<p>通过这些认识，作者分享以下几个原则</p>
+<ul>
+<li><strong>1.5a 个体的激励机制必须符合群体的目标</strong></li>
+</ul>
+<p>作者分享了一个很好的例子</p>
+<blockquote>
+<p>一个简单的例子是性与自然选择。自然给了人类极多的从事性行为的激励，主要表现为该行为会提供巨大的快乐，但它的目的是促进基因的进化。通过这一方式，每个个体的需求都得到了满足，也为整体的进化做了贡献。</p>
+</blockquote>
+<ul>
+<li><strong>1.5b 现实为了整体趋向最优化，而不是为了个体</strong></li>
+</ul>
+<p>作者提醒读者，在自然选择的前提下，自然会倾向于保留“好”。读者如果想利用这种现象获得回报，就要尝试为整体做贡献，整体得到改进，又会反作用于个体，结果导致了整体和个体的持续循环改进。</p>
+<ul>
+<li><strong>1.6c 通过快速试错以适应现实是无价的</strong></li>
+</ul>
+<p>这个原则其实暗示了，通过快速试错适应对于其他生物是一种奢侈，而对我们人类来说却是一种天生的，几乎没有门槛的能力，我们要意识到这一点，并且尝试利用上天给予我们的这一礼物。</p>
+<p>作者指出我们天生的可以通过试错这一过程来实现改进，并列举了促进进化的的学习方式</p>
+<ul>
+<li>以记忆为基础的学习</li>
+<li>潜意识的学习</li>
+<li>与人类思考无关的，本能的学习</li>
+</ul>
+<p>作者曾经以为以记忆为基础的学习是最有力的，后来发现实验和适应可以带来更快的进步。</p>
+<p>作者开始讲述一直帮助他快速进化的流程。在讲述前，作者强调了<strong>在确定什么对你重要、你要追求什么时，你的视角具有相当的重要性</strong></p>
+<p>作者解释了，从不同的层面来看，个人的重要性是在变化的。于是提出 <strong>1.6d 意识到你既是一切又什么都不是，并决定你想成为什么样子</strong></p>
+<p>随后作者提了一系列对人生的问题</p>
+<blockquote>
+<p>问题是我们有多重要，以及如何进化。我们对其他人重要吗？（他们和我们一样，从宏大的视角来看也不重要。）我们是否在某种更大的、我们永远无法真正理解的意义上重要？还是说，我们重不重要这个问题根本不重要，所以我们应该忘掉它，及时行乐？</p>
+</blockquote>
+<p>作者认为我们必须要确定 <strong>在多大程度上把他人的利益置于自身利益之上，以及你将以这样的方式对待哪些人</strong>，因为我们将不断被迫做出与此相关的抉择。所以作者提出了 <strong>1.6e 你的未来取决于你的视角</strong>。随后作者阐述了自己的视角</p>
+<blockquote>
+<p>就个人而言，我现在发现，拥抱现实、从自然的视角俯视自身、做宇宙整体微不足道的一小部分，是件很美妙的事。我本能的和有意识的目标都只是进化，利用自己的生命和特性，以某种微弱的方式为进化做贡献。同时，我最喜欢的东西（我的工作和人际关系）是我的驱动力。所以，我发现现实和自然的规律——包括我以及一切东西会如何分解、重组——都是美好的。尽管在情感上，对于将与我关心的东西最终分离，我很难接受。</p>
+</blockquote>
+<p>作者要求我们 <strong>1.6 理解自然提供的现实教训</strong>，因为理解自然和进化的规律在很多方面起到帮助，特别是在有效地应对自己遇到的现实，做出艰难的抉择的时候。随后作者分享了自己的经验</p>
+<blockquote>
+<p>当我开始从理解现实规律的视角看待现实，而不是认为现实不对时，我发现几乎所有起初看起来“不好”的东西，如雨天、缺点甚至死亡，都是由于我对于自己想要拥有的东西持有先入为主之见。我逐渐意识到，我产生这些最初的反应，是因为我没有把事物放到大背景下看待，即现实的构造是让整体实现最优，而不是尽力实现我的愿望。</p>
+</blockquote>
+<p>作者先是又强调了，人具有的独特思维使得人可以快速的独立实现进化。然后指出对进化（持续学习和改进）的追求，让人类天生地感到快乐，愉悦。并批判了物质，名誉，带来的快乐是短暂的。作者认为，最重要的是进化，也就意味着所谓的成功就是 <strong>迅速认识自身和所处环境，然后通过改变实现进步</strong>，并要求我们 <strong>1.6a 把自身的进化最大化</strong> (我觉得作者的意思可能是，不要被物质名誉迷惑，要多追求进化，而非身外之物)</p>
+<p>作者解释了痛苦是必然的，因为我们在人生中追逐的东西固然美好，却不能长久的维持我们的快乐。作者认为自然的一切创造都是有目的的，而痛苦的目的在于，使我们清醒。所以作者提出了那句老生常谈的 <strong>1.6b 记住“没有痛苦的就没有”</strong>（在我健身的过程中，我把痛苦当作一种信号，它标志着我做的事情是有效的，如果不痛苦，反而会使我怀疑这次锻炼的有效性）</p>
+<p>作者指出，人本能地倾向于逃避痛苦，但会带来回报的事情往往伴随着痛苦，特别是在处理与自身缺陷相关的问题时。于是作者提出了 <strong>1.6c 自然的一项根本法则是，为了赢得力量，人必须努力突破极限，而这是痛苦的</strong>（我认为作者是想通过这个原则试图告诉我们，突破极限肯定伴随着痛苦，希望我们正视这个现实）</p>
+<p>作者再次指出痛苦不可避免，但通过正确的态度，对痛苦进行记录，反思。痛苦就可以加速进化循环。即<strong>1.7 痛苦+反思=进步</strong></p>
+<p>作者认为读者应该突破极限，也许会遭遇失败，但我们能因此挖掘自己最大的潜能。通过不断突破极限产生进化，是一种会使人产生依赖，美妙的体验。使人不断地达到更高的层次，有能力处理更复杂的事情。</p>
+<p>作者通过讲述 <strong>1.7a 迎接而非躲避痛苦</strong>带来的好处：</p>
+<ul>
+<li>痛苦将很快转变成快乐</li>
+<li>在痛苦中学习使人达到一种<em>新的境界</em></li>
+</ul>
+<p><em>新境界</em>是指你将喜欢上以下三点</p>
+<ul>
+<li><ul>
+<li>找到、接受，并学会如何应对你的弱点；</li>
+</ul>
+</li>
+<li><ul>
+<li>更喜欢周围的人对你坦诚，而不是隐瞒对你的负面看法；</li>
+</ul>
+</li>
+<li><ul>
+<li>展现真实的自我，而不是强行把弱点伪装成优势。</li>
+</ul>
+</li>
+</ul>
+<p>尝试说服读者遵守这条原则</p>
+<p>作者认为读者应该 <strong>1.7b 接受严厉的哎</strong>，因为作者认为，读者应该以开放的心态看待自身的缺点，并且这种心态会解放自身，更好地应对缺点。其次，作者也分享了自己的经验，认为人需要通过困难体验增强能力。</p>
+<p>作者认为，一个人能否成功，取决于，这个人是否意识到自己可以在人生的任何阶段，包括逆境 <strong>践行</strong> <strong>不断寻找-&gt;实现目标-&gt;寻求更大的目标</strong> 这一过程。并表示，你的生活质量如何，将取决于你在这些痛苦时刻做出的抉择。</p>
+<p>作者表示，读者能否实现自己的愿望，在于读者的 <strong>适应能力</strong> <strong>快速高效进化的能力</strong>，如果做的足够好，读者可以改变自己的心理模式，不再逃避痛苦，而是渴望。</p>
+<p>作者通过举例，指出生活中的一个常见现象。那些会给我们带来瞬间愉悦的事情，长远的看，会带来重大的负面影响。而长期来看，会带来正面影响的事情，在短期内却会带来痛苦。所以作者提醒读者做出决策时要 <strong>1.8 考虑后续与再后续的结果</strong>，同时作者也分享了自己的看法。</p>
+<blockquote>
+<p>。这就好像自然正在对我们进行分类：自然扔给我们各种暗藏玄机、结果有好有坏的选择，而那些决策时只考虑直接结果的人会受到惩罚。而有的人选择自己真正想要的东西，顶住诱惑，克服可能妨碍自己实现目标的痛苦，这样的人拥有成功人生的可能性要大得多。</p>
+</blockquote>
+<p>作者分享了自己的观点</p>
+<blockquote>
+<p>不管在生活中遇到什么情况，如果你能负起责任，进行良好的决策，而不是抱怨你无法控制的东西，你将更有可能成功并找到幸福。心理学家称此为拥有“内控点”，各种研究不断显示，拥有“内控点”的人比其他人做得更好。</p>
+</blockquote>
+<p>所以告诉读者要 <strong>1.9 接受结果</strong>，通过对此原则的引申，作者要求读者不要为自身是否喜欢所处的环境烦恼，因为生活并不在乎你喜不喜欢。重点在于你要能找到实现自己愿望的途径，并坚持下去。</p>
+<p>作者指出，人具有“<em>从更高层次思考</em>”的能力，通过这种使用这种能力，能让人学习和影响生活中的各种因果关系，并利用这些关系达到想要的结果，这个行为好比 <strong>1.10 从更高的层次俯视机器</strong>一样。因此作者又提出了 <strong>1.10a a.把自己想象成一部在大机器里运转的小机器，并明白你有能力改变你的机器以实现更好的结果</strong>，关键在于意识到自己可以针对目标的特点，规划自己实现目标的方式，包括设计（必须做的事情）和人（由谁去做）。合理的安排，才能得到追求的结果。、</p>
+<p>作者提出，机器也存在进化过程，通过 <strong>1.10b 通过比较你实现的结果和你的目标，你就能确定如何改进你的机器</strong> 来实现机器的进化。这同样是一个反馈循环。</p>
+<p>作者指出，人很难客观的看待自己，喜爱凭感情行动，没有远见。所以读者必须 <strong>1.10c 区别作为机器设计者的你和作为机器中工作者的你</strong>，并且 把自己看作一个<strong>设计者</strong>而非工作者的本领远比，把自己看作一个工作者，重要。并表示，成功需要客观，既不能高看自己，也不能承担不应承担的责任。这一点很重要，所以作者提出了 <strong>1.10d 大多数人犯下的最大错误是不客观看待自己以及其他人，这导致他们一次次地栽在自己或其他人的弱点上</strong> 来警示读者。读者最后再次强调了 <strong>更高层次的思考是成功的关键</strong></p>
+<p>作者描述了成功人士具有特征 <strong>1.10e 成功的人能超越自身，客观看待事物，并能成功地管理事物使之与变化相适应</strong>，并表示，读者如果想实现自己的目标，就需要 <strong>学习如何面对自身所处的现实，并把你能利用的所有资源用到极致</strong>，作者分享了一个例子并劝戒了读者：</p>
+<blockquote>
+<p>假如作为设计者和管理者的你发现，作为工作者的你某件事情做不好，你就应该解雇这个作为工作者的你，找到一个好的替代者，而在此过程中你必须一直作为自身生活的设计者和管理者。如果你发现自己不擅长做什么，你不应该为此难过，而是应该为发现这一点感到高兴，因为知晓这一点并妥善应对，将提升你实现自身愿望的可能性。</p>
+</blockquote>
+<p>作者表示，看到别人努力应对生活，让别人看到自己在生活里挣扎，会引发各种负面情绪。读者应该克服这一切，不要把挣扎视为负面的东西。因为人的一生中，最好的机会往往来自挣扎的经历，应该想方设法在挣扎中挖掘出最大的价值。</p>
+<p>作者给出面对缺点，读者可以做出的选择</p>
+<p>最不好的选择是</p>
+<ul>
+<li>否认缺点</li>
+</ul>
+<p>其他选择，则各有其作用和适用范围</p>
+<ul>
+<li>承认缺点，解决缺点</li>
+</ul>
+<p>这取决于读者自我改变的能力</p>
+<ul>
+<li>承认缺点，绕过缺点</li>
+</ul>
+<p>虽然容易可行，但人们常常不会选这条路</p>
+<ul>
+<li>改变目标</li>
+</ul>
+<p>不错的选择，但要求读者具有很大的灵活性，能够克服自己的先入之见，能找到新的目标，并享受新的过程</p>
+<p>作者描述了一个成功的人都会做的一点 <strong>1.10f 在你不擅长的领域请教擅长的其他人，这是一个你无论如何都应该培养的出色技能，这将帮助你建立起安全护栏，避免自己做错事</strong></p>
+<p>作者给出了如何减少无法客观看待自己带来的负面影响 <strong>1.10g .因为客观看待自身很困难，所以你需要依赖其他人的意见，以及全部证据</strong> 作者表示，尽管我们努力的追求客观看待自身，但是要明白我们 <strong>确实无法完全看待自己</strong>，所以其他人的意见很重要。</p>
+<p>作者表示 <strong>1.10h 如果你的头脑足够开放，足够有决心，你几乎可以实现任何愿望</strong>，并且作者表示对读者追求什么没兴趣，但建议读者选择的目标符合自身的特性。</p>
+<p>作者指出人缺乏勇气改正缺点，而解决办法在于，要勇敢的做出以下选择</p>
+<ol>
+<li>不要混淆你的愿望和事实。（不要一厢情愿，自欺欺人）</li>
+<li>不要为自身形象担心，只需关心能不能实现你的目标。</li>
+<li>不要过于重视直接结果而忽视后续、再后续的结果。</li>
+<li>不要让痛苦妨碍进步。</li>
+<li>不要把不好的结果归咎于任何人，从自己身上找原因。</li>
+</ol>
+<hr>
+<p>作者发现进化总是通过5个不同的步骤发生，做好这五步对成功意义重大。作者的第二大原则 <strong>用五步流程实现你的人生愿望</strong> 的实质就是对进化这一循环过程的详细解释和指引。作者详述了这一流程</p>
+<blockquote>
+<p>首先，你要选择你追求什么，即你的目标。对目标的选择将决定你的方向。当你追求目标时，你将遇到问题，一些问题将迫使你直面自己的缺点。如何应对由此带来的痛苦，取决于你自己。要想实现目标，你必须沉着冷静，以便准确地诊断你的问题，进而规划一个方案来解决问题，然后做一切必要的事来践行方案，实现成果。然后你考察自己取得的这些新成果，并重复上述过程。为了快速进化，你必须迅速、持续地这么做，不断设定更高的目标。</p>
+</blockquote>
+<p>作者表示，这五步每一步都是独立的，每一步都不能与其他的步骤混淆，要保证顺序的执行。读者必须以清醒，理性的方式来推进这个过程，不能情绪化。如果不能理性，就要退后一步或者暂停下来，直到恢复理性。有需要时可以请求别人的帮助。</p>
+<p>作者表示，犯错不可避免，完美并不存在。好在，每一个错误都能教给你一些东西。借口是没有价值的，坚持下去才会有收获。</p>
+<p>作者勉励读者，发现在自己不具有的成功所需的所有技能时，不需要担心：</p>
+<blockquote>
+<p>因为所有人都这样。你只需要知道什么时候需要这些技能，你能从哪里学到这些技能。经过练习，当你在游戏过程中面对逆境的时候，你终将拥有不可阻挡的冷静和自信，连你都将不敢相信自己实现目标的能力。</p>
+</blockquote>
+<p>作者开始具体讲解这五步</p>
+<p>作者首先提出了要 <strong>2.1 有明确的目标</strong>，然后解释如何做到这一点。</p>
+<p>读者要先 <strong>2.1a 排列优先顺序：尽管你几乎可以得到你想要的任何东西，但你不可能得到你想要的所有东西</strong>，作者劝诫读者，要做出自己的选择并坚守他，不要因为想要的东西太多，导致什么都没有得到。</p>
+<p>作者指出 <strong>2.1b 不要混淆目标和欲望</strong>，并表示，作者不在乎读者的目标，但希望作者不要自欺欺人。而且要， <strong>2.1c 调和你的目标和欲望，以明确你在生活中真正想要的东西</strong>。作者举了个例子，解释这条原则。</p>
+<blockquote>
+<p>以激情为例。没有激情的生活枯燥乏味，你不会愿意过，但关键在于如何处理自己的激情。是让激情消耗你，驱使你做出不理性的行为，还是你驾驭激情，从而得到动力来追求你真正的目标？如果你把欲望和目标这两个层面都处理好，你最终就能得到充实。</p>
+</blockquote>
+<p>作者提醒读者 <strong>2.1d 不要把成功的装饰误认为成功本身</strong></p>
+<p>作者认为“无法实现”不能作为放弃目标的原因，当一个人作出无法实现的抉择时，是基于眼前的信息判断的，没有考虑到开始追求目标后，你会得到更多信息，特别是在他人沟通后，所以作者提出了 <strong>2.1e 永远不要因为你觉得某个目标无法实现就否决它</strong></p>
+<p>作者希望读者 <strong>2.1f 谨记伟大的期望创造伟大的能力</strong>，尽量不要把目标定成肯定能实现的，而是要定成可能或不能实现的。</p>
+<p>作者表示，<strong>2.1g 如果你拥有灵活性并自我归责，那么几乎没有什么能阻止你成功</strong>，灵活性使你开放，自我规则提醒你做的还不够好吗，提高解决问题的积极性。</p>
+<p>作者表示在身陷挫折，或者将要身陷挫折时，<strong>2.1 h知道如何对待挫折和知道如何前进一样重要</strong>，读者的应对措施应该是守住自己的成绩，减少自己的损失，或者直面后果，始终尽可能作出最好的选择，如此终将回报。</p>
+<p>进化循环的第二步 <strong>2.2 找出问题，并且不容忍问题</strong>,作者随后说明了如何遵循此项原则，并且该持有什么样的态度。</p>
+<p>面对痛苦， <strong>2.1a 把令人痛苦的问题视为考验你的潜在进步机会</strong>，作者提醒读者，每个痛苦都是一个收获的机会，尽管刚开始你不这么觉得。</p>
+<p>作者指出，思考问题会使人焦虑，但不思考问题会导致更加严重的焦虑。直面问题，你所感到的痛苦是一种信号，提醒你<em>正在成长</em>，所以<strong>2.2b 不要逃避问题，因为问题根植于看起来并不美好的残酷现实</strong></p>
+<p>作者指出，问题根据其自身的特点，有其相异于其他问题的解决方案，所以要 <strong>2.2c 要精准地找到问题所在</strong>，作者举了些许例子来说明这点</p>
+<blockquote>
+<p>如果问题的原因是技能不足，你也许应当再多练习；如果问题的原因是某种固有的弱点，你也许需要寻求他人的帮助，或者改变你扮演的角色。比如，如果你不擅长会计事务，就聘请一个会计。如果问题的原因是某个其他人的弱点，那么必要时就用擅长的人替换他。</p>
+</blockquote>
+<p>作者提醒读者，在分析问题的时候，<strong>2.2d 不要把问题的某个原因误认为问题本身</strong>。</p>
+<p>由于个人的时间，精力有限，作者提出要 <strong>2.2e 区分大问题和小问题</strong>，先解决回报大的问题，同时留出足够的时间探寻小问题，确保这些小问题不是大问题的征兆。</p>
+<p>作者最后强调了 <strong>2.2f 找出一个问题之后，不要容忍问题</strong>，并表示，没有任何理由，原因，借口使得读者可以忽视问题。</p>
+<p>当读者找到问题后，需要做的是 <strong>2.3 诊断问题，找到问题的根源</strong></p>
+<p>为了做好这一点，作者要求读者要 <strong>2.3a 先把问题是什么弄明白，再决定怎么做</strong>。生活中常见的错误就是，不诊断，立刻就给出问题的解决方法。作者表示，可以通过与合适的人交流，来帮助找到根本原因。</p>
+<p>作者表示，找到并处理根本原因，也会不断带来回报，所以要<strong>2.3b 区分直接原因和根本原因</strong>，作者描述了两个原因的特征，直接原因常用动词描述，根本原因则常用形容词。</p>
+<p>作者认为，如果读者想要掌控生活，就要 <strong>2.3c 认识到了解人（包括你自己）的特性，有助于对其形成合理预期</strong>。读者必须克服自身的犹豫不决，对其他人，包括自己，作出评估。这一点有助于找到阻碍实现目标的根本原因。</p>
+<p>在诊断，分析问题后，读者需要做的是 <strong>2.4 规划方案</strong>，在此行为下也要遵守一系列的原则：</p>
+<p><strong>2.4a 前进之前先回顾</strong>，综合下眼前收集到的信息。设想下，通过这些信息，该如何安排任务和人事才能实现目标。</p>
+<p><strong>2.4b 把你的问题看作一部机器产生的一系列结果</strong>，这是通过人类特有的 <strong>更高层次的思维</strong> 能力，切换视角，思考如何改进方案创造更好的结果。</p>
+<p>作者提醒读者 <strong>2.4c 谨记实现你的目标通常有很多途径</strong>，而读者要找出一条最有效的途径。</p>
+<p>通过 <strong>2.4d 把你的方案设想为一个电影剧本，然后循序渐进地思考由谁来做什么事</strong>，由大概到具体，这会自然的产生各种方面的问题，从而使读者有机会进一步完善方案。作者举了一个例子：</p>
+<blockquote>
+<p>先草拟一个大概的方案（如“招聘到人才”），然后改进。你应当从总体框架出发，一步步落实到具体任务和预计的时间线（如“在未来两周里选好能找到人才的猎头”）。无疑，在你推进的过程中，成本、时间、人员等方面的现实问题都会浮现，这将促使你进一步完善方案，直到机器里的所有齿轮都啮合良好、流畅运转。</p>
+</blockquote>
+<p>作者要求读者，要 <strong>2.4e 把你的方案写下来，让所有人都能看到，并对照方案执行</strong>，方案一定要精细具体到何人何时完成什么任务。作者指出，任务，方案，目标是不同的概念，任务是方案与目标间的纽带。</p>
+<p>作者指出 <strong>2.4f 要明白，规划一个好方案不一定需要很多时间</strong>，并表示大多数人的错误是<em>一心想着执行，所以几乎不花时间来规划</em>，劝诫读者谨记 <strong>规划先于行动！</strong>。</p>
+<p>进化的最后一步 <strong>2.5 坚定地从头至尾执行方案</strong></p>
+<p>因为 <strong>2.5a 规划做得再好，不执行也无济于事</strong>，并且要时刻 <strong>谨记任务及其意在实现的目标之间的联系</strong>。倘若看不到联系，读者必须能找到原因，即使需要暂停任务，否则就会迷失自己的目标。</p>
+<p>作者指出 <strong>2.5b 良好工作习惯的重要性常被大大低估</strong>，并表示，能够成功执行方案的人 <em>拥有合理排序的应做事项列表，并确保每一项都有井然有序的标记</em>。</p>
+<p>作者认为 <strong>2.5c 建立清晰的衡量标准来确保你在严格执行方案</strong>，并表示，如果你没能实现目标，就出现了一个需要你诊断分析的问题。作者认为，最好的方法在于找到一个你信赖的人监督你。</p>
+<p>作者指出读者可能不可能把每一步都做好，所以提出了 <strong>2.6 谨记：如果你找到了解决方案，弱点是不重要的</strong> 来帮助读者，表示读者应该 <strong>保持谦逊</strong>，这样才能从其他人哪里得到所需要的东西。</p>
+<p>为了改善你的五步流程，读者需要 <strong>2.6a 考察你犯错误的类型，并识别你通常在五步流程中的哪一步上做得不好</strong>，并咨询其他人的意见，因为没人可以绝对客观的看待自己。</p>
+<p>作者指出 <strong>2.6b 每个人都至少有一个最大的弱点阻碍其成功，找到你的这个弱点并处理它</strong>，作者分享自己的解决方法</p>
+<blockquote>
+<p>把你最大的弱点写下来（如找出问题、规划解决方案、执行落实），并写下其原因（如你被情绪左右，你无法预见各种合理的可能性）。尽管包括你在内的大多数人面临的重大障碍不止一个，但如果你能消除或者想办法规避这个最大的弱点，你将大大改善你的人生。只要你认真对待，你将几乎肯定能成功处理这个最大的弱点。你可以自己把它处理掉，也可以找人帮你更好地处理。成功有两条路：（1）自己拥有成功所需的要素；（2）从其他人那里得到成功所需的要素。第二条路需要你谦逊。谦逊和你自己有能力一样重要，甚至比你有能力更重要。谦逊和能力兼有是最好的。下一页上有一幅图，你可能会觉得有帮助</p>
+</blockquote>
+<p>现实中，有的人擅长找出和解决问题，这样的人拥有良好的<em>意境地图</em>。有的人则有谦逊，开放的头脑。读者要 <strong>2.7 理解你和其他人的“意境地图”与谦逊性</strong>。作者表示，意境地图和谦逊性的价值，取决于谁能提供更好的解决问题的办法。读者应该搞清自己的短板，并变得头脑开放，从而可以获得他人的帮助。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yunfeihe.me/blog/blog/2019/04/17/《把时间当朋友》阅读笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yunfei He">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="网络回声">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/04/17/《把时间当朋友》阅读笔记/" itemprop="url">post</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-17T10:13:45+08:00">
+                2019-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第零章-困境"><a href="#第零章-困境" class="headerlink" title="第零章 困境"></a>第零章 困境</h2><h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>本章阐述了两个现象</p>
 <ol>
 <li>一个缺乏注意力的人尝试认真去学习看书时，会被各种事情转移注意力，导致无法按时完成自己的目标。因此作者认为，完成任何任务都需要设定一个”死期”(deadline)。</li>
 <li>学生在某些事情上勤奋又在某些事情上懒惰。例如，宁愿背几十篇范文在考试中抄袭，也不愿在自己独立思考后写出一篇。</li>
@@ -304,45 +913,316 @@
 <p>有几章的标题只是其部分内容的概括，有很多无关的内容，尽管这些内容有价值，但是作者在书籍结构的安排上有很大的问题。这导致了，如果读者的阅读水平不高，很难在结构混乱的章节提炼出作者的观点，看法，导致无法全盘理解作者的意图。更严重的，甚至可能无从想起那一章写了什么。（比如我，要不是针对每一章作了总结，真的很难理解作者的观点，意图，论证）</p>
 <p>希望阅读本书的读者注意这一点，注意总结作者的观点，如果只是跟着书走，是很难有收获的。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
+  <aside id="sidebar" class="sidebar">
     
+    <div class="sidebar-inner">
 
-    
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Yunfei He</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
 
     </div>
-
-    
-  </div>
-</article>
+  </aside>
 
 
-
-
-<nav class="pagination">
-  
-  
-</nav>
+        
+      </div>
     </main>
 
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    <br>
-    
-    &copy; 2019 Yunfei He
-    
-  </p>
-</footer>
-    
-  </div>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yunfei He</span>
+
+  
 </div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
