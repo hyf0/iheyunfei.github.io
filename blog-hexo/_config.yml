@@ -23,7 +23,7 @@ baidusitemap:
 url: http://iheyunfei.com
 root: /
 # permalink: :year/:month/:day/:title/
-permalink: :title.html
+permalink: /posts/:title.html
 permalink_defaults:
 
 # Directory
