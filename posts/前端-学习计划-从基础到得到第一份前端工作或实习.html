@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面这份分析计划主要是针对我个人，所以存在着很多针对性的东西。但我想，有些问题不单单只是我一个人的。这篇文章源于我的迷茫，我希望它能帮助所有初入前端迷茫的人。如果，你对这篇文章有任何感到不妥、疑惑的地方，请无任何顾虑地直接指出，你的直率，对我来说是种帮助。 本文内容依旧处在更新中 2019/05/02 分析 明确的目标：找到第一份前端的工作或实习 问题(数字越小越重要)： 2 所以无法判断自己">
+<meta name="keywords" content="面试,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端-学习计划-从基础到得到第一份前端工作或实习">
+<meta property="og:url" content="http://iheyunfei.com/posts/前端-学习计划-从基础到得到第一份前端工作或实习.html">
+<meta property="og:site_name" content="篝火处">
+<meta property="og:description" content="写在前面这份分析计划主要是针对我个人，所以存在着很多针对性的东西。但我想，有些问题不单单只是我一个人的。这篇文章源于我的迷茫，我希望它能帮助所有初入前端迷茫的人。如果，你对这篇文章有任何感到不妥、疑惑的地方，请无任何顾虑地直接指出，你的直率，对我来说是种帮助。 本文内容依旧处在更新中 2019/05/02 分析 明确的目标：找到第一份前端的工作或实习 问题(数字越小越重要)： 2 所以无法判断自己">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-02T13:16:21.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端-学习计划-从基础到得到第一份前端工作或实习">
+<meta name="twitter:description" content="写在前面这份分析计划主要是针对我个人，所以存在着很多针对性的东西。但我想，有些问题不单单只是我一个人的。这篇文章源于我的迷茫，我希望它能帮助所有初入前端迷茫的人。如果，你对这篇文章有任何感到不妥、疑惑的地方，请无任何顾虑地直接指出，你的直率，对我来说是种帮助。 本文内容依旧处在更新中 2019/05/02 分析 明确的目标：找到第一份前端的工作或实习 问题(数字越小越重要)： 2 所以无法判断自己">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://iheyunfei.com/posts/前端-学习计划-从基础到得到第一份前端工作或实习">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>前端-学习计划-从基础到得到第一份前端工作或实习 | 篝火处</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-139452179-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-139452179-1');
+    }
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b6feb71d80f514e66997b3388378a6bb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">篝火处</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">塔希的个人博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/iheyunfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/前端-学习计划-从基础到得到第一份前端工作或实习.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔希(Yunfei He)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/49502170">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="篝火处">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端-学习计划-从基础到得到第一份前端工作或实习
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-02 21:13:20 / 修改时间：21:16:21" itemprop="dateCreated datePublished" datetime="2019-05-02T21:13:20+08:00">2019-05-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>这份分析计划主要是针对我个人，所以存在着很多针对性的东西。但我想，有些问题不单单只是我一个人的。这篇文章源于我的迷茫，我希望它能帮助所有初入前端迷茫的人。<strong>如果，你对这篇文章有任何感到不妥、疑惑的地方，请无任何顾虑地直接指出，你的直率，对我来说是种帮助</strong>。</p>
+<p><strong>本文内容依旧处在更新中 2019/05/02</strong></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><ul>
+<li>明确的目标：找到第一份前端的工作或实习</li>
+<li>问题(数字越小越重要)：<ul>
+<li>2 所以无法判断自己是否达到招聘标准<ul>
+<li>直接原因：<ul>
+<li>没有认真地搜集、整理招聘信息</li>
+<li>自己不懂地情况下，没有询问他人<br>招聘要求不够详细，无法理解招聘要求</li>
+</ul>
+</li>
+<li>根本原因：<ul>
+<li>自欺欺人，明知道没有了解信息，认为自己了解了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>1 自身技术水平不够<ul>
+<li>直接原因：<ul>
+<li>编程知识没有建立体系</li>
+<li>不清楚自身在学习路线的什么位置上</li>
+<li>不知道该怎么学习</li>
+<li>懒惰，烦于去复习旧知识</li>
+</ul>
+</li>
+<li>根本原因<ul>
+<li>学习时过于浮躁</li>
+<li>自大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4 无法满足招聘要求工作时长<ul>
+<li>直接原因：<ul>
+<li>企业要求员工每星期工作一定时长</li>
+<li>大部分企业禁止远程办公</li>
+<li>我想在大二、三出去找工作，实习</li>
+</ul>
+</li>
+<li>根本原因：<ul>
+<li>争强好胜</li>
+<li>傲慢，自大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3 二本院校，学历上没有竞争力<ul>
+<li>直接原因：<ul>
+<li>高考失败</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5 英语水平捉急，阅读文档费力<ul>
+<li>直接原因：<ul>
+<li>没有花时间、认真学习英语</li>
+</ul>
+</li>
+<li>根本原因：<ul>
+<li>懒惰</li>
+<li>自欺欺人</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h1><ol>
+<li>不断提高自身技术水平<ol>
+<li>建立前端知识体系，明白前端学习路线，搞清,列个招聘要求技能清单<ul>
+<li>通过搜索别人的答案</li>
+<li>提问别人</li>
+<li>通过招聘要求倒推</li>
+<li>参考别人的简历</li>
+<li>参考别人面试经历</li>
+</ul>
+</li>
+<li>根据体系和要求，按图索骥的学习相关知识<ol>
+<li>在每一个学习点，寻找经典书籍或者优质的教学视频<ul>
+<li>慕课网</li>
+<li>牛客网</li>
+<li>知乎</li>
+</ul>
+</li>
+<li>完成书籍或视频，任何要求都要亲手做一遍，哪怕再简单</li>
+<li>时刻思考自身所处学习路线位置，一旦感觉看不清，需要立刻停下反思</li>
+<li>时刻清楚本次学习带来的收获，一旦觉得无法得到足够的收获，就要考虑停止，切换</li>
+<li>完成学习后，需要判断本次学习的成果<ul>
+<li>通过做相关的练习题</li>
+<li>通过完成相关的作品</li>
+<li>通过总结本次学习的收获</li>
+</ul>
+</li>
+<li>搞清和记录这次学习的处在学习路线的那个位置</li>
+</ol>
+<ul>
+<li>不能浮躁，自大</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>周期性（至少每月一次）判断自身技术水平是否达到招聘标准</p>
+<ul>
+<li>做前端面试题<ul>
+<li>牛客网</li>
+<li>别人的面试经历</li>
+</ul>
+</li>
+<li>参与前端外包工作，得到反馈<ul>
+<li>询问技术论坛他人来找外包工作</li>
+<li>qq群，微信群</li>
+<li>外包网站</li>
+</ul>
+</li>
+<li>对比搜集的前端招聘要求关键字，能否就每一点谈一谈<ul>
+<li>每一点可以作思维导图，进行发散思考</li>
+</ul>
+</li>
+<li>参考别人的面试经历,回答相关的面试问题<ul>
+<li>对每次的回答进行记录，如果够好，可以整理成博文</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>提高自己在其他方面的竞争力，来抵消低学历的影响（每个月你至少需要做了以下任意一件事）</p>
+<ul>
+<li>提高自身名气<ul>
+<li>翻译、发表技术文章、书籍<ul>
+<li>掘金</li>
+<li>思否</li>
+</ul>
+</li>
+<li>发起或参与开源项目</li>
+<li>写技术性博文<ul>
+<li>发表在门户网站进行导流</li>
+</ul>
+</li>
+<li>在问答网站解答技术问题<ul>
+<li>思否</li>
+<li>StackOverflow</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>提高自身英语水平<ul>
+<li>翻译技术文章、书籍</li>
+<li>在StackOverflow解答问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li>应聘支持远程工作的企业来处理时长问题<ul>
+<li>工资不是第一考量，应聘成功才是</li>
+<li>如果作出所有努力还不行，就转向外包工作</li>
+<li><a href="https://yuancheng.work/tag/remote-frontend-jobs" target="_blank" rel="noopener">远程工作招聘网站</a></li>
+</ul>
+</li>
+</ol>
+<h1 id="招聘需求"><a href="#招聘需求" class="headerlink" title="招聘需求"></a>招聘需求</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li><p>了解：听说过，看过相关文档，并且在自己的项目或者 playgournd 上试用、试玩过。 </p>
+</li>
+<li><p>熟悉：已经在实际项目中使用相关技术，并且积累了一定程度的经验。 </p>
+</li>
+<li><p>掌握：多次使用相关技术并且跟进最新的进展，了解它和竞品的优缺点，了解它的技术架构和潜在风险。 </p>
+</li>
+<li><p>精通：深入该技术的源代码，能够为该技术贡献 code，性能调优，能够为这个技术布道。 </p>
+</li>
+</ul>
+<h2 id="必须"><a href="#必须" class="headerlink" title="必须"></a>必须</h2><h3 id="了解"><a href="#了解" class="headerlink" title="了解"></a>了解</h3><ul>
+<li>了解计算机相关基础知识，比如体系结构、编译原理、网络、数据库等</li>
+</ul>
+<h3 id="熟悉"><a href="#熟悉" class="headerlink" title="熟悉"></a>熟悉</h3><ul>
+<li>熟悉 HTML / CSS / JS<ul>
+<li>熟悉 Mobile-First、Responsive Web Design 等理念；</li>
+</ul>
+</li>
+<li>熟悉 Webpack、Babel 等工具</li>
+<li>熟悉 Node.js ，有后端开发的经验，有服务端同构渲染经验</li>
+<li>熟悉TypeScript</li>
+<li>熟悉git工作流规范</li>
+<li>熟悉至少一个 UI framework for React, Ant Design/Material UI 等</li>
+<li>熟悉各种算法</li>
+<li>熟悉http协议</li>
+</ul>
+<h3 id="掌握"><a href="#掌握" class="headerlink" title="掌握"></a>掌握</h3><ul>
+<li>掌握ES6</li>
+<li>掌握vue.js生态开发</li>
+<li>掌握react生态开发</li>
+<li>掌握切图</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>良好的英语读写和沟通协调能力</li>
+</ul>
+<h2 id="加分项"><a href="#加分项" class="headerlink" title="加分项"></a>加分项</h2><ul>
+<li><p>经历过项目完整流程，有大公司经验会有加分</p>
+</li>
+<li><p>Github 有前端项目超过 100 star，或给大型项目贡献过代码</p>
+</li>
+<li><p>写技术博客（或微信公众号）2 年以上，或者 50 篇以上</p>
+</li>
+</ul>
+<h1 id="学习路线"><a href="#学习路线" class="headerlink" title="学习路线"></a>学习路线</h1><h2 id="具体"><a href="#具体" class="headerlink" title="具体"></a>具体</h2><h3 id="门槛"><a href="#门槛" class="headerlink" title="门槛"></a>门槛</h3><ul>
+<li><p>html5,css/3、</p>
+<ul>
+<li>学习：<ul>
+<li>视频：<a href="https://coding.imooc.com/class/164.html" target="_blank" rel="noopener">全面系统讲解CSS 工作应用+面试一步搞定-</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/chapter/50.html#Anchor" target="_blank" rel="noopener">所向披靡的响应式开发</a></li>
+<li>文章：<a href="https://juejin.im/post/5b9cf307e51d450e3e168141" target="_blank" rel="noopener">css知识点</a></li>
+<li>文章：<a href="https://segmentfault.com/a/1190000018992363#articleHeader7" target="_blank" rel="noopener">自检清单html/css部分</a>-解答对应问题，写上答案，总结成文章</li>
+<li>文章：<a href="https://segmentfault.com/a/1190000013311880" target="_blank" rel="noopener">20道HTML基础面试题（附答案）</a></li>
+<li>文章：<a href="https://segmentfault.com/a/1190000013325778" target="_blank" rel="noopener">50道CSS基础面试题（附答案）</a></li>
+<li>文章：<a href="https://segmentfault.com/a/1190000013860482" target="_blank" rel="noopener">《50道CSS基础面试题（附答案）》中的答案真的就只是答案吗？</a></li>
+<li>文章：<a href="https://juejin.im/post/58e3a5a0a0bb9f0069fc16bb#heading-0" target="_blank" rel="noopener">一劳永逸的搞定 flex 布局</a></li>
+<li>文章：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">Flex 布局教程：语法篇</a></li>
+<li>文章：<a href="http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html" target="_blank" rel="noopener">CSS Grid 网格布局教程</a></li>
+</ul>
+</li>
+<li>考核：<ul>
+<li>写两篇文章关于如果面试官要求你讲讲flex和grid布局，你会怎么讲的文章</li>
+<li>实现各种常见网站布局的代码</li>
+<li>实现一个响应式设计的网页<ul>
+<li>css需要使用sass编写</li>
+</ul>
+</li>
+<li><a href="https://www.nowcoder.com/contestRoom" target="_blank" rel="noopener">牛客网</a>完成htmlcss所有习题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>javascript</p>
+<ul>
+<li>学习:<ul>
+<li>视频：<a href="https://coding.imooc.com/class/255.html" target="_blank" rel="noopener">Javascript 设计模式系统讲解与应用-</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/115.html" target="_blank" rel="noopener">前端JavaScript面试技巧-</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/190.html" target="_blank" rel="noopener">前端JavaScript高级面试</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/330.html" target="_blank" rel="noopener">基于TypeScript从零重构axios</a></li>
+<li>教程：<a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000" target="_blank" rel="noopener"><del>廖雪峰JavaScript教程</del></a></li>
+<li>教程：<a href="http://es6.ruanyifeng.com/" target="_blank" rel="noopener">ECMAScript 6 入门-阮一峰</a></li>
+<li>教程：<a href="https://typescript.bootcss.com/" target="_blank" rel="noopener"><del>TypeScript中文手册</del></a></li>
+<li>文章：<a href="https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc715f6fb9a049c15ea4e0#heading-1" target="_blank" rel="noopener">面试小册-js部分</a></li>
+<li>文章：<a href="https://juejin.im/post/5cc230ae5188252e741cc751" target="_blank" rel="noopener">JavaScript 面试知识点合集</a></li>
+<li>文章：<a href="https://juejin.im/entry/5bc9aae56fb9a05d20687bf3" target="_blank" rel="noopener">JavaScript 开发者应懂的 33 个概念</a></li>
+</ul>
+</li>
+<li>考核<ul>
+<li>实现String对象的所有方法</li>
+<li>手写Promise</li>
+<li>实现class继承</li>
+<li>牛客所有js题目</li>
+<li>实现instanceof</li>
+<li>如何判断数组是数组？<ul>
+<li>所有代码使用ts写</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>html/5, css/3, javascript</p>
+<ul>
+<li><p>学习：</p>
+<ul>
+<li>视频: <a href="https://www.imooc.com/learn/46" target="_blank" rel="noopener">HTML5离线应用实战演练</a></li>
+<li>文章：<a href="https://github.com/yangshun/front-end-interview-handbook/tree/master/Translations/Chinese" target="_blank" rel="noopener">前端面试手册</a></li>
+<li>文章：<a href="https://funteas.com/topic/5ada8eac230d1e5e25e45b89" target="_blank" rel="noopener">CSS 面试题总结</a></li>
+</ul>
+</li>
+<li><p>考核</p>
+<ul>
+<li>牛客网-各大公司的前端面试题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>vue</p>
+<ul>
+<li>学习：<ul>
+<li>文章：<a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">vue官方文档</a></li>
+<li>视频：<a href="https://www.imooc.com/learn/935" target="_blank" rel="noopener">Vue+Webpack打造todo应用</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/196.html#Anchor" target="_blank" rel="noopener">Vue+Vue-Router+Vuex+SSR实战精讲</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/107.html" target="_blank" rel="noopener">Vue2.0开发企业级移动端音乐Web App</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/228.html" target="_blank" rel="noopener">Vue.js源码全方位深入解析</a></li>
+<li>文章：<a href="http://hcysun.me/vue-design/" target="_blank" rel="noopener">Vue技术内幕</a></li>
+</ul>
+</li>
+<li>考核<ul>
+<li>3个vue应用</li>
+<li>证明自己看过且看懂了vue源码<ul>
+<li>介绍下vue的组织方式，各个部分的组成和联系</li>
+<li>说出从new Vue({el:’app’})到挂载后都发生了什么</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>react</p>
+<ul>
+<li>学习：<ul>
+<li>文章：<a href="https://react.docschina.org/docs/hello-world.html" target="_blank" rel="noopener">react官方文档</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/229.html" target="_blank" rel="noopener">React16.4开发简书项目从零基础入门到实战</a></li>
+<li>视频：<a href="https://coding.imooc.com/class/309.html" target="_blank" rel="noopener">React源码深度解析 高级前端工程师必备技能</a></li>
+<li>文章：<a href="https://react.jokcy.me/" target="_blank" rel="noopener">React 源码解析</a></li>
+</ul>
+</li>
+<li>考核<ul>
+<li>2个react应用</li>
+<li>证明自己看过且看懂了react源码<ul>
+<li>介绍下react的组织方式，各个部分的组成和联系</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>http协议</p>
+<ul>
+<li>学习：<ul>
+<li>视频：<a href="https://coding.imooc.com/class/225.html" target="_blank" rel="noopener">HTTP协议原理+实践</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>webpack</p>
+<ul>
+<li>学习：<ul>
+<li>视频：<a href="https://coding.imooc.com/class/316.html" target="_blank" rel="noopener">从基础到实战    手把手带你掌握新版Webpack4.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="渐入佳境"><a href="#渐入佳境" class="headerlink" title="渐入佳境"></a>渐入佳境</h3><ul>
+<li>查缺补漏<ul>
+<li>通过参考别人面试经历问题</li>
+<li>各大公司前端面试题目</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>参与外包工作</p>
+</li>
+<li><p>在问答网站回答问题</p>
+<ul>
+<li>思否</li>
+<li>StackOverflow</li>
+</ul>
+</li>
+<li><p>翻译、发表技术性文章</p>
+<ul>
+<li>掘金</li>
+<li>思否</li>
+</ul>
+</li>
+<li><p>参与、开发开源作品</p>
+</li>
+<li><p>准备面试</p>
+<ul>
+<li>面试经验：<ul>
+<li>视频：<a href="https://coding.imooc.com/class/129.html" target="_blank" rel="noopener">前端跳槽面试必备技巧</a></li>
+</ul>
+</li>
+<li>前端面试类经验，技巧分享</li>
+<li>准备简历：</li>
+<li>模拟面试：</li>
+</ul>
+</li>
+</ul>
+<h2 id="指引"><a href="#指引" class="headerlink" title="指引"></a>指引</h2><ul>
+<li>html/5<ul>
+<li>离线存储</li>
+</ul>
+</li>
+<li>css/3<ul>
+<li>掌握flex布局</li>
+<li>掌握grid布局</li>
+<li>掌握float相关知识</li>
+<li>css实现各种布局</li>
+<li>响应式网页设计</li>
+<li>sass预处理</li>
+</ul>
+</li>
+<li>javascript<ul>
+<li>基础知识<ul>
+<li>熟悉Number对象</li>
+<li>熟悉String对象</li>
+<li>熟悉Date对象</li>
+<li>熟悉Array对象</li>
+<li>熟悉Boolean对象</li>
+<li>熟悉Math对象</li>
+<li>熟悉Symbol对象</li>
+<li>熟悉所有的BOM、DOM<ul>
+<li>每一项都要写总结</li>
+<li>熟悉所有的属性和方法</li>
+<li>实现String对象的所有方法作为练习</li>
+</ul>
+</li>
+<li>了解RegExp 对象</li>
+<li>封装ajax</li>
+</ul>
+</li>
+<li>es6<ul>
+<li>手写Promise</li>
+</ul>
+</li>
+<li>设计模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>Git</li>
+<li>ssh</li>
+<li>HTTP / HTTPS</li>
+<li>数据结构和算法</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/《如何阅读一本书》笔记-如何进行分析阅读.html" rel="next" title="《如何阅读一本书》笔记-如何进行分析阅读">
+                <i class="fa fa-chevron-left"></i> 《如何阅读一本书》笔记-如何进行分析阅读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/49502170" alt="塔希(Yunfei He)">
+            
+              <p class="site-author-name" itemprop="name">塔希(Yunfei He)</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/iheyunfei" title="GitHub &rarr; https://github.com/iheyunfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i.heyunfei@gmail.com" title="E-Mail &rarr; mailto:i.heyunfei@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sicp-js.iheyunfei.com" title="http://sicp-js.iheyunfei.com" rel="noopener" target="_blank">【译】-《SICP in JavaScript》</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计划"><span class="nav-number">3.</span> <span class="nav-text">计划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#招聘需求"><span class="nav-number">4.</span> <span class="nav-text">招聘需求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必须"><span class="nav-number">4.2.</span> <span class="nav-text">必须</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解"><span class="nav-number">4.2.1.</span> <span class="nav-text">了解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#熟悉"><span class="nav-number">4.2.2.</span> <span class="nav-text">熟悉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#掌握"><span class="nav-number">4.2.3.</span> <span class="nav-text">掌握</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">4.2.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加分项"><span class="nav-number">4.3.</span> <span class="nav-text">加分项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习路线"><span class="nav-number">5.</span> <span class="nav-text">学习路线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#具体"><span class="nav-number">5.1.</span> <span class="nav-text">具体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#门槛"><span class="nav-number">5.1.1.</span> <span class="nav-text">门槛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渐入佳境"><span class="nav-number">5.1.2.</span> <span class="nav-text">渐入佳境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指引"><span class="nav-number">5.2.</span> <span class="nav-text">指引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-1"><span class="nav-number">5.3.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔希(Yunfei He)</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
