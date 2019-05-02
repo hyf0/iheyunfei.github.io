@@ -5,17 +5,25 @@
 # Site
 title: 篝火处
 subtitle: 塔希的个人博客
-description: 
+description:
 keywords: 前端
 author: 塔希(Yunfei He)
 language: zh-CN
 timezone:
 
+# sitemap
+
+sitemap: 
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://iheyunfei.com
 root: /
-permalink: :year/:month/:day/:title/
+# permalink: :year/:month/:day/:title/
+permalink: :title.html
 permalink_defaults:
 
 # Directory

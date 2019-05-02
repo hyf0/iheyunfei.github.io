@@ -163,7 +163,7 @@ menu:
   #categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
-  # sitemap: /sitemap.xml || sitemap
+  sitemap: /sitemap.xml || sitemap
   # commonweal: /404/ || heartbeat
 
 # Enable / Disable menu icons / item badges.
@@ -197,8 +197,8 @@ site_state: true
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
-  #GitHub: https://github.com/yourname || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  GitHub: https://github.com/iheyunfei || github
+  E-Mail: mailto:i.heyunfei@gmail.com || envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -218,16 +218,16 @@ social_icons:
 links_icon: link
 links_title: Links
 links_layout: block
-#links_layout: inline
+# links_layout: inline
 links:
-  #Title: http://example.com
+  【译】-《SICP in JavaScript》: http://sicp-js.iheyunfei.com
 
 # Sidebar Avatar
 avatar:
   # In theme directory (source/images): /images/avatar.gif
   # In site directory (source/uploads): /uploads/avatar.gif
   # You can also use other linking images.
-  url: #/images/avatar.gif
+  url: https://avatars1.githubusercontent.com/u/49502170
   # If true, the avatar would be dispalyed in circle.
   rounded: false
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
@@ -262,7 +262,7 @@ sidebar:
   #  - always  expand for all pages automatically.
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  totally remove sidebar including sidebar toggle.
-  display: post
+  display: always
 
   # Sidebar offset from top menubar in pixels (only for Pisces | Gemini).
   offset: 12
@@ -312,7 +312,7 @@ excerpt_description: true
 # Use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
   enable: true
-  length: 200
+  length: 150
 
 # Read more button
 # If true, the read more button would be displayed in excerpt section.
