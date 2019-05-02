@@ -10,5 +10,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://iheyunfei.com/sitemap.xml
-Sitemap: http://iheyunfei.com/baidusitemap.xml
+Sitemap: http://iheyunfei/sitemap.xml
+Sitemap: http://iheyunfei/baidusitemap.xml
