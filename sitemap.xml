@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iheyunfei.com/posts/redux%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89-%20%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%B7%B1%E7%9A%84redux%E5%92%8Credux-thunk.html</loc>
+    
+    <lastmod>2019-05-25T04:04:45.882Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iheyunfei.com/posts/%E5%85%B3%E4%BA%8Ecnode%E7%9A%84react%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0.html</loc>
     
     <lastmod>2019-05-23T09:42:14.348Z</lastmod>

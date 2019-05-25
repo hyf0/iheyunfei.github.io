@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面一直听说redux的源码量小精巧，一直想手动实现的一个redux，并且学习下官方的实现，以求精进自己的编程水平。为了增加自己的学习效果，我把本次学习分成了两个步骤：  在看源码之前，只根据以前用过的redux和redux-thuk的api，先实现一个redux和redux-thunk出来。只要能够正常运行，用于以前的项目即可。 阅读redux的官方实现，对比参照自己的实现，查看思路上的异同">
+<meta name="keywords" content="编程,前端,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redux源码学习以及实现（一）- 实现自己的redux和redux-thunk">
+<meta property="og:url" content="http://iheyunfei.com/posts/redux源码学习以及实现（一）- 实现自己的redux和redux-thunk.html">
+<meta property="og:site_name" content="篝火处">
+<meta property="og:description" content="写在前面一直听说redux的源码量小精巧，一直想手动实现的一个redux，并且学习下官方的实现，以求精进自己的编程水平。为了增加自己的学习效果，我把本次学习分成了两个步骤：  在看源码之前，只根据以前用过的redux和redux-thuk的api，先实现一个redux和redux-thunk出来。只要能够正常运行，用于以前的项目即可。 阅读redux的官方实现，对比参照自己的实现，查看思路上的异同">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-25T04:04:45.882Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redux源码学习以及实现（一）- 实现自己的redux和redux-thunk">
+<meta name="twitter:description" content="写在前面一直听说redux的源码量小精巧，一直想手动实现的一个redux，并且学习下官方的实现，以求精进自己的编程水平。为了增加自己的学习效果，我把本次学习分成了两个步骤：  在看源码之前，只根据以前用过的redux和redux-thuk的api，先实现一个redux和redux-thunk出来。只要能够正常运行，用于以前的项目即可。 阅读redux的官方实现，对比参照自己的实现，查看思路上的异同">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://iheyunfei.com/posts/redux源码学习以及实现（一）- 实现自己的redux和redux-thunk">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>redux源码学习以及实现（一）- 实现自己的redux和redux-thunk | 篝火处</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-139452179-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-139452179-1');
+    }
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b6feb71d80f514e66997b3388378a6bb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">篝火处</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">塔希的个人博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/iheyunfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/redux源码学习以及实现（一）- 实现自己的redux和redux-thunk.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔希(Yunfei He)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/49502170">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="篝火处">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redux源码学习以及实现（一）- 实现自己的redux和redux-thunk
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-25 12:02:28 / 修改时间：12:04:45" itemprop="dateCreated datePublished" datetime="2019-05-25T12:02:28+08:00">2019-05-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>一直听说redux的源码量小精巧，一直想手动实现的一个redux，并且学习下官方的实现，以求精进自己的编程水平。为了增加自己的学习效果，我把本次学习分成了两个步骤：</p>
+<ol>
+<li>在看源码之前，只根据以前用过的redux和redux-thuk的api，先实现一个redux和redux-thunk出来。只要能够正常运行，用于以前的项目即可。</li>
+<li>阅读redux的官方实现，对比参照自己的实现，查看思路上的异同，实现的细节，对一些问题的解决思路。最后，总结自己实现的不足，以及官方redux实现的优秀之处。</li>
+</ol>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="一个简单的todoList应用"><a href="#一个简单的todoList应用" class="headerlink" title="一个简单的todoList应用"></a>一个简单的todoList应用</h3><ul>
+<li>手动实现的redux的完成标准就是至少支持App.jsx使用的所有功能。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state = store.getState();</span><br><span class="line">        store.subscrible(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 订阅，当store产生更新时，拿到新的state</span></span><br><span class="line">            <span class="keyword">this</span>.setState(store.getState());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleInputOnChange(evt) &#123;</span><br><span class="line">        <span class="comment">// 更新inputValue的值</span></span><br><span class="line">        <span class="keyword">const</span> inputValue = evt.target.value;</span><br><span class="line">        store.dispatch(&#123;</span><br><span class="line">            type: <span class="string">'input'</span>,</span><br><span class="line">            payload: inputValue,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleButtonOnClick() &#123;</span><br><span class="line">        <span class="comment">// 添加内容到todoList</span></span><br><span class="line">        store.dispatch(&#123;</span><br><span class="line">            type: <span class="string">'add'</span>,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        <span class="comment">// 模仿挂载时请求远程数据，传入一个异步函数类型的action</span></span><br><span class="line">        store.dispatch(<span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">                setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;  <span class="comment">// 模仿异步ajax请求</span></span><br><span class="line">                    <span class="keyword">const</span> todoData = [<span class="string">'1'</span>, <span class="string">'2, '</span>, <span class="string">'3'</span>];</span><br><span class="line">                    resolve(todoData);</span><br><span class="line">                &#125;, <span class="number">2000</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">                .then(<span class="function">(<span class="params">todoList</span>) =&gt;</span> &#123;</span><br><span class="line">                    dispatch(&#123;</span><br><span class="line">                        type: <span class="string">'init'</span>,</span><br><span class="line">                        payload: todoList,</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; todoList, inputValue &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input type=<span class="string">"text"</span> </span><br><span class="line">                    value=&#123;inputValue&#125; </span><br><span class="line">                    onChange=&#123;<span class="keyword">this</span>.handleInputOnChange.bind(<span class="keyword">this</span>)&#125; </span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;button </span><br><span class="line">                    onClick=&#123;<span class="keyword">this</span>.handleButtonOnClick.bind(<span class="keyword">this</span>)&#125;</span><br><span class="line">                &gt;ADD&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">                    &#123;todoList.map((content, index) =&gt; (</span></span><br><span class="line"><span class="regexp">                        &lt;li key=&#123;index&#125;&gt;&#123;content&#125;&lt;/</span>li&gt;</span><br><span class="line">                    ))&#125;</span><br><span class="line">                &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+<h3 id="创建store以及手动实现redux-thunk"><a href="#创建store以及手动实现redux-thunk" class="headerlink" title="创建store以及手动实现redux-thunk"></a>创建store以及手动实现redux-thunk</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reduxThunk = <span class="function">(<span class="params">stroe</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// redux中间件</span></span><br><span class="line">    <span class="keyword">const</span> currentAction = stroe.__action;</span><br><span class="line">    <span class="comment">// 拿到传入的action对象</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> currentAction  === <span class="string">'function'</span>) &#123;</span><br><span class="line">        currentAction(store.dispatch);</span><br><span class="line">        stroe.__action = &#123;&#125;;</span><br><span class="line">        <span class="comment">// 设置action为空对象，防止后续中间件处理函数类型的action出错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> defaultState = &#123;</span><br><span class="line">    todoList: [<span class="string">'defaultTodo1'</span>, <span class="string">'defaultTodo2'</span>],</span><br><span class="line">    inputValue: <span class="string">'defaultValue'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state = defaultState, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'add'</span>: &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                inputValue: <span class="string">''</span>,</span><br><span class="line">                todoList: [state.inputValue, ...state.todoList],</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'input'</span>: &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...state,</span><br><span class="line">                inputValue: action.payload,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'init'</span>: &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                ...state,</span><br><span class="line">                todoList: action.payload,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">default</span>: <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, reduxThunk);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<h3 id="实现redux"><a href="#实现redux" class="headerlink" title="实现redux"></a>实现redux</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// redux/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> createStore = <span class="function">(<span class="params">reducer, ...middleWares</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> store = &#123;</span><br><span class="line">        __state: <span class="literal">undefined</span>,</span><br><span class="line">        __action: <span class="literal">undefined</span>,  </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 将action和state挂载到store上，这使得无论多少中间件访问和修改的都是同一个state，action对象</span></span><br><span class="line">    <span class="keyword">const</span> subscribedCallbacks = []; <span class="comment">// 订阅的回调函数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> getState = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.__state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> dispatch = <span class="function"><span class="keyword">function</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.__action = action; <span class="comment">// 挂载</span></span><br><span class="line">        middleWares.forEach(<span class="function"><span class="params">mid</span> =&gt;</span> mid(store)); <span class="comment">// 按顺序触发中间件</span></span><br><span class="line">        <span class="keyword">const</span> newState = reducer(<span class="keyword">this</span>.__state, <span class="keyword">this</span>.__action); <span class="comment">// 产生新的state</span></span><br><span class="line">        <span class="keyword">this</span>.__action = <span class="literal">undefined</span>; <span class="comment">// 清空</span></span><br><span class="line">        <span class="keyword">this</span>.__state = newState; <span class="comment">// 设置新的state</span></span><br><span class="line">        subscribedCallbacks.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> cb()); <span class="comment">// 触发订阅的回调函数</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> subscrible = <span class="function"><span class="keyword">function</span>(<span class="params">cb</span>) </span>&#123;</span><br><span class="line">        subscribedCallbacks.push(cb);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    store.getState = getState.bind(store);</span><br><span class="line">    store.dispatch = dispatch.bind(store); </span><br><span class="line">    <span class="comment">// 绑定this，因为dispatch被调用时不一定是通过.语法,即store.dispatch这样调用的</span></span><br><span class="line">    store.subscrible = subscrible.bind(store);</span><br><span class="line"></span><br><span class="line">    store.dispatch(&#123;&#125;);</span><br><span class="line">    <span class="comment">// 手动触发拿到reducer提供的默认state</span></span><br><span class="line">    <span class="keyword">return</span> store;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><h3 id="getState"><a href="#getState" class="headerlink" title="getState"></a>getState</h3><p>没什么好说的，直接返回当前存储的state就好了。</p>
+<h3 id="subscrible"><a href="#subscrible" class="headerlink" title="subscrible"></a>subscrible</h3><p>这个也没什么好说的，把传入的回调函数，存储到一个数组里，更新state后，遍历调用即可。</p>
+<h3 id="dispatch"><a href="#dispatch" class="headerlink" title="dispatch"></a>dispatch</h3><p>手动实现的redux大部分逻辑都在这里，首先接收到action，把action挂载store对象上，然后开始触发中间件(把store传入中间件)，中间件至少可以访问传入的action然后对其做一些操作，否则中间件就没意义了。<br>随后把当前的state和处理后的action传入reducer计算出新的state，然后触发订阅的回调函数。</p>
+<p>这里注意，平常在使用dispatch时，很少通过 <strong>obj.dispatch调用</strong> 且obj也不一定是store，所以要特别注意 <strong>this</strong> 的指向问题，因此使用 <strong>bind</strong> 手动绑定下this为store。</p>
+<h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><ul>
+<li>如何修改action本身，而非在action对象上增添属性</li>
+</ul>
+<h5 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h5><p>用过redux-thunk的人都知道，thunk给了redux处理函数类型action(即传入的action不是一个{}而是一个function)的能力，所以当你传入一个函数类型的action类型时，thunk调用了这个函数，把dispatch方法传给这个函数。此时就出现了问题，我不知道官方redux中间件是怎么设计的，比如提供了中间件可以中断中间件调用流程的方法。不管怎样，手动实现的redux会对一个action按顺序调用所有的中间件处理，而其他中间件期望得到的是一个object，而不是一个函数，所以中间件应该通过一种途径访问action，并且能够修改action，使得下一次再访问时访问的是新的action。</p>
+<p>于是，我就把action对象挂载到store对象上，每一个中间件都通过store对象访问action（调用形式：someMiddleWare(store)），而不是直接传入action(调用形式：someMiddleWare(store, action))。</p>
+<p>于此，手动实现的的redux-thunk在判断action是个函数后，就调用函数，然后把stroe上的action设置成一个空的object，防止后续中间件出错。</p>
+<h3 id="redux-thunk的实现"><a href="#redux-thunk的实现" class="headerlink" title="redux-thunk的实现"></a>redux-thunk的实现</h3><p>原理很简单，判断action是不是function，是的话就dispatch方法传给这个function，然后把action设置成一个空的{}，不是的话就不做任何处理。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/关于cnode的react前端实现.html" rel="next" title="关于cnode的react前端实现">
+                <i class="fa fa-chevron-left"></i> 关于cnode的react前端实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/49502170" alt="塔希(Yunfei He)">
+            
+              <p class="site-author-name" itemprop="name">塔希(Yunfei He)</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/iheyunfei" title="GitHub &rarr; https://github.com/iheyunfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i.heyunfei@gmail.com" title="E-Mail &rarr; mailto:i.heyunfei@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sicp-js.iheyunfei.com" title="http://sicp-js.iheyunfei.com" rel="noopener" target="_blank">【译】-《SICP in JavaScript》</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的todoList应用"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个简单的todoList应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建store以及手动实现redux-thunk"><span class="nav-number">2.1.2.</span> <span class="nav-text">创建store以及手动实现redux-thunk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现redux"><span class="nav-number">2.1.3.</span> <span class="nav-text">实现redux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路"><span class="nav-number">2.2.</span> <span class="nav-text">实现思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getState"><span class="nav-number">2.2.1.</span> <span class="nav-text">getState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subscrible"><span class="nav-number">2.2.2.</span> <span class="nav-text">subscrible</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch"><span class="nav-number">2.2.3.</span> <span class="nav-text">dispatch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题："><span class="nav-number">2.2.3.1.</span> <span class="nav-text">问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#场景："><span class="nav-number">2.2.3.1.1.</span> <span class="nav-text">场景：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redux-thunk的实现"><span class="nav-number">2.2.4.</span> <span class="nav-text">redux-thunk的实现</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔希(Yunfei He)</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
