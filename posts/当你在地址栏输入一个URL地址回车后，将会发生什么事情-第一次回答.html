@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="篝火处">
 <meta property="og:description" content="写在前面最近在学习计算机网络，看的是《自顶向下》那本书，并且找到了国立清华大学以此书作为教材录制的公开课。不同于通常计算机网络教学书籍的知识安排——从网络的低层次开始到高层次，本书是从高层次开始，然后深入到低层次，其主要的优势在于能够调动学生学习的动力。对于一个学习前端的人，在看完第一章对计算机网络总体的简介后，书籍随后的第二章就开始讲解计算机网络层次中的最顶层——应用层，在此就可以接触到我们熟悉">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-01T12:05:43.539Z">
+<meta property="og:updated_time" content="2019-06-01T12:32:57.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当你在地址栏输入一个URL地址回车后，将会发生什么事情-第一次回答">
 <meta name="twitter:description" content="写在前面最近在学习计算机网络，看的是《自顶向下》那本书，并且找到了国立清华大学以此书作为教材录制的公开课。不同于通常计算机网络教学书籍的知识安排——从网络的低层次开始到高层次，本书是从高层次开始，然后深入到低层次，其主要的优势在于能够调动学生学习的动力。对于一个学习前端的人，在看完第一章对计算机网络总体的简介后，书籍随后的第二章就开始讲解计算机网络层次中的最顶层——应用层，在此就可以接触到我们熟悉">
@@ -399,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2019-06-01 18:31:57 / 修改时间：20:05:43" itemprop="dateCreated datePublished" datetime="2019-06-01T18:31:57+08:00">2019-06-01</time>
+              <time title="创建时间：2019-06-01 18:31:57 / 修改时间：20:32:57" itemprop="dateCreated datePublished" datetime="2019-06-01T18:31:57+08:00">2019-06-01</time>
             
 
             
@@ -441,40 +441,68 @@
         <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>最近在学习计算机网络，看的是《自顶向下》那本书，并且找到了国立清华大学以此书作为教材录制的公开课。不同于通常计算机网络教学书籍的知识安排——从网络的低层次开始到高层次，本书是从高层次开始，然后深入到低层次，其主要的优势在于能够调动学生学习的动力。对于一个学习前端的人，在看完第一章对计算机网络总体的简介后，书籍随后的第二章就开始讲解计算机网络层次中的最顶层——应用层，在此就可以接触到我们熟悉或者应该熟悉的HTTP协议和DNS服务。</p>
 <p>在学习网络过程中，我深感仅仅看书和视频是不够的，尽管每一章都提供了实践题目，但是其知识点过于针对性，无法使各个部分的知识串联起来。在我看来，<strong>把知识串联</strong>起来是学习网络非常重要的一环，为了达到这个目的，我发现回答<strong>当你在地址栏输入一个URL地址回车后，将会发生什么事情？</strong>这个问题，是一个非常好的练习。为此我决定，每学完一个计算机网络的层次，便对这个问题进行一次回答。本次是第一次，对应到书籍上，也就是完成第二章对<strong>应用层</strong>的学习。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><ul>
-<li>输入url(juejin.im/timeline)并回车后，浏览器会创建一个udp类型的socket。</li>
-<li>浏览器通过这个socket，向本地dns服务器发送查询请求报文(message)，要求其返回域名(juejin.im)对应的ip地址</li>
-<li>一般情况下，本地dns服务器不知道域名对应ip地址，于是便向dns<strong>根服务器</strong>查询，要求其返回域名对应的ip地址</li>
-<li>根服务器通过查询，虽然没找到域名对应的ip地址，但是找到了存储以.im结尾域名对应ip地址的dns<strong>顶级域服务器</strong>，返回一个包含(name, value, type, ttl)被称为<strong>资源记录</strong>的四元组</li>
-<li>其中<strong>name是juejin.im</strong>表示要查询的域名，<strong>value也是一个地址，对应着知道</strong>juejin.im对应ip的<strong>权威dns服务器</strong>的地址（顶级域服务器也没有直接给出域名对应的地址），<strong>type是NS</strong>，表示返回的是另一个dns服务器的地址，ttl是这条记录的有效时间。</li>
-<li>本地dns服务器接收到报文后，把根据报文内容，向权威dns服务发送查询请求</li>
-<li>权威dns服务器查询到对应的ip地址，同样返回包含资源记录的四元组，不同的是，value是域名对应的ip地址。type是A，表示这条记录的内容是域名到ip的映射</li>
-<li>本地dns服务器得到域名对应的ip地址，返回给浏览器创建的udp socket</li>
-<li>浏览器得到域名对应的ip地址</li>
-<li>浏览器创建了一个tcp类型的socket(下文简称为 tcp socket)，向目标ip地址的80号端口发起了连接</li>
-<li>tcp socket首先与服务器的<strong>欢迎套接字(welcome socket)</strong>完成三次握手</li>
-<li>完成三次握手后，服务器会创建一个<strong>连接套接字(connection socket)</strong>专用于握手后的tcp socket</li>
-<li>此时tcp连接正式建立，浏览器将通过这个tcp sokcet向服务器发送类型为<strong>请求报文</strong>的报文(message)(此报文类型由http协议规定)</li>
-<li>请求报文一般由<strong>请求行(request line)</strong>和多个<strong>请求头部(request header)</strong>行以及<strong>请求体(request body)</strong>组成</li>
-<li>请求报文<strong>至少含有请求行</strong></li>
-<li>请求行的格式为 <strong>method url http-version\r\n</strong></li>
-<li>例：<strong>GET /timeline HTTP/1.1</strong></li>
-<li>GET是请求方法(method)，/timeline是url，HTTP/1.1是客户端使用的HTTP协议版本,\r\n表示crlf类型的换行符</li>
-<li>服务器通过连接套接字得到tcp socket传输过来的请求报文</li>
-<li>服务器通过分析请求报文，找到被请求的文件</li>
-<li>服务器生成类型为<strong>响应报文</strong>的报文</li>
-<li>响应报文一般包含状态行(status line)，多个头部行(header line)和响应体(entity body)</li>
-<li>状态行格式为<strong>http/version statusCode statusMessage</strong></li>
-<li>例：<strong>HTTP/1.1 200 OK</strong></li>
-<li>HTTP/1.1表示服务器使用的HTTP协议为1.1版本，200是本次响应的状态号码，200表示本次响应是正常的，OK是对状态号的简短解释</li>
-<li>头部行取决于服务器的设计</li>
-<li>响应体则是被请求对象的数据</li>
-<li>服务器通过连接套接字返回响应报文</li>
-<li>浏览器接收到响应报文，分析内容，渲染出来</li>
+<li><p>输入url(juejin.im/timeline)并回车后，浏览器会创建一个udp类型的socket。</p>
+</li>
+<li><p>浏览器通过这个socket，向本地dns服务器发送查询请求报文(message)，要求其返回域名(juejin.im)对应的ip地址</p>
+</li>
+<li><p>一般情况下，本地dns服务器不知道域名对应ip地址，于是便向dns<strong>根服务器</strong>查询，要求其返回域名对应的ip地址</p>
+</li>
+<li><p>根服务器通过查询，虽然没找到域名对应的ip地址，但是找到了存储以.im结尾域名对应ip地址的dns<strong>顶级域服务器</strong>，返回一个包含(name, value, type, ttl)被称为<strong>资源记<br>录</strong>的四元组</p>
+</li>
+<li>其中<strong>name是juejin.im</strong>表示要查询的域名，<strong>value也是一个地址，对应着知道</strong>juejin.im对应ip的<strong>权威dns服务器</strong>的地址（顶级域服务器也没有直接给出域名对应的地<br>址），<strong>type是NS</strong>，表示返回的是另一个dns服务器的地址，ttl是这条记录的有效时间。</li>
+<li><p>本地dns服务器接收到报文后，把根据报文内容，向权威dns服务发送查询请求</p>
+</li>
+<li><p>权威dns服务器查询到对应的ip地址，同样返回包含资源记录的四元组，不同的是，value是域名对应的ip地址。type是A，表示这条记录的内容是域名到ip的映射</p>
+</li>
+<li><p>本地dns服务器得到域名对应的ip地址，返回给浏览器创建的udp socket</p>
+</li>
+<li><p>浏览器得到域名对应的ip地址</p>
+</li>
+<li><p>浏览器创建了一个tcp类型的socket(下文简称为 tcp socket)，向目标ip地址的80号端口发起了连接</p>
+</li>
+<li><p>tcp socket首先与服务器的<strong>欢迎套接字(welcome socket)</strong>完成三次握手</p>
+</li>
+<li><p>完成三次握手后，服务器会创建一个<strong>连接套接字(connection socket)</strong>专用于握手后的tcp socket</p>
+</li>
+<li><p>此时tcp连接正式建立，浏览器将通过这个tcp sokcet向服务器发送类型为<strong>请求报文</strong>的报文(message)(此报文类型由http协议规定)</p>
+</li>
+<li><p>请求报文一般由<strong>请求行(request line)</strong>和多个<strong>请求头部(request header)</strong>行以及<strong>请求体(request body)</strong>组成</p>
+</li>
+<li><p>请求报文<strong>至少含有请求行</strong></p>
+</li>
+<li><p>请求行的格式为 <strong>method url http-version\r\n</strong></p>
+</li>
+<li><p>例：<strong>GET /timeline HTTP/1.1</strong></p>
+</li>
+<li><p>GET是请求方法(method)，/timeline是url，HTTP/1.1是客户端使用的HTTP协议版本,\r\n表示crlf类型的换行符</p>
+</li>
+<li><p>服务器通过连接套接字得到tcp socket传输过来的请求报文</p>
+</li>
+<li><p>服务器通过分析请求报文，找到被请求的文件</p>
+</li>
+<li><p>服务器生成类型为<strong>响应报文</strong>的报文</p>
+</li>
+<li><p>响应报文一般包含状态行(status line)，多个头部行(header line)和响应体(entity body)</p>
+</li>
+<li><p>状态行格式为<strong>http/version statusCode statusMessage</strong></p>
+</li>
+<li><p>例：<strong>HTTP/1.1 200 OK</strong></p>
+</li>
+<li><p>HTTP/1.1表示服务器使用的HTTP协议为1.1版本，200是本次响应的状态号码，200表示本次响应是正常的，OK是对状态号的简短解释</p>
+</li>
+<li><p>头部行取决于服务器的设计</p>
+</li>
+<li><p>响应体则是被请求对象的数据</p>
+</li>
+<li><p>服务器通过连接套接字返回响应报文</p>
+</li>
+<li><p>浏览器接收到响应报文，分析内容，渲染出来</p>
+</li>
 </ul>
 <h1 id="上面没提到的"><a href="#上面没提到的" class="headerlink" title="上面没提到的"></a>上面没提到的</h1><h2 id="dns缓存机制"><a href="#dns缓存机制" class="headerlink" title="dns缓存机制"></a>dns缓存机制</h2><p>在一般dns查询的过程中，存在着缓存机制，不需要来回跑那么多趟，也许一次请求就拿到对应ip地址了</p>
 <h2 id="没说http缓存机制"><a href="#没说http缓存机制" class="headerlink" title="没说http缓存机制"></a>没说http缓存机制</h2><p>http协议也存在缓存相关的规定，通过设置头部和条件GET等方式，可以加快获取网页的速度</p>
 <h2 id="关于http请求复用tcp连接"><a href="#关于http请求复用tcp连接" class="headerlink" title="关于http请求复用tcp连接"></a>关于http请求复用tcp连接</h2><p>倘若每一个http请求都要走一次三次握手和发收报文的流程，会导致性能上的浪费以及过高的响应时间。把发出请求到收到响应的时间称为一个<strong>往返时间(RRT)</strong>，三次握手会消耗一个RRT，发收报文会消耗一个RRT，对于一个含有四个图片的网页来说，在<strong>串行请求</strong>且不复用tcp连接情况下，需要10个RRT时间才能显示完整的页面。而复用TCP连接的情况下，只需要6个RRT时间。(这里忽略了服务器处理请求的时间，并且简化了三次握手和发收报文的流程，在真实的情况下，三次握手和发收报文并不是完全割裂的两个行为，其中存在着交集)</p>
-<h2 id="http是无状态的协议"><a href="#http是无状态的协议" class="headerlink" title="http是无状态的协议"></a>http是无状态的协议</h2><p>为了尽可能的简单，http协议不要求保持状态(尽管这和我们的认知不合,比如说你在淘宝上把商品加入购物车，在另一个电脑登陆时依然存在)。我个人对此的理解时，http协议本身在设计时就没有考虑保持状态的生气，虽然http协议通过使用cookie的技术使得服务器可以区分请求的发送者，但这是在http层面上的一层进行的一种封装，服务器本身是无法通过http协议本身来区分请求者的。作为对比，ftp协议就是有状态(设计时就考虑到这点)的协议，在使用ftp协议时，需要两条tcp连接，一条用来维持状态，发出命令，一条用来传输数据。</p>
+<h2 id="http是无状态的协议"><a href="#http是无状态的协议" class="headerlink" title="http是无状态的协议"></a>http是无状态的协议</h2><p>为了尽可能的简单，http协议不要求保持状态(尽管这和我们的认知不合,比如说你在淘宝上把商品加入购物车，在另一个电脑登陆时依然存在)。我个人对此的理解是，http协议本身在设计时就没有考虑保持状态的事情，虽然http协议通过使用cookie的技术使得服务器可以区分请求的发送者，但这是在http层面上的一层进行的一种封装，服务器本身是无法通过http协议本身来区分请求者的。作为对比，ftp协议就是有状态(设计时就考虑到这点)的协议，在使用ftp协议时，需要两条tcp连接，一条用来维持状态，发出命令，一条用来传输数据。</p>
 
       
     </div>
