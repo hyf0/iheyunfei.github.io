@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面计算机网络分了五层（应用层，运输层，网络层，链路层，物理层），《自顶向下》的第三章详细讲解了运输层的两大协议以及其背后原理，其中tcp协议是本章乃至整个计算机网络的一个重点内容，鉴于此，我觉得有必要对本章作个笔记，以巩固运输层的知识。 正文运输层的目的在于为不同主机(host)上的应用或者说进程提供逻辑通信——通过运输层协议，两台电脑仿佛直接相连一样。应用无需知道底层内部实现的原理和细节，">
+<meta name="keywords" content="读书笔记,计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层">
+<meta property="og:url" content="http://iheyunfei.com/posts/《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层.html">
+<meta property="og:site_name" content="篝火处">
+<meta property="og:description" content="写在前面计算机网络分了五层（应用层，运输层，网络层，链路层，物理层），《自顶向下》的第三章详细讲解了运输层的两大协议以及其背后原理，其中tcp协议是本章乃至整个计算机网络的一个重点内容，鉴于此，我觉得有必要对本章作个笔记，以巩固运输层的知识。 正文运输层的目的在于为不同主机(host)上的应用或者说进程提供逻辑通信——通过运输层协议，两台电脑仿佛直接相连一样。应用无需知道底层内部实现的原理和细节，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-05T13:38:16.582Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层">
+<meta name="twitter:description" content="写在前面计算机网络分了五层（应用层，运输层，网络层，链路层，物理层），《自顶向下》的第三章详细讲解了运输层的两大协议以及其背后原理，其中tcp协议是本章乃至整个计算机网络的一个重点内容，鉴于此，我觉得有必要对本章作个笔记，以巩固运输层的知识。 正文运输层的目的在于为不同主机(host)上的应用或者说进程提供逻辑通信——通过运输层协议，两台电脑仿佛直接相连一样。应用无需知道底层内部实现的原理和细节，">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://iheyunfei.com/posts/《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层 | 篝火处</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-139452179-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-139452179-1');
+    }
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b6feb71d80f514e66997b3388378a6bb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">篝火处</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">塔希的个人博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/iheyunfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔希(Yunfei He)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/49502170">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="篝火处">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-04 19:39:52" itemprop="dateCreated datePublished" datetime="2019-06-04T19:39:52+08:00">2019-06-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-05 21:38:16" itemprop="dateModified" datetime="2019-06-05T21:38:16+08:00">2019-06-05</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>计算机网络分了五层（应用层，运输层，网络层，链路层，物理层），《自顶向下》的第三章详细讲解了运输层的两大协议以及其背后原理，其中tcp协议是本章乃至整个计算机网络的一个重点内容，鉴于此，我觉得有必要对本章作个笔记，以巩固运输层的知识。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>运输层的目的在于为不同主机(host)上的应用或者说进程提供逻辑通信——通过运输层协议，两台电脑仿佛直接相连一样。应用无需知道底层内部实现的原理和细节，比如怎么把远隔世界两地电脑上的数据进行相互传输。</p>
+<p>本章的一些注意点：</p>
+<ul>
+<li>运输层协议仅仅实现在网络的边缘处，例如主机，电脑，手机等。如路由器，交换机这些网络核心设备，是没有实现运输层协议的</li>
+<li>每一层协议仅仅检查分组相应的协议层字段</li>
+<li>最常用的两种输入层协议，tcp和udp</li>
+<li>运输层的下面是网络层，网络层的目的在于为不同的主机提供逻辑通信，而非主机上的进程</li>
+<li>网络层常用协议是IP，其提供的是一种不可靠的数据传输服务</li>
+<li>为了做到<strong>为不同主机(host)上的应用或者说进程提供逻辑通信</strong>这一目的，运输层协议必须能分辨出数据的来源和去向。为此，运输层存在着两种行为，多路复用和多路分解</li>
+</ul>
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><p>当运输层收到来自上方应用层的数据时，运输层会为数据封上一些头部信息，根据所有协议不同，封上的信息也不一样。这一行为，被称为多路复用。</p>
+<h2 id="多路分解"><a href="#多路分解" class="headerlink" title="多路分解"></a>多路分解</h2><p>当运输层收到下方网络层传输来的数据时，运输层会检查多路复用时封上的信息，从而正确的把数据定向到相应的进程。</p>
+<p>如何使用运输层的协议？<br>操作系统提供了被称为socket的接口api供编程人员调用，对socket的形象理解是其是一种抽象，将复杂的实现(tcp, udp)协议的各种行为抽形成简单的几个函数给开发人员使用。就像浏览器将发送请求报文这一http协议规定的行为，抽象成我们只需要输入url然后回车即可。</p>
+<p>这里需要注意的一点是，在一般情况下，一个计算机端口只能被一个进程占用。一个进程可以创建多个socket，多个tcp socket可以监听同一个端口，并保证接受的数据依旧是正确的。但多个udp socket就无法监听同一端口。这其中的差异源于tcp和udp协议的不同，tcp是面向连接的，其有足够状态的信息来分辨数据来源，后定向到正确的socket。但udp不需要维持连接，仅仅通过端口号来决定数据的去向，所以会导致冲突。</p>
+<h2 id="udp的多路复用和分解"><a href="#udp的多路复用和分解" class="headerlink" title="udp的多路复用和分解"></a>udp的多路复用和分解</h2><p>一个udp socket通过一个二元组(目的ip地址，目的端口号)来标识，当输入层收到数据时，通过检查这个二元组，来定向数据该去往哪一个udp socket。这也是为什么多个udp socket无法监听同一个端口的原因，因为系统无法再根据二元组来确定消息的去向（它们的二元组是一样的）。</p>
+<h2 id="TCP的多路复用分解"><a href="#TCP的多路复用分解" class="headerlink" title="TCP的多路复用分解"></a>TCP的多路复用分解</h2><p>一个tcp socket通过一个四元组(源ip，源端口，目的ip，目的端口号)来标识，这也解释为什么多个tcp socket可以监听同一个端口，尽管目的ip和目的端口号是一样的，但是源ip和源端口的组合总是不同的。</p>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>相比于TCP来讲，UDP是一个简单的协议，就是把网络层IP提供的服务封装了下，实现了多路复用和分解，提供了端到端进程间的通信和错误检验服务。</p>
+<p>相对于TCP来说：</p>
+<ul>
+<li>UDP是不可靠的传输服务</li>
+<li>没有流量和拥塞控制</li>
+</ul>
+<p>但：</p>
+<ul>
+<li>能够够精细的控制数据的发送时间和速率</li>
+<li>无需事先建立连接</li>
+<li>无连接状态</li>
+<li>分组首部开销小</li>
+</ul>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>在接收到应用层传输来数据后，在数据前方加上了四个字段，分别是源端口号、目的端口号、长度（包括头部）、检验和，应用数据。</p>
+<h2 id="可靠数据传输"><a href="#可靠数据传输" class="headerlink" title="可靠数据传输"></a>可靠数据传输</h2><p>数据传输可能遇到的问题:</p>
+<ul>
+<li>传输中数据被损坏</li>
+<li>数据丢失</li>
+<li>数据可能乱序到达</li>
+</ul>
+<p>解决方法：</p>
+<ul>
+<li>检验和</li>
+<li>序号</li>
+<li>定时器</li>
+<li>肯定和否定反馈分组</li>
+</ul>
+<p>如何在保证可靠性的前提下，提高其性能？</p>
+<ul>
+<li>通过引入流水线(pipelining)技术</li>
+</ul>
+<p>引入流水线导致了：</p>
+<ul>
+<li>序号范围需要增加</li>
+<li>收发双方可能需要缓存乱序到达的分组</li>
+<li>以上两个的具体实现取决于传输协议如何处理分组丢失、损坏的问题(是选择回退N步，还是选择重传)</li>
+</ul>
+<h3 id="回退N步"><a href="#回退N步" class="headerlink" title="回退N步"></a>回退N步</h3><p>其核心在于，发送方会维持一个窗口，发送方能发送的数据量取决于窗口长度，并且当丢失时会重送所有未确认的分组。</p>
+<p>接收方会丢弃乱序到达的缓存</p>
+<p>特点：</p>
+<ul>
+<li>累计性ACK</li>
+<li>单一定时器</li>
+</ul>
+<h3 id="选择重传"><a href="#选择重传" class="headerlink" title="选择重传"></a>选择重传</h3><p>核心在于，收发双方都会维持一个窗口，并且尽力保证窗口的状态是同步的，因此当分包丢失时，发送方只会重送丢失的分组。</p>
+<p>接收方会缓存乱序到达的分组</p>
+<p>特点：</p>
+<ul>
+<li>独立性ACK</li>
+<li>多个定时器</li>
+</ul>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>特点：</p>
+<ul>
+<li>面向连接</li>
+<li>全双工的</li>
+<li>点对点，不存在一次发送将数据传递给多个接收方、</li>
+<li>在合适的时候发送 <strong>发送缓存</strong> 里的数据</li>
+<li>为每个数据封上一个TCP头部</li>
+<li>TCP连接的每一端都具有发送缓存和接受缓存</li>
+</ul>
+<h3 id="报文段结构"><a href="#报文段结构" class="headerlink" title="报文段结构"></a>报文段结构</h3><ul>
+<li>源端口号</li>
+<li>目的端口号</li>
+<li><p>序号(seq) - 所带数据的第一个比特的序号，同时也是接收方期待的序号，等于接收方回复报文中的ACK(n)中的n</p>
+</li>
+<li><p>确认号(ACK) - 对于一个ACK(n)来说，告诉对方n-1前的数据已经收到，下一次期待的序列号为n</p>
+</li>
+<li><p>首部长度</p>
+</li>
+<li>URG</li>
+<li>ACK - 指示，用于指示报文中确认号字段的值是有效的</li>
+<li>PSH - 指示，立即发送<em>发送缓存</em>里的数据</li>
+<li>RST - 指示，用于强制关闭连接</li>
+<li>SYN - 指示，用于握手阶段也就是建立连接的阶段</li>
+<li>FIN - 指示，用于正常关闭连接</li>
+<li>接受窗口 - 用于TCP的流量控制功能</li>
+<li>因特网检验和</li>
+<li>紧急数据指针</li>
+<li>选项</li>
+<li>应用数据</li>
+</ul>
+<h3 id="可靠数据传输-1"><a href="#可靠数据传输-1" class="headerlink" title="可靠数据传输"></a>可靠数据传输</h3><ul>
+<li>TCP协议为数据的每一Byte都编号，而非针对报文段</li>
+<li>总是维持最老未经确认的1 Byte的计时器</li>
+<li>每一次超时重置的计时器时间会加倍</li>
+<li>其错误恢复机制是回退N步和选择重传的混合体<ul>
+<li>不会丢弃乱序到达的分组，而是缓存起来</li>
+<li>采用累计性ACK</li>
+<li>只会重传丢失报文段中的数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h4><p>当连续收到4个相同的ACK时(一个正常的ACK，三个正常ACK的重复)，会触发快速重传，立即重发分组</p>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>为了防止过高数据流量导致接收者的接受缓存爆掉，接收者会在其tcp报文中通过 <strong>接受窗口</strong> 指示发收者还能发送多少数据</p>
+<p>接受窗口(rwnd)公式:</p>
+<ul>
+<li>rwnd = RcvBuffer - [LastByteRead - LastbyteRead]</li>
+<li>且：LastByteSent - LastByteAcked &lt;= rwnd</li>
+</ul>
+<h3 id="TCP连接管理"><a href="#TCP连接管理" class="headerlink" title="TCP连接管理"></a>TCP连接管理</h3><h4 id="建立连接（三次握手）"><a href="#建立连接（三次握手）" class="headerlink" title="建立连接（三次握手）"></a>建立连接（三次握手）</h4><ol>
+<li>客户端发送SYN位置1的报文段</li>
+<li>服务端返回SYN为1，ACK为1的报文段</li>
+<li>客户端发送ACK为1，且附带数据的报文段</li>
+</ol>
+<h4 id="断掉连接"><a href="#断掉连接" class="headerlink" title="断掉连接"></a>断掉连接</h4><ol>
+<li>客户发送FIN为1的报文段</li>
+<li>服务端返回ACK为1的报文段</li>
+<li>服务端发送FIN为1的报文段</li>
+<li>客户端返回ACK为1的报文段</li>
+<li>客户端在一段时间后，关闭连接</li>
+</ol>
+<h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><h3 id="拥塞的代价"><a href="#拥塞的代价" class="headerlink" title="拥塞的代价"></a>拥塞的代价</h3><ul>
+<li>导致分组过长的排队时延</li>
+<li>需要重传因缓存溢出丢失的分组</li>
+<li>高延时导致重送分组</li>
+<li>丢包导致运输相关分组的分组交换器所作的工作全部白费</li>
+</ul>
+<h3 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h3><p>TCP采用端到端的拥塞控制</p>
+<p>三个主要问题：</p>
+<ol>
+<li>一个TCP的发送方如何限制自己的发送流量的速率？</li>
+</ol>
+<p>通过设置一个拥塞窗口(cwnd),并且保证：LastByteSent - LastByteAcked &lt;= min{cwnd, rwnd}</p>
+<ol start="2">
+<li>如何感知其发送路径拥塞了？</li>
+</ol>
+<ul>
+<li>timeout</li>
+<li>收到一次正常ACK后连续收到三次正常ACK的重复</li>
+</ul>
+<ol start="3">
+<li>感到拥塞时，采用什么样的算法改变发送速率？</li>
+</ol>
+<ul>
+<li>慢启动</li>
+</ul>
+<p>cwnd的值从1 MSS开始，并且对每一个ACK，cwnd值变为原来的2倍，直到超过阈值(ssthresh)，转为拥塞避免模式</p>
+<ul>
+<li>拥塞避免</li>
+</ul>
+<p>在每一个RRT时间，cwnd的值增加一个MSS</p>
+<ul>
+<li>快速恢复</li>
+</ul>
+<p>cwnd的值降为一半加上重复收到的重复ACK的数量，并且每一个ACK，cwnd的值增加一个MSS</p>
+<p>在实践中，一旦timeout就会会到慢启动的状态，多次重复ACK则会进入快速恢复状态</p>
+<h3 id="TCP公平"><a href="#TCP公平" class="headerlink" title="TCP公平"></a>TCP公平</h3><p>TCP的公平性在于保证每个连接的吞吐量是平均的，而不是应用或进程间。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/当你在地址栏输入一个URL地址回车后，将会发生什么事情-第一次回答.html" rel="next" title="当你在地址栏输入一个URL地址回车后，将会发生什么事情-第一次回答">
+                <i class="fa fa-chevron-left"></i> 当你在地址栏输入一个URL地址回车后，将会发生什么事情-第一次回答
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议.html" rel="prev" title="《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
+                《计算机网络-自顶向下》笔记-第四章-网络层-IP协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/49502170" alt="塔希(Yunfei He)">
+            
+              <p class="site-author-name" itemprop="name">塔希(Yunfei He)</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/iheyunfei" title="GitHub &rarr; https://github.com/iheyunfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i.heyunfei@gmail.com" title="E-Mail &rarr; mailto:i.heyunfei@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sicp-js.iheyunfei.com" title="http://sicp-js.iheyunfei.com" rel="noopener" target="_blank">【译】-《SICP in JavaScript》</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用"><span class="nav-number">2.1.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路分解"><span class="nav-number">2.2.</span> <span class="nav-text">多路分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#udp的多路复用和分解"><span class="nav-number">2.3.</span> <span class="nav-text">udp的多路复用和分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP的多路复用分解"><span class="nav-number">2.4.</span> <span class="nav-text">TCP的多路复用分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP"><span class="nav-number">2.5.</span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装"><span class="nav-number">2.5.1.</span> <span class="nav-text">封装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可靠数据传输"><span class="nav-number">2.6.</span> <span class="nav-text">可靠数据传输</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回退N步"><span class="nav-number">2.6.1.</span> <span class="nav-text">回退N步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择重传"><span class="nav-number">2.6.2.</span> <span class="nav-text">选择重传</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">2.7.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#报文段结构"><span class="nav-number">2.7.1.</span> <span class="nav-text">报文段结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可靠数据传输-1"><span class="nav-number">2.7.2.</span> <span class="nav-text">可靠数据传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#快速重传"><span class="nav-number">2.7.2.1.</span> <span class="nav-text">快速重传</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制"><span class="nav-number">2.7.3.</span> <span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接管理"><span class="nav-number">2.7.4.</span> <span class="nav-text">TCP连接管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建立连接（三次握手）"><span class="nav-number">2.7.4.1.</span> <span class="nav-text">建立连接（三次握手）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#断掉连接"><span class="nav-number">2.7.4.2.</span> <span class="nav-text">断掉连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拥塞控制"><span class="nav-number">2.8.</span> <span class="nav-text">拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞的代价"><span class="nav-number">2.8.1.</span> <span class="nav-text">拥塞的代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的拥塞控制"><span class="nav-number">2.8.2.</span> <span class="nav-text">TCP的拥塞控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP公平"><span class="nav-number">2.8.3.</span> <span class="nav-text">TCP公平</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔希(Yunfei He)</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
