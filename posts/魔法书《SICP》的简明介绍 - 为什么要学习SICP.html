@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面斜体 表示你需要对斜体部分的含义作出细细的斟酌和思考 加粗字 表示这部分内容是被强调的，需要注意 目的本文的目的主要在于解答以下问题：  为什么要学习SICP？ 学习SICP的作用？ SICP讲了什么？  SICP和编程的关系(为什么要学习SICP)元知识和知识想要理解学习SICP和学习编程有什么样的关系？也许这样一个类比是有益理解的——学习SICP之于编程就像学习 学习 本身。让我们再具">
+<meta name="keywords" content="编程,SICP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="魔法书《SICP》的简明介绍 - 为什么要学习SICP">
+<meta property="og:url" content="http://iheyunfei.com/posts/魔法书《SICP》的简明介绍 - 为什么要学习SICP.html">
+<meta property="og:site_name" content="篝火处">
+<meta property="og:description" content="写在前面斜体 表示你需要对斜体部分的含义作出细细的斟酌和思考 加粗字 表示这部分内容是被强调的，需要注意 目的本文的目的主要在于解答以下问题：  为什么要学习SICP？ 学习SICP的作用？ SICP讲了什么？  SICP和编程的关系(为什么要学习SICP)元知识和知识想要理解学习SICP和学习编程有什么样的关系？也许这样一个类比是有益理解的——学习SICP之于编程就像学习 学习 本身。让我们再具">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-06T07:38:22.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="魔法书《SICP》的简明介绍 - 为什么要学习SICP">
+<meta name="twitter:description" content="写在前面斜体 表示你需要对斜体部分的含义作出细细的斟酌和思考 加粗字 表示这部分内容是被强调的，需要注意 目的本文的目的主要在于解答以下问题：  为什么要学习SICP？ 学习SICP的作用？ SICP讲了什么？  SICP和编程的关系(为什么要学习SICP)元知识和知识想要理解学习SICP和学习编程有什么样的关系？也许这样一个类比是有益理解的——学习SICP之于编程就像学习 学习 本身。让我们再具">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://iheyunfei.com/posts/魔法书《SICP》的简明介绍 - 为什么要学习SICP">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>魔法书《SICP》的简明介绍 - 为什么要学习SICP | 篝火处</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-139452179-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-139452179-1');
+    }
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b6feb71d80f514e66997b3388378a6bb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">篝火处</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">塔希的个人博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/iheyunfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/魔法书《SICP》的简明介绍 - 为什么要学习SICP.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔希(Yunfei He)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/49502170">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="篝火处">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">魔法书《SICP》的简明介绍 - 为什么要学习SICP
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-06 12:09:41 / 修改时间：15:38:22" itemprop="dateCreated datePublished" datetime="2019-06-06T12:09:41+08:00">2019-06-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p><em>斜体</em> 表示你需要对斜体部分的含义作出细细的斟酌和思考</p>
+<p><strong>加粗字</strong> 表示这部分内容是被强调的，需要注意</p>
+<h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>本文的目的主要在于解答以下问题：</p>
+<ul>
+<li>为什么要学习SICP？</li>
+<li>学习SICP的作用？</li>
+<li>SICP讲了什么？</li>
+</ul>
+<h1 id="SICP和编程的关系-为什么要学习SICP"><a href="#SICP和编程的关系-为什么要学习SICP" class="headerlink" title="SICP和编程的关系(为什么要学习SICP)"></a>SICP和编程的关系(为什么要学习SICP)</h1><h2 id="元知识和知识"><a href="#元知识和知识" class="headerlink" title="元知识和知识"></a>元知识和知识</h2><p>想要理解学习SICP和学习编程有什么样的关系？也许这样一个类比是有益理解的——学习SICP之于编程就像学习 <em>学习</em> 本身。让我们再具体点，当我们在讨论学习数学、学习物理时，我们的研究对象是数学和物理，当我们在讨论学习<em>学习</em>的时候，我们的研究对象不是某一具体的科目，而是 <em>学习</em> 本身。在其他地方，你也许见过 <strong>元知识</strong> 这样的词语，其含义表示是 <strong>关于知识的知识</strong>，和上文讲的学习 <em>学习</em> 本身其实是一个意思。</p>
+<p>那么：</p>
+<ul>
+<li><strong>元知识</strong> 和 <strong>知识(一般性知识)</strong> 的差别在哪里？</li>
+<li>为什么要区分这两个概念？</li>
+<li>学习元知识有什么好处？</li>
+</ul>
+<p>解答：</p>
+<p>相比于元知识，一般性知识更加专注于某一个领域，这使得一般性知识具有了某种特殊性(specialized)，而元知识的关注点则更加彰显了其通用性。之所以区分这两个概念，是因为这有助于我们解答以下这个问题——<strong>是否存在一种高效且适用于任何领域的学习方法？</strong> 或者说 <strong>是否存在这样一种知识，能够使我们更好的学习、研究其他知识</strong>。显然，这个问题的描述就是学习元知识的好处。</p>
+<p>举个例子：</p>
+<p><em>科学方法</em> 就是一种元知识，拿物理学和经济学来说，这两门都算科学，但它们研究的对象显然都不一样，物理学更加符合我们对 <em>科学</em> 这个单词的认知，那么经济学为什么也算科学呢？因为它采用科学方法来研究经济。注意尽管物理学和经济学的研究对象不一样，甚至可以说大不相同(一般性知识)，但是却都可以用科学方法(元知识)来研究它们。</p>
+<h2 id="回到正文"><a href="#回到正文" class="headerlink" title="回到正文"></a>回到正文</h2><p>在讲述了知识和元知识的关系后，让我们回到SICP和编程的关系中来。</p>
+<p>学习SICP并不会教会你如何写出一个博客、论坛程序(一般性知识)。SICP的目的在于教会你，当你掌握了不论是写一个博客、还是一个论坛程序的一般性知识后，如何写出一个 <strong>好</strong> 的程序。</p>
+<p>以上是从更加笼统的角度谈述SICP这本书籍目的，接下来会再具体一点。</p>
+<p>本书的作者认为计算机科学和计算机的关系没有紧密到需要在名字中带上计算机三个字，比起说是一门科学，则更像一门艺术，并指出其真正的研究目标在于解决 <strong>如何形式化解决问题的过程？</strong></p>
+<p>为了理解这个目标，我们先来看看什么是 <strong><em>过程</em></strong> ?</p>
+<p>这里我们需要先区分两种知识：</p>
+<ul>
+<li>叙述性知识</li>
+<li>指令性知识</li>
+</ul>
+<p>前者告诉你是什么，后者告诉你 <strong>具体怎么去做</strong>，而 <strong>过程就是指令性知识</strong>。</p>
+<p>所以，再通俗的解释下，作者认为的计算机科学的目在于解决，<strong>(在计算机中)如何以一种精确、规范性的方法来表述指令性知识</strong></p>
+<p>在尝试达到计算机科学的这一目标时，我们会遇到一些问题，其中最主要和重要的问题就是 <strong>当我们尝试构建非常巨大的系统时，我们如何确信这些系统是正确没有错误的</strong> 换句话说 <strong>为什么我们可以构建出非常巨大的系统，且又保证它们的正确性</strong>，这是因为存在着 <strong>控制大型系统复杂度的技术</strong>。</p>
+<p>而 <strong>控制大型系统复杂度的技术</strong> 就是本书要 <strong>实际</strong> 讨论的主题，本书的目的也在于教会读者掌握这些技术，所以当你疑惑SICP这本书到底再讲什么的时候，回想下这个这本书的讨论的主题，就很容易得出相应的答案了。虽说本书的主要目的在于教授控制复杂度的技术，但是本书同样教授了为掌握这些技术需要学习的基础知识，而这些基础知识恰巧也是相关领域的核心部分，这也是为什么SICP被推荐作为编程入门书的原因(不是第一本学习编程的书，而是第一本入门编程的书)。</p>
+<h1 id="控制大型系统复杂度的技术"><a href="#控制大型系统复杂度的技术" class="headerlink" title="控制大型系统复杂度的技术"></a>控制大型系统复杂度的技术</h1><p>相比较电气学和物理学来说，计算机科学处理的是一种理想化的组件，我们的想法和实现之间没有差距，为了理解这句话，我们来看一个例子。一个物理学家10秒钟可以撕开1张纸(这个不难)，请问物理学家如何在5秒中撕开1张纸？答案很简单，只要物理学家的撕纸速度加倍就行了。那么，假设要让物理学家在1秒中撕开10张纸呢？答案依旧很简单，只要物理学家的速度变为原来的10倍就行，但我们都知道现实中是不可能的。不可能的原因就是我们理解 <strong>对于计算机科学，我们的想法和实现之间没有差距</strong> 的关键。因此，当我们尝试构建一个大型系统时，我们不会受到物理世界的约束，不需要考虑现实世界的误差、额外影响，<strong>唯一限制我们的是我们自身大脑的思维能力</strong>。</p>
+<h2 id="三种主要技术"><a href="#三种主要技术" class="headerlink" title="三种主要技术"></a>三种主要技术</h2><h3 id="黑盒抽象"><a href="#黑盒抽象" class="headerlink" title="黑盒抽象"></a>黑盒抽象</h3><p>我们先来理解 <em>黑盒抽象</em> 的含义：黑盒抽象是一种有关 <strong>使用一样事物而无需了解其内部实现</strong> 的思想。</p>
+<p>如果细细思考下来，不仅于计算机科学，我们生活的世界其实就构建在这种思想之上。我们坐飞机不需要考虑飞机的实现原理，我们买车票而不必在乎是什么样的魔力使得我们可以通过一张小纸条就坐上一个呜呜叫的运输工具去往诗和远方。</p>
+<p>让我们回到计算机科学中来，来尝试思考下 <strong>为什么我们需要黑盒抽象？</strong></p>
+<p>上文刚才讲述了，当我们在构建大型系统时，我们受到的唯一限制就是我们大脑的思维能力。黑盒抽象可以使我们从那些实现细节中解放出来，从而有更多的精力来关注我们想要关注的事物——构建大型系统本身。</p>
+<p>其次，也有助于在大型系统中更换组件，我们依赖黑盒的功能来组织系统，而非黑盒的实现细节，对于实现同样功能的黑盒来说，我们不会因为其中一个内部实现用for语句，一个用了while语句，就无法互换这两个盒子。</p>
+<p>对于黑盒抽象来说，思考以下问题是有益的：</p>
+<ul>
+<li>用什么来构建这些盒子</li>
+<li>如何组合这些盒子</li>
+<li>如何抽象出两个盒子中的公共部分，构建出新的盒子，并且作为其他盒子的支柱</li>
+<li>如何找出和抽象盒子中共通的部分</li>
+</ul>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>让我们看看一些黑盒的例子：</p>
+<ul>
+<li>编程语言中的函数</li>
+<li>Java中的类</li>
+<li>任何语言的模块机制</li>
+<li>React、Vue框架</li>
+</ul>
+<p>让我们以一个简单的有关 <strong>如何找出和抽象盒子中共同的部分</strong> 的例子来结束黑盒抽象这部分内容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cube = <span class="function"><span class="params">x</span> =&gt;</span> x * x * x;</span><br><span class="line"><span class="keyword">const</span> square = <span class="function"><span class="params">x</span> =&gt;</span> x * x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// cube和square是两个盒子，且都是对元素按次数乘以自身思想的特例</span></span><br><span class="line"><span class="comment">// 现在我们来表述元素按次数乘以自身思想的通用形式，并将cube和square构建其之上</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> power = <span class="function">(<span class="params">x, n</span>) =&gt;</span> n === <span class="number">0</span> ? <span class="number">1</span> : x * power(x, n - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cube = <span class="function"><span class="params">x</span> =&gt;</span> power(x, <span class="number">3</span>);</span><br><span class="line"><span class="keyword">const</span> square = <span class="function"><span class="params">x</span> =&gt;</span> power(x, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>这是个简单的例子，一眼就可以看出共通的部分，问题在于程序的规模变大时，其共同的部分就无法一眼看出了，而SICP则讲述了如何在规模庞大的系统上找出和抽象共通的部分。</p>
+<h3 id="接口约定"><a href="#接口约定" class="headerlink" title="接口约定"></a>接口约定</h3><h4 id="通用操作"><a href="#通用操作" class="headerlink" title="通用操作"></a>通用操作</h4><p>我们来考虑这样一个问题：<strong>对于一个通用加法系统(不仅可以对数字相加，还能对相加字符串，相加多项式)，如何在不影响其他相加功能的基础上，增加新的相加功能？</strong></p>
+<p>其解决方法就是通过约定接口，了解过JAVA的人可能知道JAVA里有接口的存在，然而要注意的是JAVA的接口只是接口约定思想的一种实现，只要符合接口约定的思想，任何语言都可以构建自己的接口机制。</p>
+<p>JavaScript在ES6中也提供了接口，任何一个实现了[Symbol.iterator]方法的对象，就可以作为let of的对象，详见<a href="http://es6.ruanyifeng.com/#docs/iterator#%E9%BB%98%E8%AE%A4-Iterator-%E6%8E%A5%E5%8F%A3" target="_blank" rel="noopener">点此</a></p>
+<h4 id="大型结构和模块化"><a href="#大型结构和模块化" class="headerlink" title="大型结构和模块化"></a>大型结构和模块化</h4><p>何对复杂的现实世界建模并构造大型程序，有两种方法：</p>
+<ul>
+<li>面向对象编程</li>
+<li>函数式编程</li>
+</ul>
+<h3 id="定义新的语言-语言抽象"><a href="#定义新的语言-语言抽象" class="headerlink" title="定义新的语言(语言抽象)"></a>定义新的语言(语言抽象)</h3><p>当纯粹的设计已经无法控制系统复杂度时，一门新的语言也许是一个好的选择(就像Vue和React)。</p>
+<p>这里谈的新语言不是写一个python或者js出来，设计一门新语言的意图是为了强调某一个方面，并且这里谈论的新语言并非想象中的那么“重”，举个例子，以前端来说，Vue和React可以说就是两门新的语言，它们构建于JS之上，可以使用JS的语法，并且强调了某些细节(数据映射成视图，自动操作DOM结构)，忽略了某些细节(手动操作DOM结构，人脑同步各种状态)。其中Vue也许比React更像一门新的语言(前者多了一些DSL，后者的JSX只是语法糖)，但其中的思想是一样的。</p>
+<h1 id="如何掌握所有的编程语言"><a href="#如何掌握所有的编程语言" class="headerlink" title="如何掌握所有的编程语言"></a>如何掌握所有的编程语言</h1><p>虽然讲述编程语言不是SICP的主要目标，但是本书还是在这方面提供了不少有益的帮助</p>
+<p>SICP提供了一种 <strong>通用的编程语言模型</strong>，即任何一门语言都要关注以下三点：</p>
+<ul>
+<li>基本元素</li>
+<li>组合的方法：如何组合基本元素构成复合的元素</li>
+<li>抽象的方法：<ul>
+<li>如何把基本元素组合，封成 <strong>黑盒</strong></li>
+<li>如何使用这些盒子</li>
+<li>如何标识和找到这些盒子</li>
+<li>如何把这些盒子同样当作基本元素进行组合和抽象</li>
+</ul>
+</li>
+</ul>
+<p>因为教授如何掌握编程语言不是SICP的主要目标，尽管提供了相应的帮助，但没有详细的发展，王垠的博客里详细的扩充了这一段内容，<a href="https://www.yinwang.org/blog-cn/2017/07/06/master-pl" target="_blank" rel="noopener">见此</a>。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/SICP/" rel="tag"># SICP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/《计算机网络-自顶向下》笔记-第五章-链路层.html" rel="next" title="《计算机网络-自顶向下》笔记-第五章-链路层">
+                <i class="fa fa-chevron-left"></i> 《计算机网络-自顶向下》笔记-第五章-链路层
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/49502170" alt="塔希(Yunfei He)">
+            
+              <p class="site-author-name" itemprop="name">塔希(Yunfei He)</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/iheyunfei" title="GitHub &rarr; https://github.com/iheyunfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i.heyunfei@gmail.com" title="E-Mail &rarr; mailto:i.heyunfei@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sicp-js.iheyunfei.com" title="http://sicp-js.iheyunfei.com" rel="noopener" target="_blank">【译】-《SICP in JavaScript》</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">2.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SICP和编程的关系-为什么要学习SICP"><span class="nav-number">3.</span> <span class="nav-text">SICP和编程的关系(为什么要学习SICP)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元知识和知识"><span class="nav-number">3.1.</span> <span class="nav-text">元知识和知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回到正文"><span class="nav-number">3.2.</span> <span class="nav-text">回到正文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制大型系统复杂度的技术"><span class="nav-number">4.</span> <span class="nav-text">控制大型系统复杂度的技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三种主要技术"><span class="nav-number">4.1.</span> <span class="nav-text">三种主要技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#黑盒抽象"><span class="nav-number">4.1.1.</span> <span class="nav-text">黑盒抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#举例"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口约定"><span class="nav-number">4.1.2.</span> <span class="nav-text">接口约定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用操作"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">通用操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大型结构和模块化"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">大型结构和模块化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义新的语言-语言抽象"><span class="nav-number">4.1.3.</span> <span class="nav-text">定义新的语言(语言抽象)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何掌握所有的编程语言"><span class="nav-number">5.</span> <span class="nav-text">如何掌握所有的编程语言</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔希(Yunfei He)</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="对于互联网的网络层来说，其提供的服务非常简单：  转发 路由选择  网络层可能提供的服务网络服务模型：  确保交付 保证延迟的确保交付 有序交付 确保最小带宽 确保最大时延抖动 安全性服务  那么IP协议提供以上那些服务呢？ 答案就是：一个也不提供  不 确保交付 不 保证延迟的确保交付 不 有序交付 不 确保最小带宽 不 确保最大时延抖动 没有 安全性服务  数据报网络IP协议构建的网络就属于数">
-<meta name="keywords" content="读书笔记,计算机网络">
+  <meta name="description" content="链路层链路层提供的服务链路层的实现，其主体部分在 网络适配器(网络接口卡)中。  成帧(framing)：讲网络层传来的数据报打封成帧，帧的结构取决于链路层协议 链路接入：媒体访问控制(Medium Access Control, MAC)协议规定了帧在链路上的传播规则 可靠交付 差错检测和纠正  差错检测和纠正技术差错检测的三种技术:  奇偶校验 检验和方法 循环沉余检测  多路访问协议在链路网">
+<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
-<meta property="og:url" content="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议.html">
+<meta property="og:title" content="《计算机网络-自顶向下》笔记-第五章-链路层">
+<meta property="og:url" content="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第五章-链路层.html">
 <meta property="og:site_name" content="篝火处">
-<meta property="og:description" content="对于互联网的网络层来说，其提供的服务非常简单：  转发 路由选择  网络层可能提供的服务网络服务模型：  确保交付 保证延迟的确保交付 有序交付 确保最小带宽 确保最大时延抖动 安全性服务  那么IP协议提供以上那些服务呢？ 答案就是：一个也不提供  不 确保交付 不 保证延迟的确保交付 不 有序交付 不 确保最小带宽 不 确保最大时延抖动 没有 安全性服务  数据报网络IP协议构建的网络就属于数">
+<meta property="og:description" content="链路层链路层提供的服务链路层的实现，其主体部分在 网络适配器(网络接口卡)中。  成帧(framing)：讲网络层传来的数据报打封成帧，帧的结构取决于链路层协议 链路接入：媒体访问控制(Medium Access Control, MAC)协议规定了帧在链路上的传播规则 可靠交付 差错检测和纠正  差错检测和纠正技术差错检测的三种技术:  奇偶校验 检验和方法 循环沉余检测  多路访问协议在链路网">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T13:38:09.240Z">
+<meta property="og:updated_time" content="2019-06-05T23:42:54.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
-<meta name="twitter:description" content="对于互联网的网络层来说，其提供的服务非常简单：  转发 路由选择  网络层可能提供的服务网络服务模型：  确保交付 保证延迟的确保交付 有序交付 确保最小带宽 确保最大时延抖动 安全性服务  那么IP协议提供以上那些服务呢？ 答案就是：一个也不提供  不 确保交付 不 保证延迟的确保交付 不 有序交付 不 确保最小带宽 不 确保最大时延抖动 没有 安全性服务  数据报网络IP协议构建的网络就属于数">
+<meta name="twitter:title" content="《计算机网络-自顶向下》笔记-第五章-链路层">
+<meta name="twitter:description" content="链路层链路层提供的服务链路层的实现，其主体部分在 网络适配器(网络接口卡)中。  成帧(framing)：讲网络层传来的数据报打封成帧，帧的结构取决于链路层协议 链路接入：媒体访问控制(Medium Access Control, MAC)协议规定了帧在链路上的传播规则 可靠交付 差错检测和纠正  差错检测和纠正技术差错检测的三种技术:  奇偶校验 检验和方法 循环沉余检测  多路访问协议在链路网">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
+  <link rel="canonical" href="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第五章-链路层">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>《计算机网络-自顶向下》笔记-第四章-网络层-IP协议 | 篝火处</title>
+  <title>《计算机网络-自顶向下》笔记-第五章-链路层 | 篝火处</title>
   
 
 
@@ -356,7 +356,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议.html">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第五章-链路层.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔希(Yunfei He)">
@@ -373,7 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《计算机网络-自顶向下》笔记-第四章-网络层-IP协议
+          <h1 class="post-title" itemprop="name headline">《计算机网络-自顶向下》笔记-第五章-链路层
 
               
             
@@ -399,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2019-06-05 20:39:52 / 修改时间：21:38:09" itemprop="dateCreated datePublished" datetime="2019-06-05T20:39:52+08:00">2019-06-05</time>
+              <time title="创建时间：2019-06-06 06:39:40 / 修改时间：07:42:54" itemprop="dateCreated datePublished" datetime="2019-06-06T06:39:40+08:00">2019-06-06</time>
             
 
             
@@ -438,101 +438,72 @@
       
 
       
-        <p>对于互联网的网络层来说，其提供的服务非常简单：</p>
+        <h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><h2 id="链路层提供的服务"><a href="#链路层提供的服务" class="headerlink" title="链路层提供的服务"></a>链路层提供的服务</h2><p>链路层的实现，其主体部分在 <strong>网络适配器(网络接口卡)</strong>中。</p>
 <ul>
-<li>转发</li>
-<li>路由选择</li>
+<li>成帧(framing)：讲网络层传来的数据报打封成帧，帧的结构取决于链路层协议</li>
+<li>链路接入：媒体访问控制(Medium Access Control, MAC)协议规定了帧在链路上的传播规则</li>
+<li>可靠交付</li>
+<li>差错检测和纠正</li>
 </ul>
-<h2 id="网络层可能提供的服务"><a href="#网络层可能提供的服务" class="headerlink" title="网络层可能提供的服务"></a>网络层可能提供的服务</h2><p>网络服务模型：</p>
+<h2 id="差错检测和纠正技术"><a href="#差错检测和纠正技术" class="headerlink" title="差错检测和纠正技术"></a>差错检测和纠正技术</h2><p>差错检测的三种技术:</p>
 <ul>
-<li>确保交付</li>
-<li>保证延迟的确保交付</li>
-<li>有序交付</li>
-<li>确保最小带宽</li>
-<li>确保最大时延抖动</li>
-<li>安全性服务</li>
+<li>奇偶校验</li>
+<li>检验和方法</li>
+<li>循环沉余检测</li>
 </ul>
-<p>那么IP协议提供以上那些服务呢？</p>
-<p>答案就是：<strong>一个也不提供</strong></p>
-<ul>
-<li><strong>不</strong> 确保交付</li>
-<li><strong>不</strong> 保证延迟的确保交付</li>
-<li><strong>不</strong> 有序交付</li>
-<li><strong>不</strong> 确保最小带宽</li>
-<li><strong>不</strong> 确保最大时延抖动</li>
-<li><strong>没有</strong> 安全性服务</li>
+<h2 id="多路访问协议"><a href="#多路访问协议" class="headerlink" title="多路访问协议"></a>多路访问协议</h2><p>在链路网络中，点对点的传输(点对点链路)是很简单的，但是多对一的传输(被称为 <strong>广播链路</strong>)，由于可能造成 <strong>碰撞(collide)</strong>，如何才能协调它们？这就是被称为多路访问问题的问题。与此相应的，网络通过多路访问协议来解决这类问题。</p>
+<h3 id="协议类型"><a href="#协议类型" class="headerlink" title="协议类型"></a>协议类型</h3><ul>
+<li>信道划分协议</li>
+<li>随机接入协议</li>
+<li>轮流协议</li>
 </ul>
-<h2 id="数据报网络"><a href="#数据报网络" class="headerlink" title="数据报网络"></a>数据报网络</h2><p>IP协议构建的网络就属于数据报网络</p>
-<p>特点：</p>
-<ul>
-<li>无需建立连接，维持状态信息</li>
-<li>使用转发表决定分组输出端口</li>
-<li>通过最长前缀匹配原则进行查询转发表</li>
+<h4 id="一个理想协议应该拥有的特点"><a href="#一个理想协议应该拥有的特点" class="headerlink" title="一个理想协议应该拥有的特点"></a>一个理想协议应该拥有的特点</h4><ul>
+<li>仅有一个节点发送数据时，其吞吐量等于信道的吞吐量</li>
+<li>多个节点发送数据时，其公平的共享信道的吞吐量</li>
+<li>协议是分散式的，不会因为某一个节点损坏而崩溃</li>
+<li>协议是简单的且成本低</li>
 </ul>
-<h2 id="路由器工作原理"><a href="#路由器工作原理" class="headerlink" title="路由器工作原理"></a>路由器工作原理</h2><ul>
-<li>输入端口 - 从物理层接收数据，拆封分组、查看相应协议层头部，查询转发表放进发送队列</li>
-<li>交换结构 - 负责发送队列到输出队列的运输</li>
-<li>输出端口 - 拿到输出队列的数据，然后封上相应协议层的头部，送给物理层</li>
-<li>路由选择处理器 - 负责执行路由选择，更新转发表，以及一些控制功能</li>
-</ul>
-<h2 id="网络层的三个主要组件"><a href="#网络层的三个主要组件" class="headerlink" title="网络层的三个主要组件"></a>网络层的三个主要组件</h2><h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><h4 id="IPV4数据报格式"><a href="#IPV4数据报格式" class="headerlink" title="IPV4数据报格式"></a>IPV4数据报格式</h4><ul>
-<li>版本：规定了IP协议版本</li>
-<li>首部长度</li>
-<li>服务类型：区分不同类型的IP数据报</li>
-<li>数据报长度</li>
-<li>标识、标志、片偏移：用于IP数据报分片</li>
-<li>寿命：一个数据报可以被路由处理的次数</li>
-<li>协议：用于IP的多路复用和分解，即应将数据交付给上层的那个协议，TCP还是UDP。</li>
-<li>首部检验和</li>
-<li>源和目的IP地址</li>
-<li>选项：用于扩展IP首部</li>
-<li>数据</li>
-</ul>
-<h4 id="IPV4编址"><a href="#IPV4编址" class="headerlink" title="IPV4编址"></a>IPV4编址</h4><ul>
-<li>总长度为32位</li>
-<li>一般以8位一组</li>
-<li>子网：具有相同的前半部分地址的一组IP地址构成的网络</li>
-<li>编址方案：<ul>
-<li>无类别域间路由选择</li>
-<li>分类编址</li>
-</ul>
-</li>
-</ul>
-<h4 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h4><p>是一种用于自动分配IP地址且即插即用的协议，使用UDP作为输运层服务</p>
-<p>对于一个新加入网络的电脑：</p>
+<p>#交换局域网</p>
+<h2 id="链路层寻址和ARP"><a href="#链路层寻址和ARP" class="headerlink" title="链路层寻址和ARP"></a>链路层寻址和ARP</h2><p>链路层通过MAC地址作为链路层寻址的地址，而非网络层的IP地址，主要目的在于保证 <strong>各层独立</strong> 的原则，而且，局域网并非只适用于IP网络和因特网。</p>
+<h3 id="地址解析协议-ARP"><a href="#地址解析协议-ARP" class="headerlink" title="地址解析协议(ARP)"></a>地址解析协议(ARP)</h3><p>因为链路层处理的是MAC地址，但是网络层(IP协议)发下来的数据报只带着IP地址，因此需要把IP地址和MAC地址进行转换，至于为什么不直接用IP地址，参见上面。</p>
+<p>每台主机或路由器在其内存中都维持着一个ARP表，用于记录IP地址对应MAC地址的映射</p>
+<h4 id="当一个节点想发送分组到另一个节点-可能是一台主机或路由器-时的流程："><a href="#当一个节点想发送分组到另一个节点-可能是一台主机或路由器-时的流程：" class="headerlink" title="当一个节点想发送分组到另一个节点(可能是一台主机或路由器)时的流程："></a>当一个节点想发送分组到另一个节点(可能是一台主机或路由器)时的流程：</h4><p>子网内：</p>
 <ol>
-<li>DHCP服务器发现。通过设置源ip地址为0.0.0.0，且目的ip地址为255.255.255.255的UDP分组，在网络中广播</li>
-<li>DHCP服务器提供。DHCP监听到广播，使用一个 <strong>DHCP提供报文</strong> 向客户作出响应(继续以广播的形式发出，因为此时客户依旧没有自己的IP地址)</li>
-<li>DHCP请求。客户得到响应后，发送一个 <strong>DHCP请求报文</strong>，回显响应的配置参数</li>
-<li>DHCP ACK。服务器回应一个 <strong>DHCP ACK报文</strong>，响应客户的请求报文</li>
+<li>发送方会构建的一个特殊的ARP分组，其中含有发送方的IP和MAC地址，以及目的的IP地址。</li>
+<li>节点的适配器会把ARP分组封在链路层帧中，并通过指示目标MAC地址为FF-FF-FF-FF-FF-FF，进行一次广播</li>
+<li>接收到广播的主机会检查自己的IP地址，如果相符就发送一个ARP响应分组，告知自己的MAC地址</li>
+<li>发送方得到MAC地址，同时记录在自己的ARP表中</li>
 </ol>
-<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>从目的来说，NAT技术使得多台电脑可以通过一个公共ip上网，且不发生冲突。</p>
-<p>其行文的核心在于，从路由器(具备公共IP的设备)拦截所有的分组，修改其ip地址和端口，并记录这种修改产生相应的映射，发送修改后的分组，接收时执行相反的步骤。</p>
-<h3 id="路由选择算法"><a href="#路由选择算法" class="headerlink" title="路由选择算法"></a>路由选择算法</h3><p>路由选择的功能是更新路由器中的路由表(转发表)</p>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>全局还是分散：</p>
+<p>子网外:<br>目的节点由某个节点变为子网内的默认路由器，由路由器转发到网络上，最终达到目标节点的子网，执行上述步骤。</p>
+<h1 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h1><h2 id="以太网帧结构"><a href="#以太网帧结构" class="headerlink" title="以太网帧结构"></a>以太网帧结构</h2><ul>
+<li>数据字段</li>
+<li>目的地址</li>
+<li>源地址</li>
+<li>类型：指示其上层协议，用于多路复用和分解</li>
+<li>CRC：循环冗余检测，用于检测帧是否出现了差错</li>
+<li>前同步码：用于“唤醒”接受适配器</li>
+</ul>
+<h2 id="链路层交换机"><a href="#链路层交换机" class="headerlink" title="链路层交换机"></a>链路层交换机</h2><h3 id="转发和过滤"><a href="#转发和过滤" class="headerlink" title="转发和过滤"></a>转发和过滤</h3><p>通过 <strong>交换机表</strong>，交换机会做：</p>
 <ul>
-<li>全局式路由选择算法(链路状态算法)：<ul>
-<li>需要事先知道网络总体的分布图</li>
+<li>转发：决定一个帧会被导向哪个接口</li>
+<li>过滤：决定一个帧是会被转发还是被丢弃</li>
+</ul>
+<h3 id="交换机的自学习特性"><a href="#交换机的自学习特性" class="headerlink" title="交换机的自学习特性"></a>交换机的自学习特性</h3><p>原理：</p>
+<ol>
+<li>交换机表初始为空</li>
+<li>对于接受到的每个帧，存储其：<ul>
+<li>源MAC地址</li>
+<li>到达时的接口</li>
+<li>当前时间</li>
 </ul>
 </li>
-<li>分散式路由选择算法(距离向量算法)：<ul>
-<li>无需知道网络总体的分布图</li>
-</ul>
-</li>
-</ul>
-<p>动态还是静态：</p>
-<ul>
-<li>静态路由选择</li>
-<li>动态路由选择</li>
-</ul>
-<p>是否负载敏感：</p>
-<ul>
-<li>负载敏感算法</li>
-<li>负载迟钝算法</li>
-</ul>
-<h3 id="因特网控制报文协议-ICMP"><a href="#因特网控制报文协议-ICMP" class="headerlink" title="因特网控制报文协议(ICMP)"></a>因特网控制报文协议(ICMP)</h3><ul>
-<li>用于主机和路由器彼此沟通信息</li>
-<li>构建于IP协议之上(因为其报文位于为IP数据报的数据字段)</li>
+<li>一段时间没有收到某个主机的帧后，将其MAC地址从交换机表删掉</li>
+</ol>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
+<li>即插即用</li>
+<li>消除了多路交换时可能造成的碰撞</li>
+<li>异质的链路：隔离不同的链路，使得不同链路可以在不同的媒体上运行</li>
+<li>管理功能</li>
 </ul>
 
       
@@ -557,8 +528,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
-          
             <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
           
         </div>
@@ -572,8 +541,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层.html" rel="next" title="《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层">
-                <i class="fa fa-chevron-left"></i> 《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层
+              <a href="/posts/如何入门计算机网络 -《计算机网络-自顶向下》读后感.html" rel="next" title="如何入门计算机网络 -《计算机网络-自顶向下》读后感">
+                <i class="fa fa-chevron-left"></i> 如何入门计算机网络 -《计算机网络-自顶向下》读后感
               </a>
             
           </div>
@@ -582,8 +551,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/如何入门计算机网络 -《计算机网络-自顶向下》读后感.html" rel="prev" title="如何入门计算机网络 -《计算机网络-自顶向下》读后感">
-                如何入门计算机网络 -《计算机网络-自顶向下》读后感 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/魔法书《SICP》的简明介绍 - 为什么要学习SICP.html" rel="prev" title="魔法书《SICP》的简明介绍 - 为什么要学习SICP">
+                魔法书《SICP》的简明介绍 - 为什么要学习SICP <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -774,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层可能提供的服务"><span class="nav-number">1.</span> <span class="nav-text">网络层可能提供的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据报网络"><span class="nav-number">2.</span> <span class="nav-text">数据报网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由器工作原理"><span class="nav-number">3.</span> <span class="nav-text">路由器工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层的三个主要组件"><span class="nav-number">4.</span> <span class="nav-text">网络层的三个主要组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP协议"><span class="nav-number">4.1.</span> <span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV4数据报格式"><span class="nav-number">4.1.1.</span> <span class="nav-text">IPV4数据报格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV4编址"><span class="nav-number">4.1.2.</span> <span class="nav-text">IPV4编址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DHCP"><span class="nav-number">4.1.3.</span> <span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NAT"><span class="nav-number">4.1.4.</span> <span class="nav-text">NAT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由选择算法"><span class="nav-number">4.2.</span> <span class="nav-text">路由选择算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">4.2.1.</span> <span class="nav-text">分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#因特网控制报文协议-ICMP"><span class="nav-number">4.3.</span> <span class="nav-text">因特网控制报文协议(ICMP)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链路层"><span class="nav-number">1.</span> <span class="nav-text">链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链路层提供的服务"><span class="nav-number">1.1.</span> <span class="nav-text">链路层提供的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#差错检测和纠正技术"><span class="nav-number">1.2.</span> <span class="nav-text">差错检测和纠正技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路访问协议"><span class="nav-number">1.3.</span> <span class="nav-text">多路访问协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#协议类型"><span class="nav-number">1.3.1.</span> <span class="nav-text">协议类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个理想协议应该拥有的特点"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">一个理想协议应该拥有的特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链路层寻址和ARP"><span class="nav-number">1.4.</span> <span class="nav-text">链路层寻址和ARP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#地址解析协议-ARP"><span class="nav-number">1.4.1.</span> <span class="nav-text">地址解析协议(ARP)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当一个节点想发送分组到另一个节点-可能是一台主机或路由器-时的流程："><span class="nav-number">1.4.1.1.</span> <span class="nav-text">当一个节点想发送分组到另一个节点(可能是一台主机或路由器)时的流程：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#以太网"><span class="nav-number">2.</span> <span class="nav-text">以太网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网帧结构"><span class="nav-number">2.1.</span> <span class="nav-text">以太网帧结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链路层交换机"><span class="nav-number">2.2.</span> <span class="nav-text">链路层交换机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转发和过滤"><span class="nav-number">2.2.1.</span> <span class="nav-text">转发和过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机的自学习特性"><span class="nav-number">2.2.2.</span> <span class="nav-text">交换机的自学习特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">2.2.3.</span> <span class="nav-text">性质</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
