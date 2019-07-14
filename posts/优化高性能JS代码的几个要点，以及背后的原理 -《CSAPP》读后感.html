@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面作为一个前端开发人员，我一直难以理解学习计算基础知识的重要性，这是因为我难以想象这些知识会以何种方式应用到前端开发的工作上。 然而在csapp 优化程序性能 这一节，彻底的改变了我的想法，作者讲述了对于一个正确，良好编写的c语言程序，如何优化它的性能。 对一段相同功能的代码，优化后与优化前产生了巨大的差别，速度得到了几十倍的提升。然而，令我困惑的是，js与c这两种在语言层次上相差如此之大的">
+<meta name="keywords" content="编程,前端,读书笔记,js,csapp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感">
+<meta property="og:url" content="http://iheyunfei.com/posts/优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感.html">
+<meta property="og:site_name" content="篝火处">
+<meta property="og:description" content="写在前面作为一个前端开发人员，我一直难以理解学习计算基础知识的重要性，这是因为我难以想象这些知识会以何种方式应用到前端开发的工作上。 然而在csapp 优化程序性能 这一节，彻底的改变了我的想法，作者讲述了对于一个正确，良好编写的c语言程序，如何优化它的性能。 对一段相同功能的代码，优化后与优化前产生了巨大的差别，速度得到了几十倍的提升。然而，令我困惑的是，js与c这两种在语言层次上相差如此之大的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-14T02:35:46.375Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感">
+<meta name="twitter:description" content="写在前面作为一个前端开发人员，我一直难以理解学习计算基础知识的重要性，这是因为我难以想象这些知识会以何种方式应用到前端开发的工作上。 然而在csapp 优化程序性能 这一节，彻底的改变了我的想法，作者讲述了对于一个正确，良好编写的c语言程序，如何优化它的性能。 对一段相同功能的代码，优化后与优化前产生了巨大的差别，速度得到了几十倍的提升。然而，令我困惑的是，js与c这两种在语言层次上相差如此之大的">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://iheyunfei.com/posts/优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感 | 篝火处</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-139452179-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-139452179-1');
+    }
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b6feb71d80f514e66997b3388378a6bb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">篝火处</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">塔希的个人博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/iheyunfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔希(Yunfei He)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/49502170">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="篝火处">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-14 10:33:11 / 修改时间：10:35:46" itemprop="dateCreated datePublished" datetime="2019-07-14T10:33:11+08:00">2019-07-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>作为一个前端开发人员，我一直难以理解学习计算基础知识的重要性，这是因为我难以想象这些知识会以何种方式应用到前端开发的工作上。</p>
+<p>然而在csapp 优化程序性能 这一节，彻底的改变了我的想法，作者讲述了对于一个正确，良好编写的c语言程序，如何优化它的性能。</p>
+<p>对一段相同功能的代码，优化后与优化前产生了巨大的差别，速度得到了几十倍的提升。然而，令我困惑的是，js与c这两种在语言层次上相差如此之大的语言，这样的优化是否有同样的效果？经过实践，答案是yes。</p>
+<p>因此计算机基础知识并不是空中楼阁，它确实有用，让你写出更好的程序。为什么大厂喜欢考察基础，因为这些基础确实在某些方面体现了一个人编程的水平的高低，对于计算机科班人员来说，这也恰恰是可以和别人拉开差距的地方。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>先举个c语言的例子，以下这段代码的功能是 <strong>将字符串中的大写字母转换成小写</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lower</span><span class="params">(<span class="keyword">char</span> *s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(s); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] &gt;= <span class="string">'A'</span> &amp;&amp; s[i] &lt;= <span class="string">'Z'</span>)</span><br><span class="line">            s[i] -= (<span class="string">'A'</span> - <span class="string">'a'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你能看出这段代码的问题在哪里吗？</p>
+<p>如果你足够敏感，结合小标题的暗示，你会发现问题出现在for循环的判断条件中 <strong>strlen()</strong> 函数，首先指出一点，本段代码在功能的正确性上毋庸置疑，但是性能上就堪忧了。</p>
+<p>这里给不了解strlen函数的人一个提示：<strong>strlen函数是通过遍历字符串来得到其长度的</strong>，所以每一次for循环，都会遍历一次字符串s，因此这段代码的时间复杂度是o(n^2)，但实际上我们只是在修改s的每个值，但不会移除或增加某个值，我们并不需要每次都计算s的长度。你可能会疑问编译器难道识别不出这种模式，然后针对优化吗？答案是否定的，简单的讲是因为编译器无法确定是否存在 <strong>副作用</strong> 导致判断条件发生变化，这其中还有 <strong>内存别名使用</strong> 的原因，这里就不详解了，感兴趣的可以去看书。</p>
+<p>当然针对这段代码的优化很简单，通过一个临时变量，在循环前事先计算调用一次strlen即可，然后使用那个变量当作判断条件。值得注意的是：<strong>仅仅这样一个简单的优化，时间复杂度就从o(n^2)变成o(n)了</strong>，这是巨大的提升。</p>
+<p>有经验的编程者可能认为，这段代码的问题c语言上独有的，因为大部分高级语言的字符串的长度，是被语言本身作为一个常量维护的，不需要遍历就能得到。<strong>实际上，这个例子只是给你一个提醒，微小的变动，可能导致性能的巨大下降或提升</strong></p>
+<hr>
+<p>接下来，我们以 <strong>combine</strong> 函数为例 对一个对数组进行求和，看看一段功能相同的代码，经过优化后，其性能的差距。</p>
+<p>combine1函数在for循环判断中调用 <strong>getLengthFromArray</strong> 得到数组长度，比起strlen，这个函数的时间复杂度是o(1)，很可能有人会问？为什么要脱了裤子放屁，为什么不直接用 <strong>.length</strong> 属性，这里有以下几个考量：</p>
+<ul>
+<li>模拟其他语言的行为</li>
+<li>可以动态的计算数组的长度</li>
+<li>提供错误检查</li>
+<li>即使是o(1)的调用，也会有性能上的影响</li>
+</ul>
+<p>至于为什么要用 <strong>getFromArray</strong> 函数获取数组元素，因为js的数组没有越界检查（越界访问不会报错），可能会发生程序运行了很长时间后，错误才显现出来。所以getFromArray的目的是提供越界检查，当越界时抛出错误。</p>
+<h3 id="版本1："><a href="#版本1：" class="headerlink" title="版本1："></a>版本1：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本代码可直接运行</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFromArray</span>(<span class="params">arr, index</span>) </span>&#123; <span class="comment">// 提供越界检查的数组getter</span></span><br><span class="line">    <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= arr.length) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'OUT OF INDEX'</span> + index);</span><br><span class="line">    <span class="keyword">return</span> arr[index]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLengthFromArray</span>(<span class="params">arr</span>) </span>&#123; <span class="comment">// 得到数组长度</span></span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(arr + <span class="string">'is not an Array.'</span>)</span><br><span class="line">    <span class="keyword">return</span> arr.length; <span class="comment">// 即使是常数级的函数调用，依旧产生开销</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'start'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> numberOfElement = <span class="number">9999999</span>;</span><br><span class="line">    <span class="keyword">const</span> arr = <span class="built_in">Array</span>(numberOfElement).fill(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    (<span class="function"><span class="keyword">function</span> <span class="title">combine1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'combine1'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; getLengthFromArray(arr); i++) &#123; <span class="comment">// 每次循环都要重新计算长度</span></span><br><span class="line">            sum += getFromArray(arr, i); <span class="comment">// 使用提供越界检查getter得到数组元素</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'combine1'</span>);</span><br><span class="line">    &#125;());</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'end'</span>);</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<h2 id="消除循环的低效率"><a href="#消除循环的低效率" class="headerlink" title="消除循环的低效率"></a>消除循环的低效率</h2><p>函数combine1在 <strong>每一个for循环，都会调用getLengthFromArray作为循环的测试条件</strong>，根据我们函数的功能来看，<strong>我们只是访问数组中的每一个元素，并不会修改数组的长度</strong>，因此产生了大量的无效计算(调用)，所以需要优化。</p>
+<h3 id="版本2"><a href="#版本2" class="headerlink" title="版本2"></a>版本2</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">combine2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// 可直接执行</span></span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">'combine2'</span>);</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> len = getLengthFromArray(arr); <span class="comment">// 消除每次循环对数组长度的计算</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        sum += getFromArray(arr, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line">    <span class="built_in">console</span>.timeEnd(<span class="string">'combine2'</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p><strong>combine2</strong> 通过我个人电脑的测试，在消除for循环判断条件中的无用计算后，combine2确实比combine2要快个10ms左右，可能你觉得这点时间不算什么。但是：<strong>无论这个优化的提升是否巨大，它都是低效率的一种来源，需要被消除，否则这有可能成为进一步优化时的瓶颈。</strong></p>
+<h2 id="减少多余的函数调用"><a href="#减少多余的函数调用" class="headerlink" title="减少多余的函数调用"></a>减少多余的函数调用</h2><p>通过分析combine2函数，我们可以发现，getFromArray函数的提供的越界检查似乎是不必要的，如果我们正确的设置循环的终止条件。对于每一次访问，getFromArray都会做判断，这种判断是不必要的，且每一次函数调用也是一种开销。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">combine3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 现在消除了每次循环对数组长度的计算</span></span><br><span class="line"><span class="comment">     * 并且确定访问不会越界，不需要越界检查，直接访问数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">'combine3'</span>);</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> len = getLengthFromArray(arr);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        sum += arr[i]; <span class="comment">// 直接访问</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line">    <span class="built_in">console</span>.timeEnd(<span class="string">'combine3'</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>经过实践，combine3对比combine1性能几乎提升了一倍多，所以从性能上看，这种优化显然是需要的。</p>
+<p>但是值得争论的一点在于，你如果把 <strong>arr</strong> 看作一个别人提供的数据结构，getFromArray作为这个数据的结构的getter，<strong>我们作为用户，不应该对arr的底层实现有任何的假设</strong>，我们不知道它的底层是数组还是链表，因此它违背了 <strong>黑盒原则</strong>，提高了程序的耦合性。</p>
+<p>所以在程序优化时，你可能需要<strong>平衡好 高性能高耦合 或 低性能低内聚 的抉择</strong></p>
+<h2 id="消除不必要的内存访问"><a href="#消除不必要的内存访问" class="headerlink" title="消除不必要的内存访问"></a>消除不必要的内存访问</h2><p>为了理解这个优化点，你首先得明白：</p>
+<ul>
+<li>1）对于一个函数，其内部变量一般存储在寄存器中，你可以把寄存器看成一个CPU和内存之间的一个缓存</li>
+<li>2）程序访问寄存器的速度远快于访问内存</li>
+<li>3）对于值为数组的变量，其在寄存器中的值是数组在内存中的地址，所以更改或访问其数据需要访问内存</li>
+</ul>
+<p>在明确这几点以后，让我们来看一段<strong>负优化</strong>后的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">combine4</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = [<span class="number">0</span>]; <span class="comment">// 负优化在这里，sum现在是个指针了</span></span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">'combine4'</span>);</span><br><span class="line">    <span class="keyword">const</span> len = getLengthFromArray(arr);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        sum[<span class="number">0</span>] += arr[i]; <span class="comment">// 三次内存访问</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">console</span>.timeEnd(<span class="string">'combine4'</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>combine4与combine3唯一不同点在于，sum变成一个引用类型的变量，其引用一个存储在内存中的，长度为1的数组，此时我们分析下对于 <strong>sum[0] += arr[i]</strong> 要访问几次内存：</p>
+<ul>
+<li>读取sum[0]</li>
+<li>读取arr[i]</li>
+<li>写回sum[0]<br>两次读，一次写，总共三次</li>
+</ul>
+<p>为了得出更令人信服的结论，这里提供combine4的另一个正优化后版本进行对比。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">combine4_anothor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = [<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> tmp = <span class="number">0</span>; <span class="comment">// 通过设计临时变量，减少内存访问次数</span></span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">'combine4_anothor'</span>);</span><br><span class="line">    <span class="keyword">const</span> len = getLengthFromArray(arr);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        tmp += arr[i]; <span class="comment">// 一次内存访问</span></span><br><span class="line">    &#125;</span><br><span class="line">    sum[<span class="number">0</span>] = tmp;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">console</span>.timeEnd(<span class="string">'combine4_anothor'</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>现在我们分析下combine4_anothor在每一次for循环访问内存的次数，只有一次读arr[i]的操作，对比原来的combine4减少了两次的内存访问，比起combine4的每次循环写入内存，combine4 anothor选择在最后写入内存。实际上这个操作性能的提升也是巨大的，这里我给出自己电脑的上结果：</p>
+<ul>
+<li>combine3: 15.298ms</li>
+<li>combine4: 28.701ms</li>
+<li>combine4_anothor: 17.618ms</li>
+</ul>
+<p>本节核心在于：<strong>通过设置临时变量，复用变量，减少不必要的内存访问</strong></p>
+<p>这节中，你可能会疑惑：为什么内存速度会很慢？寄存器和内存什么关系？为什么局部变量存储在寄存器上？怎么做到的？同样的，这些问题在《CSAPP》都有解答。</p>
+<h2 id="使用循环展开"><a href="#使用循环展开" class="headerlink" title="使用循环展开"></a>使用循环展开</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">combine5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 利用循环展开</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;        </span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">'combine5'</span>);</span><br><span class="line">    <span class="keyword">const</span> len = getLengthFromArray(arr);</span><br><span class="line">    <span class="keyword">const</span> limit = len - <span class="number">1</span>; <span class="comment">//防止越界</span></span><br><span class="line">    <span class="keyword">let</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; limit; i += <span class="number">2</span>) &#123;  <span class="comment">// 步长为2的展开</span></span><br><span class="line">        sum += arr[i]; <span class="comment">// 直接访问</span></span><br><span class="line">        sum += arr[i + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; len; i++) &#123; <span class="comment">//处理剩余未访问的元素</span></span><br><span class="line">        sum += arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line">    <span class="built_in">console</span>.timeEnd(<span class="string">'combine5'</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>循环展开是怎么提升这段代码性能的？原因在于他消除了部分调用for循环的开销，这个特定了例子里，他减少了大概一半的for循环次数，因此也就减少一半的判断次数，所以性能会得到提升。</p>
+<p>然而令人意外的时：但是当我在机器上实践的时候，采用步长为2的展开时，<strong>combine5并没有比combine4  anothor跑的快，相反还要慢一点</strong>，但当我逐渐增高循环展开的步数后，时间才逐渐逼近combine4 anothor，最后大概一致，这是为什么呢？</p>
+<p>首先刚才提了，循环性能提升的原因在于减少for循环中判断的次数，当我们采用步长为1的循环时，现代的编译器可以识别出这种常用的循环模式，从而直接进行类似循环展开的优化，因此当我们提高循环展开的步长时，其实是在手动进行这种优化。<strong>但值得注意的是，对于这段简单的代码，编译器可以识别出来，但是复杂点的，就不一定了，所以掌握这种展开的技术是必要的</strong>，并且这种通过循环展开优化后的 <strong>性能瓶颈来源</strong> 很值得我们思考。</p>
+<h3 id="再次分析性能瓶颈"><a href="#再次分析性能瓶颈" class="headerlink" title="再次分析性能瓶颈"></a>再次分析性能瓶颈</h3><p>现在我们分析下combine5性能的限制，或者说这个<strong>函数的运行时间主要依赖于哪个因素</strong>？</p>
+<p>我们可以通过循环展开减少循环次数，从而节省每次循环后比较的开销，但是 <strong>sum += arr[i]</strong> 的开销没法省，无论怎么优化 <strong>我们都至少要访问arr数组 length次数</strong>，且计算机对于 <strong>sum += arr[i] 执行必须是按序的，无论是否采用循环展开</strong>，因为每一次sum的计算值都依赖于上一次的sum的计算值。</p>
+<p>所以combine5函数的主要运行时间源于 <strong>sum += arr[i]</strong>，如果arr数组长为100，计算机每次执行 sum += arr[i] 需要花费1s，那么combine5 <strong>无论怎么优化，每次执行都至少要花费100s</strong>。</p>
+<p>这里，我们要引入一点现代CPU的知识，大家认为代码(指令)按序执行，实际上展示的效果也确实是这样的，但是在底层，<strong>cpu其实是乱序执行代码的。通过对指令的分析再排序，cpu可以并发、甚至并行的执行代码(通过利用多核)</strong>，至于这样为什么正确？</p>
+<p>考虑以下这段代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span> + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span> + <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c = a + b;</span><br><span class="line"><span class="keyword">let</span> d = c + c;</span><br></pre></td></tr></table></figure>
+<p>a，b是可以并行计算，因为它们并不相互依赖，而c就必须等到a，b执行完才能运行，d必须等到c后才能执行，所以c，d无法并行，只能按序执行。</p>
+<p>现在我们再回顾下制约combine5性能的原因：</p>
+<ul>
+<li>1）我们都至少要访问arr数组 length次数</li>
+<li>2）计算机对于 <strong>sum += arr[i] 执行必须是按序的，无论是否采用循环展开</strong>，因为<strong>每一次计算sum都依赖于上一次sum的计算值</strong></li>
+</ul>
+<p>1）是无法避免的，但我们是否有机会对2）作出改进，考虑以下代码</p>
+<h2 id="提高代码并行性"><a href="#提高代码并行性" class="headerlink" title="提高代码并行性"></a>提高代码并行性</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">combine5_another</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 提高并行性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">'combine5_another'</span>);</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;        </span><br><span class="line">    <span class="keyword">let</span> tmp1 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> len = getLengthFromArray(arr);</span><br><span class="line">    <span class="keyword">const</span> limit = len - <span class="number">1</span>; <span class="comment">//防止循环展开后越界</span></span><br><span class="line">    <span class="keyword">let</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; limit; i += <span class="number">2</span>) &#123;</span><br><span class="line">        sum += arr[i]; <span class="comment">// 直接访问</span></span><br><span class="line">        tmp1 += arr[i + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; len; i++) &#123; <span class="comment">//处理剩余未访问的元素</span></span><br><span class="line">        sum += arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    sum += tmp2;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line">    <span class="built_in">console</span>.timeEnd(<span class="string">'combine5_another'</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>combine5_another通过设置一个临时变量tmp1来计算数组arr[2n - 1]的累计和，sum计算arr[2n - 2]的累计和，这使得cpu可以并行的计算tmp1和sum，因为tmp1的计算不依赖sum，反之亦然。最后，循环结束后再合并结果，理论上100s的执行时间，就减少到50s了。</p>
+<p>不过，在我实践时，并行优化并没有带来性能上的提升，甚至下降了，可能的原因有两个，一个是干扰，而另一个原因则非常重要。这里先谈干扰，这是因为：由于并行计算使用循环展开，导致编译器无法识别其循环模式，进行优化。</p>
+<p>另一个重要的原因就是 <strong>循环展开</strong> 和 <strong>提高并行性</strong> 两种优化是依赖于底层硬件的，就拿后者来说，cpu之所能进行并行计算，是因为底层设置了冗余计算功能单元，而单元的数量限制了同一时间并行计算的次数<strong>，对于相同优化后的代码，在不同cpu上运行，其性能提升不一定，甚至可能会下降</strong>。所以这两种优化需要针对具体机器，具体分析，但在原则上是通用的。</p>
+<p>同样的，《CSAPP》详细讲解了这两项优化背后的原理以及原因，有兴趣的可以去看书。</p>
+<p>最后提供下未优化和优化后版本的对比：</p>
+<ul>
+<li>优化前: 47.267ms</li>
+<li>优化后: 12.731ms</li>
+</ul>
+<p>大概提升了70%的性能</p>
+<h2 id="利用程序的局部性"><a href="#利用程序的局部性" class="headerlink" title="利用程序的局部性"></a>利用程序的局部性</h2><p>本节重点是：<strong>你写的程序需要有良好的局部性</strong></p>
+<p>让我们先明确一个事实：<strong>操作系统会缓存经常使用的数据</strong>，通过将数据存储在内存与cpu之间的 <strong>高速缓存</strong> 中，即当一个程序请求一项数据时，操作系统会先去高速缓存中找，再去内存中找(虽然内存的传输速度比硬盘快的多，但比起cpu的处理速度，还是很慢，因此在与cpu中间又加了一层高速缓存)，再去硬盘中找，这样一级级的向下找。找到就直接返回，且<strong>每一级的找寻速度越来越慢</strong>。</p>
+<p>其次，通俗的讲，程序的局部性就是： <strong>刚刚</strong> 被访问的 数据 或 执行的 代码 <strong>其本身或其临近的数据(代码) 很可能会被(再次)访问(执行)</strong>。</p>
+<p>其中局部性又分为：</p>
+<ul>
+<li>时间局部性(已经被访问的数据(代码)，很可能会被再次访问)</li>
+<li>空间局部性(对于已经访问的数据(代码)，其临近的数据(代码)很可能被访问)</li>
+</ul>
+<p>举个例子：<br>以下这段代码对一个10*10的矩阵进行求和。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> matrix = getMatrix(<span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> row = <span class="number">0</span>; row &lt; matrix.length; row++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> col = <span class="number">0</span>; col &lt; matrix[<span class="number">0</span>].length; col++) &#123;</span><br><span class="line">        sum += matrix[row][col];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于变量sum，其很好的体现了时间局部性，在第一次访问后，以后每一次循环都会再次访问它，所以操作系统在第一次访问将它加入高速缓存后，每一次都sum的访问都会直接去高速缓存中去取，而非内存，从而减少了每次访问的内存的时间消耗。</p>
+<p>对于martix[row][col]的访问，其体现了空间局部性，为了明白这点，你得先理解 <strong>二维数组在内存的存储方式</strong>，二维数组在内存中是以 <strong>行优先</strong> 存储，举个例子对于一个10*10的二维数组arr，假设其开始的内存地址是0，那么其每个元素对应的地址位：</p>
+<ul>
+<li>arr[0][0] -&gt; 内存地址 0</li>
+<li>arr[0][1] -&gt; 内存地址 1</li>
+<li>….</li>
+<li>arr[0][9] -&gt; 内存地址 9</li>
+<li>arr[1][0] -&gt; 内存地址 10</li>
+<li>arr[1][1] -&gt; 内存地址 11</li>
+<li>…</li>
+<li>arr[9][0] -&gt; 内存地址 90</li>
+<li>arr[9][1] -&gt; 内存地址 91</li>
+<li>…</li>
+<li>arr[9][9] -&gt; 内存地址 99</li>
+</ul>
+<p>即，如果我们以 <strong>先行再列(就是上面代码的方式)</strong> 的方式遍历，那么我们遍历的内存地址顺序就是一种线性连续递增顺序的方式：内存地址 0, 1, 2, …, 50, 51, 52, …, 90, 91, 92, …, 99</p>
+<p>这就体现了一种空间局部性，当我们访问arr[0]<a href="内存地址 0">0</a>时，操作系统根据 空间局部性原理 假设我们很可能会接着访问 arr[0][1]，于是就将其装入高速缓存，<strong>当我们真的访问的时，就不需要经历等待取内存的时间，而是直接从高速缓存中拿到了</strong>。</p>
+<p>作为对比我们介绍一个 <strong>坏例子</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> col = <span class="number">0</span>; col &lt; matrix[<span class="number">0</span>].length; col++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> row = <span class="number">0</span>; row &lt; matrix.length; row++) &#123;</span><br><span class="line">        sum += matrix[row][col];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码与上面那段代码的 <strong>功能完全一样</strong>，唯一不同的是其遍历的方式变成了<strong>先列再行</strong>，为了给你个直观的理解，此时遍历内存的地址顺序是: 0, 10, 20, …, 80, 90, 1, 11, 21, …, 81, 91, 2, 12, 22, …。比起刚才的连续递增遍历，这样的遍历多了些许 <strong>跳跃性</strong>。这样问题在于，它没法利用 <strong>系统以局部性为前提提供的缓存机制</strong>，当你访问arr[0][0]时，系统把arr[0][1]加入缓存，然后你直接跳到了arr[1][0]，<strong>缓存没有命中，就需要经历等待取内存的时间</strong>，当这种操作大量的累积起来时，就会造成可观，低下的程序性能。</p>
+<p>这里给你一个不严谨，但直观的矩阵求和示例代码结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">start</span><br><span class="line">sum 99980001</span><br><span class="line">良好的局部性:  159.879ms</span><br><span class="line">sum 99980001</span><br><span class="line">坏的局部性:    3420.815ms</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本代码可直接复制到浏览器运行</span></span><br><span class="line"><span class="keyword">void</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'start'</span>);</span><br><span class="line">    <span class="keyword">const</span> size = <span class="number">9999</span>;</span><br><span class="line">    <span class="keyword">const</span> matrix = <span class="built_in">Array</span>(size);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) &#123;</span><br><span class="line">        matrix[i] = <span class="built_in">Array</span>(size).fill(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    (<span class="function"><span class="keyword">function</span> <span class="title">goodVersion</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'良好的局部性'</span>);</span><br><span class="line">        <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> row = <span class="number">0</span>; row &lt; matrix.length; row++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> col = <span class="number">0</span>; col &lt; matrix[<span class="number">0</span>].length; col++) &#123;</span><br><span class="line">                sum += matrix[row][col];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'良好的局部性'</span>);</span><br><span class="line">    &#125;)();</span><br><span class="line"></span><br><span class="line">    (<span class="function"><span class="keyword">function</span> <span class="title">worseVersion</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'坏的局部性'</span>);</span><br><span class="line">        <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> col = <span class="number">0</span>; col &lt; matrix[<span class="number">0</span>].length; col++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> row = <span class="number">0</span>; row &lt; matrix.length; row++) &#123;</span><br><span class="line">                sum += matrix[row][col];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'sum'</span>, sum);</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'坏的局部性'</span>);</span><br><span class="line">    &#125;)();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'end'</span>);</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<p>再强调下重点是：<strong>你写的程序在保证正确的前提下，需要有良好的局部性</strong></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>碍于文章篇幅限制，本文对高性能代码背后原理的解释对于读者来说只能算是一种 <strong>浅尝辄止</strong>，有很多的东西没谈，一些优化牵扯计算机各个层次的知识，比如对于程序局部性原理的利用仅仅停留在宏观层面上，只是定性的分析，但对于局部性原理来说，其实质上是基于一套坚实的理论，依赖于计算机各个层次工作的良好分工，并且这种优化是可以定量分析的。如果你期望了解的更多，更详细，更系统点，建议你去看CSAPP这本书和配套的公开课。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/csapp/" rel="tag"># csapp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/leetcode 908-最小差值I-Smallest Range I-解法的图形化理解.html" rel="next" title="leetcode 908-最小差值I-Smallest Range I-解法的图形化理解">
+                <i class="fa fa-chevron-left"></i> leetcode 908-最小差值I-Smallest Range I-解法的图形化理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/49502170" alt="塔希(Yunfei He)">
+            
+              <p class="site-author-name" itemprop="name">塔希(Yunfei He)</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/iheyunfei" title="GitHub &rarr; https://github.com/iheyunfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i.heyunfei@gmail.com" title="E-Mail &rarr; mailto:i.heyunfei@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sicp-js.iheyunfei.com" title="http://sicp-js.iheyunfei.com" rel="noopener" target="_blank">【译】-《SICP in JavaScript》</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引子"><span class="nav-number">2.1.</span> <span class="nav-text">引子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本1："><span class="nav-number">2.1.1.</span> <span class="nav-text">版本1：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除循环的低效率"><span class="nav-number">2.2.</span> <span class="nav-text">消除循环的低效率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本2"><span class="nav-number">2.2.1.</span> <span class="nav-text">版本2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少多余的函数调用"><span class="nav-number">2.3.</span> <span class="nav-text">减少多余的函数调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消除不必要的内存访问"><span class="nav-number">2.4.</span> <span class="nav-text">消除不必要的内存访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用循环展开"><span class="nav-number">2.5.</span> <span class="nav-text">使用循环展开</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#再次分析性能瓶颈"><span class="nav-number">2.5.1.</span> <span class="nav-text">再次分析性能瓶颈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提高代码并行性"><span class="nav-number">2.6.</span> <span class="nav-text">提高代码并行性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用程序的局部性"><span class="nav-number">2.7.</span> <span class="nav-text">利用程序的局部性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔希(Yunfei He)</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
