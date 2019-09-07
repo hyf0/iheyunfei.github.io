@@ -46,18 +46,14 @@ const result : any = useSelector(selector : Function, equalityFn? : Function)
 
 > **警告**: selector 函数应该是个[纯函数](https://zh.wikipedia.org/wiki/%E7%BA%AF%E5%87%BD%E6%95%B0)，因为，在任意的时间点，它可能会被执行很多次。
 
-从概念上讲，selector 函数与 [<code>connect</code> 的 <code><code></code> 参数](htt</code> ps://react-redux.js.org/next/using-react-redux/connect-mapstate)是差不多一样的。selector 函数被调用时，将会被传入Redux store的整个state，作为唯一的参数。每次函数组件渲染时， selector 函数都会被调用。<code>useSelector()</code>同样会订阅 Redux 的 sotre，并且在你每 分发(dispatch) 一个 action 时，都会被执行一次。
+从概念上讲，selector 函数与 [<code>connect</code> 的 <code>mapStateToProps</code> 的参数](https://react-redux.js.org/next/using-react-redux/connect-mapstate)是差不多一样的。selector 函数被调用时，将会被传入Redux store的整个state，作为唯一的参数。每次函数组件渲染时， selector 函数都会被调用。<code>useSelector()</code>同样会订阅 Redux 的 sotre，并且在你每 分发(dispatch) 一个 action 时，都会被执行一次。
 
 尽管如此，传递给 <code>useSelector()</code> 的各种 selector 函数还是和 <code>mapState</code> 函数有些不一样的地方：
 
 - selector 函数可以返回任意类型的值，并不要求是一个 对象(object)。selector 函数的返回值会被用作调用 <code>useSelector()</code> hook 时的返回值。
-
 - 当 分发(dispatch) 了一个 action 时，<code>useSelector()</code> 会将上一次调用 selector 函数结果与当前调用的结果进行引用(===)比较，如果不一样，组件会被强制重新渲染。如果一样，就不会被重新渲染。
-
 - selector 函数不会接收到 <code>ownProps</code> 参数。但是 props 可以通过闭包获取使用(下面有个例子) 或者 通过使用柯里化的 selector 函数。
-
 - 当使用 记忆后(memoizing) 的 selectors 函数时，需要一些额外的注意(下面有个例子帮助了解)。
-
 - <code>useSelector()</code> 默认使用严格比较 <code>===</code> 来比较引用，而非浅比较。(看下面的部分来了解细节)
 
 <small>
@@ -348,7 +344,7 @@ export function MyProvider({ children }) {
 
 ## 过期 Props 和  "丧尸子组件" 
 
-有关 React Redux 实现一个难点在于，当你以 <code>(state, ownProps)</code> 形式定义了 <code>mapStateToProps</code> 函数时，怎么保证每次都以最新的 props 调用 <code>mapStateToProps</code>。version 4 中，在一些边缘情况下，经常发生一些bug，比如一个列表中的某项被删除时， <code>mapState</code> 函数内部会抛出错误。
+有关 React Redux 实现一个难点在于，当你以 <code>(state, ownProps)</code> 形式定义 <code>mapStateToProps</code> 函数时，怎么保证每次都以最新的 props 调用 <code>mapStateToProps</code>。version 4 中，在一些边缘情况下，经常发生一些bug，比如一个列表中的某项被删除时， <code>mapState</code> 函数内部会抛出错误。
 
 从 version 5 开始，React Redux 试图保证 <code>ownProps</code> 参数的一致性。在 version 7 中，通过在  <code>connect()</code>  内部使用一个自定义的 <code>Subscription</code> 类，实现了这种保证，也导致了组件被层层嵌套的形式。这确保了组件树深处  <code>connect()</code>  后的组件，只会在离自己最近的  <code>connect()</code>  后的祖先组件更新后，才会被通知 store 更新了。但是，这依赖于每个 <code> connect(</code>) 的实例副高 React 内部部分的 context，随后  <code>connect()</code>  提供了自己独特的 <code>Subscription</code> 实例，将组件嵌套其中，提供一个新的 conext 值给 <code>&lt;ReactReduxContext.Provider&gt;</code>，再进行渲染。
 
