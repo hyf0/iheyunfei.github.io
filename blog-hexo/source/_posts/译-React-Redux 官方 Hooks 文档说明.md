@@ -1,7 +1,8 @@
 ---
-title: [译] React-Redux 官方 Hooks 文档说明
+title: 译 - React-Redux 官方 Hooks 文档说明
 date: 2019-09-07 11:27:57
-tags:
+tags: 
+- 翻译
 - react
 - react-redux
 - 前端

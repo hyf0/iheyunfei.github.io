@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="来源：React Redux: Hooks 译者：塔希 协议：CC BY-NC-SA 4.0   HooksReact的新 “hooks” APIs 赋予了函数组件使用本地组件状态，执行副作用，等各种能力。 React Redux 现在提供了一系列 hook APIs 作为现在 connect() 高阶组件的替代品。这些 APIs 允许你，在不使用 connect() 包裹组件的情况下，订阅">
+<meta name="keywords" content="前端,react,翻译,react-redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="\[译\] React-Redux 官方 Hooks 文档说明">
+<meta property="og:url" content="http://iheyunfei.com/posts/译-React-Redux 官方 Hooks 文档说明.html">
+<meta property="og:site_name" content="篝火处">
+<meta property="og:description" content="来源：React Redux: Hooks 译者：塔希 协议：CC BY-NC-SA 4.0   HooksReact的新 “hooks” APIs 赋予了函数组件使用本地组件状态，执行副作用，等各种能力。 React Redux 现在提供了一系列 hook APIs 作为现在 connect() 高阶组件的替代品。这些 APIs 允许你，在不使用 connect() 包裹组件的情况下，订阅">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-07T05:48:48.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="\[译\] React-Redux 官方 Hooks 文档说明">
+<meta name="twitter:description" content="来源：React Redux: Hooks 译者：塔希 协议：CC BY-NC-SA 4.0   HooksReact的新 “hooks” APIs 赋予了函数组件使用本地组件状态，执行副作用，等各种能力。 React Redux 现在提供了一系列 hook APIs 作为现在 connect() 高阶组件的替代品。这些 APIs 允许你，在不使用 connect() 包裹组件的情况下，订阅">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://iheyunfei.com/posts/译-React-Redux 官方 Hooks 文档说明">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>\[译\] React-Redux 官方 Hooks 文档说明 | 篝火处</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-139452179-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-139452179-1');
+    }
+  </script>
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b6feb71d80f514e66997b3388378a6bb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">篝火处</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">塔希的个人博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/iheyunfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/译-React-Redux 官方 Hooks 文档说明.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="塔希(Yunfei He)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/49502170">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="篝火处">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">\[译\] React-Redux 官方 Hooks 文档说明
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-07 11:27:57 / 修改时间：13:48:48" itemprop="dateCreated datePublished" datetime="2019-09-07T11:27:57+08:00">2019-09-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<ul>
+<li>来源：<a href="https://react-redux.js.org/next/api/hooks#usestore" target="_blank" rel="noopener">React Redux: Hooks</a></li>
+<li>译者：<a href="https://github.com/iheyunfei" target="_blank" rel="noopener">塔希</a></li>
+<li>协议：CC BY-NC-SA 4.0</li>
+</ul>
+</blockquote>
+<h1 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h1><p>React的新 <a href="https://zh-hans.reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">“hooks” APIs</a> 赋予了函数组件使用本地组件状态，执行副作用，等各种能力。</p>
+<p>React Redux 现在提供了一系列 hook APIs 作为现在 <code>connect()</code> 高阶组件的替代品。这些 APIs 允许你，在不使用 <code>connect()</code> 包裹组件的情况下，订阅 Redux 的 store，和 分发(dispatch) actions。</p>
+<p>这些 hooks 首次添加于版本 v7.1.0。</p>
+<h2 id="在一个-React-Redux-应用中使用-hooks"><a href="#在一个-React-Redux-应用中使用-hooks" class="headerlink" title="在一个 React Redux 应用中使用 hooks"></a>在一个 React Redux 应用中使用 hooks</h2><p>和使用 <code>connect()</code> 一样，你首先应该将整个应用包裹在 <code>&lt;Provider&gt;</code> 中，使得 store 暴露在整个组件树中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = createStore(rootReducer)</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;<span class="regexp">/Provider&gt;,</span></span><br><span class="line"><span class="regexp">  document.getElementById('root')</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></table></figure>
+<p>然后，你就可以 import 下面列出的 React Redux hooks APIs，然后在函数组件中使用它们。</p>
+<h1 id="useSelector"><a href="#useSelector" class="headerlink" title="useSelector()"></a><code>useSelector()</code></h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result : any = useSelector(selector : <span class="built_in">Function</span>, equalityFn? : <span class="built_in">Function</span>)</span><br></pre></td></tr></table></figure>
+<p>通过传入 selector 函数，你就可以从从 Redux 的 store 中获取 状态(state) 数据。</p>
+<blockquote>
+<p><strong>警告</strong>: selector 函数应该是个<a href="https://zh.wikipedia.org/wiki/%E7%BA%AF%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">纯函数</a>，因为，在任意的时间点，它可能会被执行很多次。</p>
+</blockquote>
+<p>从概念上讲，selector 函数与 <a href="htt&lt;/code&gt; ps://react-redux.js.org/next/using-react-redux/connect-mapstate"><code>connect</code> 的 <code><code></code> 参数</code></a>是差不多一样的。selector 函数被调用时，将会被传入Redux store的整个state，作为唯一的参数。每次函数组件渲染时， selector 函数都会被调用。<code>useSelector()</code>同样会订阅 Redux 的 sotre，并且在你每 分发(dispatch) 一个 action 时，都会被执行一次。</p>
+<p>尽管如此，传递给 <code>useSelector()</code> 的各种 selector 函数还是和 <code>mapState</code> 函数有些不一样的地方：</p>
+<ul>
+<li><p>selector 函数可以返回任意类型的值，并不要求是一个 对象(object)。selector 函数的返回值会被用作调用 <code>useSelector()</code> hook 时的返回值。</p>
+</li>
+<li><p>当 分发(dispatch) 了一个 action 时，<code>useSelector()</code> 会将上一次调用 selector 函数结果与当前调用的结果进行引用(===)比较，如果不一样，组件会被强制重新渲染。如果一样，就不会被重新渲染。</p>
+</li>
+<li><p>selector 函数不会接收到 <code>ownProps</code> 参数。但是 props 可以通过闭包获取使用(下面有个例子) 或者 通过使用柯里化的 selector 函数。</p>
+</li>
+<li><p>当使用 记忆后(memoizing) 的 selectors 函数时，需要一些额外的注意(下面有个例子帮助了解)。</p>
+</li>
+<li><p><code>useSelector()</code> 默认使用严格比较 <code>===</code> 来比较引用，而非浅比较。(看下面的部分来了解细节)</p>
+</li>
+</ul>
+<p><small></small></p>
+<p>译者注: 浅比较并不是指 ==。严格比较 === 对应的是 疏松比较 ==，与 <em>浅比较</em> 对应的是 <em>深比较</em>。</p>
+<p></p>
+<blockquote>
+<p><strong>警告</strong>: 在 selectors 函数中使用 props 时存在一些边界用例可能导致错误。详见本页的 <strong><a href="#使用警告">使用警告</a></strong> 小节。</p>
+</blockquote>
+<p>你可以在一个函数组件中多次调用 <code>useSelector()</code>。每一个 <code>useSelector()</code> 的调用都会对 Redux 的 store 创建的一个独立的 订阅(subscription)。由于 Redux v7 的 批量更新(update batching) 行为，对于一个组件来说，如果一个 分发后(dispatched) 的 action 导致组件内部的多个 <code>useSelector()</code> 产生了新值，那么仅仅会触发一次重渲染。</p>
+<h2 id="相等比较-Equality-Comparisons-和更新"><a href="#相等比较-Equality-Comparisons-和更新" class="headerlink" title="相等比较(Equality Comparisons) 和更新"></a>相等比较(Equality Comparisons) 和更新</h2><p>当一个函数组件渲染时，传入的 selector 函数会被调用，其结果会作为 <code>useSelector()</code> 的返回值进行返回。(如果 selector 已经执行过，且没有发生变化，可能会返回缓存后的结果)</p>
+<p>不管怎样，当一个 action 被分发(dispatch) 到 Redux store 后，<code>useSelector()</code> 仅仅在 selector 函数执行的结果与上一次结果不同时，才会触发重渲染。在版本v7.1.0-alpha.5中，默认的比较模式是严格引用比较 ===。这与  <code>connect()</code>  中的不同， <code>connect()</code>  使用浅比较来比较 <code>mapState</code> 执行后的结果，从而决定是否触发重渲染。这里有些建议关于如何使用<code>useSelector()</code>。</p>
+<p>对于 <code>mapState</code> 来讲，所有独立的状态域被绑定到一个对象(object) 上返回。返回对象的引用是否是新的并不重要——因为  <code>connect()</code>  会单独的比较每一个域。对于 <code>useSelector()</code> 来说，返回一个新的对象引用总是会触发重渲染，作为 <code>useSelector()</code> 默认行为。如果你想获得 store 中的多个值，你可以：</p>
+<ul>
+<li><p>多次调用 <code>useSelector()</code>，每次都返回一个单独域的值</p>
+</li>
+<li><p>使用 Reselect 或类似的库来创建一个记忆化的 selector 函数，从而在一个对象中返回多个值，但是仅仅在其中一个值改变时才返回的新的对象。</p>
+</li>
+<li><p>使用 React-Redux <code>shallowEqual</code> 函数作为 <code>useSelector()</code> 的 <code>equalityFn</code> 参数，如：</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; shallowEqual, useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// later</span></span><br><span class="line"><span class="keyword">const</span> selectedData = useSelector(selectorReturningObject, shallowEqual)</span><br></pre></td></tr></table></figure>
+<p>这个可选的比较函数参数使得我们可以使用 Lodash 的 <code>_.isEqual()</code> 或 Immutable.js 的比较功能。</p>
+<h2 id="useSelector-例子"><a href="#useSelector-例子" class="headerlink" title="useSelector 例子"></a>useSelector 例子</h2><p>基本用法:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CounterComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> counter = useSelector(<span class="function"><span class="params">state</span> =&gt;</span> state.counter)</span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;&#123;counter&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过闭包使用 props 来选择取回什么状态：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> TodoListItem = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> todo = useSelector(<span class="function"><span class="params">state</span> =&gt;</span> state.todos[props.id])</span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;&#123;todo.text&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用记忆化的-selectors-函数"><a href="#使用记忆化的-selectors-函数" class="headerlink" title="使用记忆化的 selectors 函数"></a>使用记忆化的 selectors 函数</h3><p>当像上方展示的那样，在使用 <code>useSelector</code> 时使用单行箭头函数，会导致在每次渲染期间都会创建一个新的 selector 函数。可以看出，这样的 selector 函数并没有维持任何的内部状态。但是，记忆化的 selectors 函数 (通过 <code>reselect</code> 库中 的 <code>createSelector</code> 创建) 含有内部状态，所以在使用它们时必须小心。</p>
+<p>当一个 selector 函数依赖于某个 状态(state) 时，确保函数声明在组件之外，这样就不会导致相同的 selector 函数在每一次渲染时都被重复创建：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; createSelector &#125; <span class="keyword">from</span> <span class="string">'reselect'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> selectNumOfDoneTodos = createSelector(</span><br><span class="line">  state =&gt; state.todos,</span><br><span class="line">  todos =&gt; todos.filter(<span class="function"><span class="params">todo</span> =&gt;</span> todo.isDone).length</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DoneTodosCounter = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> NumOfDoneTodos = useSelector(selectNumOfDoneTodos)</span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;&#123;NumOfDoneTodos&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;span&gt;<span class="built_in">Number</span> <span class="keyword">of</span> done todos:&lt;/span&gt;</span><br><span class="line">      &lt;DoneTodosCounter /&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这种做法同样适用于依赖组件 props 的情况，但是仅适用于单例的组件的形式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; createSelector &#125; <span class="keyword">from</span> <span class="string">'reselect'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> selectNumOfTodosWithIsDoneValue = createSelector(</span><br><span class="line">  state =&gt; state.todos,</span><br><span class="line">  (_, isDone) =&gt; isDone,</span><br><span class="line">  (todos, isDone) =&gt; todos.filter(<span class="function"><span class="params">todo</span> =&gt;</span> todo.isDone === isDone).length</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> TodoCounterForIsDoneValue = <span class="function">(<span class="params">&#123; isDone &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> NumOfTodosWithIsDoneValue = useSelector(<span class="function"><span class="params">state</span> =&gt;</span></span><br><span class="line">    selectNumOfTodosWithIsDoneValue(state, isDone)</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;&#123;NumOfTodosWithIsDoneValue&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;span&gt;<span class="built_in">Number</span> <span class="keyword">of</span> done todos:&lt;/span&gt;</span><br><span class="line">      &lt;TodoCounterForIsDoneValue isDone=&#123;<span class="literal">true</span>&#125; /&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>如果， 你想要在多个组件实例中使用相同的依赖组件 props 的 selector 函数，你必须确保每一个组件实例创建属于自己的 selector 函数(<a href="https://github.com/reduxjs/reselect#accessing-react-props-in-selectors" target="_blank" rel="noopener">这里</a>解释了为什么这样做是必要的)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useMemo &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; createSelector &#125; <span class="keyword">from</span> <span class="string">'reselect'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> makeNumOfTodosWithIsDoneSelector = <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">  createSelector(</span><br><span class="line">    state =&gt; state.todos,</span><br><span class="line">    (_, isDone) =&gt; isDone,</span><br><span class="line">    (todos, isDone) =&gt; todos.filter(<span class="function"><span class="params">todo</span> =&gt;</span> todo.isDone === isDone).length</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> TodoCounterForIsDoneValue = <span class="function">(<span class="params">&#123; isDone &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> selectNumOfTodosWithIsDone = useMemo(</span><br><span class="line">    makeNumOfTodosWithIsDoneSelector,</span><br><span class="line">    []</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> numOfTodosWithIsDoneValue = useSelector(<span class="function"><span class="params">state</span> =&gt;</span></span><br><span class="line">    selectNumOfTodosWithIsDone(state, isDone)</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;&#123;numOfTodosWithIsDoneValue&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;span&gt;<span class="built_in">Number</span> <span class="keyword">of</span> done todos:&lt;/span&gt;</span><br><span class="line">      &lt;TodoCounterForIsDoneValue isDone=&#123;<span class="literal">true</span>&#125; /&gt;</span><br><span class="line">      &lt;span&gt;<span class="built_in">Number</span> <span class="keyword">of</span> unfinished todos:&lt;/span&gt;</span><br><span class="line">      &lt;TodoCounterForIsDoneValue isDone=&#123;<span class="literal">false</span>&#125; /&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="被移除的：useActions"><a href="#被移除的：useActions" class="headerlink" title="被移除的：useActions()"></a>被移除的：<code>useActions()</code></h1><p><code>useActions()</code> 已经被移除</p>
+<h1 id="useDispatch"><a href="#useDispatch" class="headerlink" title="useDispatch()"></a><code>useDispatch()</code></h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dispatch = useDispatch()</span><br></pre></td></tr></table></figure>
+<p>这个 hook 返回 Redux store 的 分发(dispatch) 函数的引用。你也许会使用来 分发(dispatch) 某些需要的 action。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CounterComponent = <span class="function">(<span class="params">&#123; value &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatch = useDispatch()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;span&gt;&#123;value&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: 'increment-counter' &#125;)&#125;&gt;</span></span><br><span class="line"><span class="regexp">        Increment counter</span></span><br><span class="line"><span class="regexp">      &lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>在将一个使用了 dispatch 函数的回调函数传递给子组件时，建议使用 useCallback 函数将回调函数记忆化，防止因为回调函数引用的变化导致不必要的渲染。</p>
+<p><small></small></p>
+<p>译者注：这里的建议其实和 dispatch 没关系，无论是否使用 dispatch，你都应该确保回调函数不会无故变化，然后导致不必要的重渲染。之所以和 dispatch 没关系，是因为，一旦 dispatch 变化，useCallback 会重新创建回调函数，回调函数的引用铁定发生了变化，然而导致不必要的重渲染。</p>
+<p></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CounterComponent = <span class="function">(<span class="params">&#123; value &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatch = useDispatch()</span><br><span class="line">  <span class="keyword">const</span> incrementCounter = useCallback(</span><br><span class="line">    () =&gt; dispatch(&#123; <span class="attr">type</span>: <span class="string">'increment-counter'</span> &#125;),</span><br><span class="line">    [dispatch]</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;span&gt;&#123;value&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">      &lt;MyIncrementButton onIncrement=&#123;incrementCounter&#125; /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export const MyIncrementButton = React.memo((&#123; onIncrement &#125;) =&gt; (</span></span><br><span class="line"><span class="regexp">  &lt;button onClick=&#123;onIncrement&#125;&gt;Increment counter&lt;/</span>button&gt;</span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+<h1 id="useStore"><a href="#useStore" class="headerlink" title="useStore()"></a><code>useStore()</code></h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = useStore()</span><br></pre></td></tr></table></figure>
+<p>这个 hook 返回传递给 <provider> 组件的 Redux sotore 的引用。</provider></p>
+<p>这个 hook 也许不应该被经常使用。 你应该将 <code>useSelector()</code> 作为你的首选。但是，在一些不常见的场景下，你需要访问 store，这个还是有用的，比如替换 store 的 reducers。</p>
+<p>This hook should probably not be used frequently. Prefer <code>useSelector()</code> as your primary choice. However, this may be useful for less common scenarios that do require access to the store, such as replacing reducers.</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useStore &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CounterComponent = <span class="function">(<span class="params">&#123; value &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> store = useStore()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// EXAMPLE ONLY! Do not do this in a real app.</span></span><br><span class="line">  <span class="comment">// The component will not automatically update if the store state changes</span></span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;&#123;store.getState()&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="自定义-context"><a href="#自定义-context" class="headerlink" title="自定义 context"></a>自定义 context</h1><p><code>&lt;Provider&gt; </code> 组件允许你通过 <code>context</code> 参数指定一个可选的 context。在你构建复杂的可复用的组件时，你不想让你自己的私人 store 与使用这个组件的用户的 Redux store 发生冲突，这个功能是很有用的，</p>
+<p>通过使用 hook creator 函数来创建自定义 hook，从而访问可选的 context。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;</span><br><span class="line">import &#123;</span><br><span class="line">  Provider,</span><br><span class="line">  createStoreHook,</span><br><span class="line">  createDispatchHook,</span><br><span class="line">  createSelectorHook</span><br><span class="line">&#125; from &apos;react-redux&apos;</span><br><span class="line"></span><br><span class="line">const MyContext = React.createContext(null)</span><br><span class="line"></span><br><span class="line">// Export your custom hooks if you wish to use them in other files.</span><br><span class="line">export const useStore = createStoreHook(MyContext)</span><br><span class="line">export const useDispatch = createDispatchHook(MyContext)</span><br><span class="line">export const useSelector = createSelectorHook(MyContext)</span><br><span class="line"></span><br><span class="line">const myStore = createStore(rootReducer)</span><br><span class="line"></span><br><span class="line">export function MyProvider(&#123; children &#125;) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Provider context=&#123;MyContext&#125; store=&#123;myStore&#125;&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/Provider&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用警告"><a href="#使用警告" class="headerlink" title="使用警告"></a>使用警告</h1><h2 id="过期-Props-和-“丧尸子组件”"><a href="#过期-Props-和-“丧尸子组件”" class="headerlink" title="过期 Props 和  “丧尸子组件”"></a>过期 Props 和  “丧尸子组件”</h2><p>有关 React Redux 实现一个难点在于，当你以 <code>(state, ownProps)</code> 形式定义了 <code>mapStateToProps</code> 函数时，怎么保证每次都以最新的 props 调用 <code>mapStateToProps</code>。version 4 中，在一些边缘情况下，经常发生一些bug，比如一个列表中的某项被删除时， <code>mapState</code> 函数内部会抛出错误。</p>
+<p>从 version 5 开始，React Redux 试图保证 <code>ownProps</code> 参数的一致性。在 version 7 中，通过在  <code>connect()</code>  内部使用一个自定义的 <code>Subscription</code> 类，实现了这种保证，也导致了组件被层层嵌套的形式。这确保了组件树深处  <code>connect()</code>  后的组件，只会在离自己最近的  <code>connect()</code>  后的祖先组件更新后，才会被通知 store 更新了。但是，这依赖于每个 <code> connect(</code>) 的实例副高 React 内部部分的 context，随后  <code>connect()</code>  提供了自己独特的 <code>Subscription</code> 实例，将组件嵌套其中，提供一个新的 conext 值给 <code>&lt;ReactReduxContext.Provider&gt;</code>，再进行渲染。</p>
+<p>使用 hooks，意味着无法渲染 &lt;ReactReduxContext.Provider&gt;，也意味着没有嵌套的订阅层级。因此，“过期 Props” 和  “丧尸子组件” 的问题可能再次发生在你使用 hooks 而非  <code>connect()</code>  应用中。</p>
+<p>详细的说，“过期 Props”可能发生的状况在于：</p>
+<ul>
+<li>某个 selector  函数依赖组件的 props 来取回数据。</li>
+<li>在某个 action 分发后，父组件将会重渲染然后传递新的props给子组件</li>
+<li>但是子组件的 selector 函数在子组件以新props渲染前，先执行了。</li>
+</ul>
+<p>取决于使用的 props 和 stroe 当前的 状态(state) 是什么，这可能导致返回不正确的数据，甚至抛出一个错误。</p>
+<p>“丧尸子组件” 特别指代下面这种情况：</p>
+<ul>
+<li><p>在刚开始，多个嵌套  <code>connect()</code>  后的组件一起被挂载，导致子组件的订阅先于其父组件。</p>
+</li>
+<li><p>一个 action 被 分发(dispatch) ，删除了 store 中的某个数据，比如某个待做事项。</p>
+</li>
+<li><p>父组件会停止渲染对应的子组件</p>
+</li>
+<li><p>但是，因为子组件的订阅先于父组件，其订阅时的回调函数的运行先于父组件停止渲染子组件。当子组件根据props取回对应的数据时，这个数据已经不存在了，而且，如果取回数据代码的逻辑不够小心的话，可能会导致一个错误被抛出。</p>
+</li>
+</ul>
+<p><code>useSelector()</code> 通过捕获所有 selector 内部因为 store 更新抛出的错误（但不包括渲染时更新导致的错误），来应对”丧尸子组件”的问题。当产生了一个错误时，组件会被强制重渲染，此时，selector 函数会重新执行一次。注意，只有当你的 selector 函数是纯函数且你的代码不依赖于 selector 抛出的某些自定义错误时，这个应对策略才会正常工作。</p>
+<p>如果你更想要自己处理这些问题，这里有一些建议，在使用 <code>useSelector()</code> 时，可能帮助你避免这些问题。</p>
+<ul>
+<li><p>在 selector 函数不要依赖 props 来取回数据。</p>
+</li>
+<li><p>对于你必须要依赖props，而且props经常改变的情况，以及，你取回的数据可能被删除的情况下，试着带有防御性的 selector 函数。不要直接取回数据，如：<code>state.todos[props.id].name</code> - 先取回 <code>state.todos[props.id]</code>，然后检验值是否存在，再尝试取回 todo.name</p>
+</li>
+<li><p>因为 connect 增添了必要 <code>Subscription</code> 组件给 context provider，且延迟子组件订阅的执行，一直到  <code>connect()</code>  的组件重渲染后，在组件树中，将一个  <code>connect()</code>  的组件置于使用了 <code>useSelector</code> 的组件之上，将会避免上述的问题，只要  <code>connect()</code>  的组件和使用了 hooks 子组件触发重渲染是由同一个 store 更新引起的。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>：如果你想要这个问题更详细的描述，<a href="https://gist.github.com/markerikson/faac6ae4aca7b82a058e13216a7888ec" target="_blank" rel="noopener">这个聊天记录</a>详述了这个问题，以及 <a href="https://github.com/reduxjs/react-redux/issues/1179" target="_blank" rel="noopener">issue #1179</a>.</p>
+</blockquote>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>正如上文提到的，在一个 action 被分发(dispatch) 后，<code>useSelector()</code> 默认对 select 函数的返回值进行引用比较 ===，并且仅在返回值改变时触发重渲染。但是，不同于 <code> connect(</code>)，<code>useSelector()</code>并不会阻止父组件重渲染导致的子组件重渲染的行为，即使组件的 props 没有发生改变。</p>
+<p>如果你想要类似的更进一步的优化，你也许需要考虑将你的函数组件包裹在 React.memo() 中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CounterComponent = <span class="function">(<span class="params">&#123; name &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> counter = useSelector(<span class="function"><span class="params">state</span> =&gt;</span> state.counter)</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123;name&#125;: &#123;counter&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export const MemoizedCounterComponent = React.memo(CounterComponent)</span></span><br></pre></td></tr></table></figure>
+<h1 id="Hooks-配方"><a href="#Hooks-配方" class="headerlink" title="Hooks 配方"></a>Hooks 配方</h1><p>我们精简了原来 alpha 版本的 hooks API，专注于更精小的，更基础的 API。不过，在你的应用中，你可能依旧想要使用一些我们以前实现过的方法。下面例子中的代码已经准备好被复制到你的代码库中使用了。</p>
+<h2 id="配方：useActions"><a href="#配方：useActions" class="headerlink" title="配方：useActions()"></a>配方：<code>useActions()</code></h2><p>这个 hook 存在于原来 alpha 版本，但是在版本 v7.1.0-alpha.4 中，<a href="https://github.com/reduxjs/react-redux/issues/1252#issuecomment-488160930" target="_blank" rel="noopener">Dan Abramov</a> 的建议下被移除了。建议表明了在使用 hook 的场景下，“对 action creators 进行绑定”没以前那么有用，且会导致更多概念上理解负担和增加语法上的复杂度。</p>
+<p><small>译者注：<strong>action creators</strong> 即用来生成 action 对象的函数。</small></p>
+<p>在组件中，你应该更偏向于使用 useDispatch hook 来获得 dispatch 函数的引用，然后在回调函数中手动的调用 dispatch(someActionCreator()) 或某种需要的副作用。在你的代码中，你仍然可以使用<a href="https://redux.js.org/api/bindactioncreators" target="_blank" rel="noopener">bindActionCreators</a> 函数绑定 action creators，或手动的绑定它们，比如 const boundAddTodo = (text) =&gt; dispatch(addTodo(text))。</p>
+<p>但是，如果你自己想要使用这个 hook，这里有个 复制即可用 的版本，支持将 action creators 作为一个独立函数、数组、或一个对象传入。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; bindActionCreators &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useMemo &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useActions</span>(<span class="params">actions, deps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dispatch = useDispatch()</span><br><span class="line">  <span class="keyword">return</span> useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(actions)) &#123;</span><br><span class="line">      <span class="keyword">return</span> actions.map(<span class="function"><span class="params">a</span> =&gt;</span> bindActionCreators(a, dispatch))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bindActionCreators(actions, dispatch)</span><br><span class="line">  &#125;, deps ? [dispatch, ...deps] : [dispatch])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配方：useShallowEqualSelector"><a href="#配方：useShallowEqualSelector" class="headerlink" title="配方：useShallowEqualSelector()"></a>配方：<code>useShallowEqualSelector()</code></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useSelector, shallowEqual &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useShallowEqualSelector</span>(<span class="params">selector</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> useSelector(selector, shallowEqual)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/tags/react-redux/" rel="tag"># react-redux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感.html" rel="next" title="优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感">
+                <i class="fa fa-chevron-left"></i> 优化高性能JS代码的几个要点，以及背后的原理 -《CSAPP》读后感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/49502170" alt="塔希(Yunfei He)">
+            
+              <p class="site-author-name" itemprop="name">塔希(Yunfei He)</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/iheyunfei" title="GitHub &rarr; https://github.com/iheyunfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:i.heyunfei@gmail.com" title="E-Mail &rarr; mailto:i.heyunfei@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sicp-js.iheyunfei.com" title="http://sicp-js.iheyunfei.com" rel="noopener" target="_blank">【译】-《SICP in JavaScript》</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hooks"><span class="nav-number">1.</span> <span class="nav-text">Hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在一个-React-Redux-应用中使用-hooks"><span class="nav-number">1.1.</span> <span class="nav-text">在一个 React Redux 应用中使用 hooks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useSelector"><span class="nav-number">2.</span> <span class="nav-text">useSelector()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相等比较-Equality-Comparisons-和更新"><span class="nav-number">2.1.</span> <span class="nav-text">相等比较(Equality Comparisons) 和更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useSelector-例子"><span class="nav-number">2.2.</span> <span class="nav-text">useSelector 例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用记忆化的-selectors-函数"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用记忆化的 selectors 函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#被移除的：useActions"><span class="nav-number">3.</span> <span class="nav-text">被移除的：useActions()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useDispatch"><span class="nav-number">4.</span> <span class="nav-text">useDispatch()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useStore"><span class="nav-number">5.</span> <span class="nav-text">useStore()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">5.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义-context"><span class="nav-number">6.</span> <span class="nav-text">自定义 context</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用警告"><span class="nav-number">7.</span> <span class="nav-text">使用警告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#过期-Props-和-“丧尸子组件”"><span class="nav-number">7.1.</span> <span class="nav-text">过期 Props 和  “丧尸子组件”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能"><span class="nav-number">7.2.</span> <span class="nav-text">性能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hooks-配方"><span class="nav-number">8.</span> <span class="nav-text">Hooks 配方</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配方：useActions"><span class="nav-number">8.1.</span> <span class="nav-text">配方：useActions()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配方：useShallowEqualSelector"><span class="nav-number">8.2.</span> <span class="nav-text">配方：useShallowEqualSelector()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">塔希(Yunfei He)</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
