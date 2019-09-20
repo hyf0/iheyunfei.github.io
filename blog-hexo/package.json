@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "deploy": "git add -A && hexo g && git commit -m 'new post' && git push"
+    "deploy": "hexo g && git add -A && git commit -m 'new post' && git push"
   },
   "hexo": {
     "version": "3.8.0"

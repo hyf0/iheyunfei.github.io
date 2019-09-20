@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="篝火处">
 <meta property="og:description" content="来源：React Redux: Hooks 译者：塔希 协议：CC BY-NC-SA 4.0   HooksReact的新 “hooks” APIs 赋予了函数组件使用本地组件状态，执行副作用，等各种能力。 React Redux 现在提供了一系列 hook APIs 作为现在 connect() 高阶组件的替代品。这些 APIs 允许你，在不使用 connect() 包裹组件的情况下，订阅">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-07T05:49:33.885Z">
+<meta property="og:updated_time" content="2019-09-07T06:17:57.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="译 - React-Redux 官方 Hooks 文档说明">
 <meta name="twitter:description" content="来源：React Redux: Hooks 译者：塔希 协议：CC BY-NC-SA 4.0   HooksReact的新 “hooks” APIs 赋予了函数组件使用本地组件状态，执行副作用，等各种能力。 React Redux 现在提供了一系列 hook APIs 作为现在 connect() 高阶组件的替代品。这些 APIs 允许你，在不使用 connect() 包裹组件的情况下，订阅">
@@ -399,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2019-09-07 11:27:57 / 修改时间：13:49:33" itemprop="dateCreated datePublished" datetime="2019-09-07T11:27:57+08:00">2019-09-07</time>
+              <time title="创建时间：2019-09-07 11:27:57 / 修改时间：14:17:57" itemprop="dateCreated datePublished" datetime="2019-09-07T11:27:57+08:00">2019-09-07</time>
             
 
             
@@ -456,19 +456,14 @@
 <blockquote>
 <p><strong>警告</strong>: selector 函数应该是个<a href="https://zh.wikipedia.org/wiki/%E7%BA%AF%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">纯函数</a>，因为，在任意的时间点，它可能会被执行很多次。</p>
 </blockquote>
-<p>从概念上讲，selector 函数与 <a href="htt&lt;/code&gt; ps://react-redux.js.org/next/using-react-redux/connect-mapstate"><code>connect</code> 的 <code><code></code> 参数</code></a>是差不多一样的。selector 函数被调用时，将会被传入Redux store的整个state，作为唯一的参数。每次函数组件渲染时， selector 函数都会被调用。<code>useSelector()</code>同样会订阅 Redux 的 sotre，并且在你每 分发(dispatch) 一个 action 时，都会被执行一次。</p>
+<p>从概念上讲，selector 函数与 <a href="https://react-redux.js.org/next/using-react-redux/connect-mapstate" target="_blank" rel="noopener"><code>connect</code> 的 <code>mapStateToProps</code> 的参数</a>是差不多一样的。selector 函数被调用时，将会被传入Redux store的整个state，作为唯一的参数。每次函数组件渲染时， selector 函数都会被调用。<code>useSelector()</code>同样会订阅 Redux 的 sotre，并且在你每 分发(dispatch) 一个 action 时，都会被执行一次。</p>
 <p>尽管如此，传递给 <code>useSelector()</code> 的各种 selector 函数还是和 <code>mapState</code> 函数有些不一样的地方：</p>
 <ul>
-<li><p>selector 函数可以返回任意类型的值，并不要求是一个 对象(object)。selector 函数的返回值会被用作调用 <code>useSelector()</code> hook 时的返回值。</p>
-</li>
-<li><p>当 分发(dispatch) 了一个 action 时，<code>useSelector()</code> 会将上一次调用 selector 函数结果与当前调用的结果进行引用(===)比较，如果不一样，组件会被强制重新渲染。如果一样，就不会被重新渲染。</p>
-</li>
-<li><p>selector 函数不会接收到 <code>ownProps</code> 参数。但是 props 可以通过闭包获取使用(下面有个例子) 或者 通过使用柯里化的 selector 函数。</p>
-</li>
-<li><p>当使用 记忆后(memoizing) 的 selectors 函数时，需要一些额外的注意(下面有个例子帮助了解)。</p>
-</li>
-<li><p><code>useSelector()</code> 默认使用严格比较 <code>===</code> 来比较引用，而非浅比较。(看下面的部分来了解细节)</p>
-</li>
+<li>selector 函数可以返回任意类型的值，并不要求是一个 对象(object)。selector 函数的返回值会被用作调用 <code>useSelector()</code> hook 时的返回值。</li>
+<li>当 分发(dispatch) 了一个 action 时，<code>useSelector()</code> 会将上一次调用 selector 函数结果与当前调用的结果进行引用(===)比较，如果不一样，组件会被强制重新渲染。如果一样，就不会被重新渲染。</li>
+<li>selector 函数不会接收到 <code>ownProps</code> 参数。但是 props 可以通过闭包获取使用(下面有个例子) 或者 通过使用柯里化的 selector 函数。</li>
+<li>当使用 记忆后(memoizing) 的 selectors 函数时，需要一些额外的注意(下面有个例子帮助了解)。</li>
+<li><code>useSelector()</code> 默认使用严格比较 <code>===</code> 来比较引用，而非浅比较。(看下面的部分来了解细节)</li>
 </ul>
 <p><small></small></p>
 <p>译者注: 浅比较并不是指 ==。严格比较 === 对应的是 疏松比较 ==，与 <em>浅比较</em> 对应的是 <em>深比较</em>。</p>
@@ -518,7 +513,7 @@
 <h1 id="自定义-context"><a href="#自定义-context" class="headerlink" title="自定义 context"></a>自定义 context</h1><p><code>&lt;Provider&gt; </code> 组件允许你通过 <code>context</code> 参数指定一个可选的 context。在你构建复杂的可复用的组件时，你不想让你自己的私人 store 与使用这个组件的用户的 Redux store 发生冲突，这个功能是很有用的，</p>
 <p>通过使用 hook creator 函数来创建自定义 hook，从而访问可选的 context。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;</span><br><span class="line">import &#123;</span><br><span class="line">  Provider,</span><br><span class="line">  createStoreHook,</span><br><span class="line">  createDispatchHook,</span><br><span class="line">  createSelectorHook</span><br><span class="line">&#125; from &apos;react-redux&apos;</span><br><span class="line"></span><br><span class="line">const MyContext = React.createContext(null)</span><br><span class="line"></span><br><span class="line">// Export your custom hooks if you wish to use them in other files.</span><br><span class="line">export const useStore = createStoreHook(MyContext)</span><br><span class="line">export const useDispatch = createDispatchHook(MyContext)</span><br><span class="line">export const useSelector = createSelectorHook(MyContext)</span><br><span class="line"></span><br><span class="line">const myStore = createStore(rootReducer)</span><br><span class="line"></span><br><span class="line">export function MyProvider(&#123; children &#125;) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Provider context=&#123;MyContext&#125; store=&#123;myStore&#125;&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/Provider&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="使用警告"><a href="#使用警告" class="headerlink" title="使用警告"></a>使用警告</h1><h2 id="过期-Props-和-“丧尸子组件”"><a href="#过期-Props-和-“丧尸子组件”" class="headerlink" title="过期 Props 和  “丧尸子组件”"></a>过期 Props 和  “丧尸子组件”</h2><p>有关 React Redux 实现一个难点在于，当你以 <code>(state, ownProps)</code> 形式定义了 <code>mapStateToProps</code> 函数时，怎么保证每次都以最新的 props 调用 <code>mapStateToProps</code>。version 4 中，在一些边缘情况下，经常发生一些bug，比如一个列表中的某项被删除时， <code>mapState</code> 函数内部会抛出错误。</p>
+<h1 id="使用警告"><a href="#使用警告" class="headerlink" title="使用警告"></a>使用警告</h1><h2 id="过期-Props-和-“丧尸子组件”"><a href="#过期-Props-和-“丧尸子组件”" class="headerlink" title="过期 Props 和  “丧尸子组件”"></a>过期 Props 和  “丧尸子组件”</h2><p>有关 React Redux 实现一个难点在于，当你以 <code>(state, ownProps)</code> 形式定义 <code>mapStateToProps</code> 函数时，怎么保证每次都以最新的 props 调用 <code>mapStateToProps</code>。version 4 中，在一些边缘情况下，经常发生一些bug，比如一个列表中的某项被删除时， <code>mapState</code> 函数内部会抛出错误。</p>
 <p>从 version 5 开始，React Redux 试图保证 <code>ownProps</code> 参数的一致性。在 version 7 中，通过在  <code>connect()</code>  内部使用一个自定义的 <code>Subscription</code> 类，实现了这种保证，也导致了组件被层层嵌套的形式。这确保了组件树深处  <code>connect()</code>  后的组件，只会在离自己最近的  <code>connect()</code>  后的祖先组件更新后，才会被通知 store 更新了。但是，这依赖于每个 <code> connect(</code>) 的实例副高 React 内部部分的 context，随后  <code>connect()</code>  提供了自己独特的 <code>Subscription</code> 实例，将组件嵌套其中，提供一个新的 conext 值给 <code>&lt;ReactReduxContext.Provider&gt;</code>，再进行渲染。</p>
 <p>使用 hooks，意味着无法渲染 &lt;ReactReduxContext.Provider&gt;，也意味着没有嵌套的订阅层级。因此，“过期 Props” 和  “丧尸子组件” 的问题可能再次发生在你使用 hooks 而非  <code>connect()</code>  应用中。</p>
 <p>详细的说，“过期 Props”可能发生的状况在于：</p>
@@ -614,6 +609,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/posts/浅谈可取消的Promise.html" rel="prev" title="浅谈可取消的Promise">
+                浅谈可取消的Promise <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -683,7 +682,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

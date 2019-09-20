@@ -2,7 +2,7 @@
 title: 魔法书《SICP》的简明介绍 - 为什么要学习SICP
 date: 2019-06-06 12:09:41
 tags:
-- SICP
+- sicp
 - 编程
 ---
 
