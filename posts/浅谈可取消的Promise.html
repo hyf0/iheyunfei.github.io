@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="篝火处">
 <meta property="og:description" content="最近再尝试实现CSSTransition组件，其中有个需求是每次in属性的变化会导致className的变化，为了增加对应的效果，必须保证不同的className在一段时间范围内，按照特顺序进行显示。 我尝试使用promise来控制顺序，效果很不错，几乎解决了问题，但是，由于用户行为的不确定性，比如疯狂点击toggle按钮，in属性的可能在短时间内大量变化，从而触发大量的回调函数，使得classN">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-20T01:38:35.792Z">
+<meta property="og:updated_time" content="2019-09-20T01:42:39.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈可取消的Promise">
 <meta name="twitter:description" content="最近再尝试实现CSSTransition组件，其中有个需求是每次in属性的变化会导致className的变化，为了增加对应的效果，必须保证不同的className在一段时间范围内，按照特顺序进行显示。 我尝试使用promise来控制顺序，效果很不错，几乎解决了问题，但是，由于用户行为的不确定性，比如疯狂点击toggle按钮，in属性的可能在短时间内大量变化，从而触发大量的回调函数，使得classN">
@@ -399,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2019-09-20 08:30:56 / 修改时间：09:38:35" itemprop="dateCreated datePublished" datetime="2019-09-20T08:30:56+08:00">2019-09-20</time>
+              <time title="创建时间：2019-09-20 08:30:56 / 修改时间：09:42:39" itemprop="dateCreated datePublished" datetime="2019-09-20T08:30:56+08:00">2019-09-20</time>
             
 
             
@@ -440,7 +440,7 @@
       
         <p>最近再尝试实现CSSTransition组件，其中有个需求是每次in属性的变化会导致className的变化，为了增加对应的效果，必须保证不同的className在一段时间范围内，按照特顺序进行显示。</p>
 <p>我尝试使用promise来控制顺序，效果很不错，几乎解决了问题，但是，由于用户行为的不确定性，比如疯狂点击toggle按钮，in属性的可能在短时间内大量变化，从而触发大量的回调函数，使得className的变化顺序变得相当混乱。</p>
-<p>于是乎，自然而然的，每次触发回调前，要先取消掉先前可能存在的回调函数，这个需求有点像多tab触发网络请求的常见，每次点击tab都会触发一个网络请求，为了不让界面显示老旧的数据(因为异步的原因，新旧请求返回数据的时间顺序是不确定的)，必须取消掉先前的请求。</p>
+<p>于是乎，自然而然的，每次触发回调前，要先取消掉先前可能存在的回调函数，这个需求有点像多tab触发网络请求的场景，每次点击tab都会触发一个网络请求，为了不让界面显示老旧的数据(因为异步的原因，新旧请求返回数据的时间顺序是不确定的)，必须取消掉先前的请求。</p>
 <p>此外，另一个难点在于链式的回调调用，你必须保证在取消后，不论回调链执行到哪里，都不会再被执行了。</p>
 <ul>
 <li>没考虑取消的版本</li>
@@ -449,8 +449,8 @@
 <p>问题很明显，一旦用户多次点击按钮(非常可能)，className值变化顺序就不确定了。</p>
 <p>在查看了网上各种取消Promise的方案后，我放弃了引入polyfill库的方案，还有一些方案看着很不直观，必须在完全了解js代码执行顺序的情况下，才能明白为什么这样是可以取消的。最后，我尝试实现了一个简单，易于理解的版本。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> PormiseMaker = <span class="function">(<span class="params">prevPromiseValue: <span class="built_in">any</span></span>) =&gt;</span> <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> ICancelToken &#123;</span><br><span class="line">  cancel: <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line">  <span class="keyword">finally</span>: <span class="function">(<span class="params">callback: (<span class="params"></span>) =&gt; <span class="built_in">void</span></span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cancelablePromiseChain</span>(<span class="params">...promiseMakers: <span class="built_in">Array</span>&lt;(prevValue: <span class="built_in">any</span>) =&gt; <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt;&gt;</span>): <span class="title">ICancelToken</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> isCanceled = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">let</span> finallyCallback: <span class="literal">undefined</span> | <span class="function">(<span class="params">(<span class="params"></span>) =&gt; <span class="built_in">void</span></span>);</span></span><br><span class="line"><span class="function">  <span class="params">const</span> <span class="params">runner</span> = (<span class="params"><span class="keyword">async</span> <span class="keyword">function</span> runner(<span class="params"></span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">let</span> prevResult;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">if</span> (<span class="params">isCanceled</span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="keyword">if</span> (<span class="params"><span class="keyword">typeof</span> finallyCallback === '<span class="keyword">function</span>'</span>) finallyCallback(<span class="params"></span>);</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="keyword">return</span>;</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">for</span> (<span class="params"><span class="keyword">const</span> promiseMaker of promiseMakers</span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="keyword">if</span> (<span class="params">isCanceled</span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">if</span> (<span class="params"><span class="keyword">typeof</span> finallyCallback === '<span class="keyword">function</span>'</span>) finallyCallback(<span class="params"></span>);</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">return</span>;</span></span></span><br><span class="line"><span class="function"><span class="params">      &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">      prevResult = <span class="keyword">await</span> promiseMaker(<span class="params">prevResult</span>);</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">  &#125;(<span class="params"></span>)</span>);</span></span><br><span class="line"><span class="function">  <span class="params">return</span> &#123;</span></span><br><span class="line"><span class="function">    <span class="params">cancel</span><span class="params">()</span> &#123;</span></span><br><span class="line"><span class="function">      <span class="params">isCanceled</span> = <span class="params">true</span>;</span></span><br><span class="line"><span class="function">    &#125;,</span></span><br><span class="line"><span class="function">    <span class="params">finally</span>(<span class="params">callback</span>) &#123;</span></span><br><span class="line"><span class="function">      <span class="params">finallyCallback</span> = <span class="params">callback</span>;</span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line"><span class="function">  &#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<p><code>cancelablePromiseChain</code> 接受一个或多个返回Promise的函数，然后按顺序调用，并且会被先前调用得到返回值作为参数，传递给下一个PromiseMaker函数，这个函数模拟了Promise链式调用，然后增加了中断调用的能力。</p>
-<p>注意，finally函数，不仅仅是一个语法糖，你不可以在<code>cancelablePromiseChain</code>的最后一个参数写一个PromiseMaker，然后期待它的行为会和finally一样，finally最重要的在于，它是 <strong>同步的</strong>，这保证了一旦回调链被取消或完成，finall回调被同步的立刻调用进行清理工作，如果是异步就会造成无法预料的错误。很简单的例子，如果是异步的，老的清理函数，可能后于新清理函数完成。</p>
+<p><code>cancelablePromiseChain</code> 接受一个或多个返回Promise的函数，然后按顺序调用，并且会将先前调用得到返回值作为参数，传递给下一个PromiseMaker函数，这个函数模拟了Promise链式调用，然后增加了中断调用的能力。</p>
+<p>注意，finally函数，不仅仅是一个语法糖，你不可以在<code>cancelablePromiseChain</code>的最后一个参数写一个PromiseMaker，然后期待它的行为会和finally一样，finally最重要的在于，它是 <strong>同步的</strong>，这保证了一旦回调链被取消或完成，finally回调被同步的立刻调用进行清理工作，如果是异步就会造成无法预料的错误。很简单的例子，如果是异步的，老的清理函数，可能后于新清理函数完成。</p>
 <ul>
 <li>示例</li>
 </ul>
@@ -509,6 +509,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/react暇谈(1)——当我们再谈论render时，我们在谈论什么.html" rel="prev" title="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
+                react暇谈(1)——当我们再谈论render时，我们在谈论什么 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -570,7 +574,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -623,7 +627,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

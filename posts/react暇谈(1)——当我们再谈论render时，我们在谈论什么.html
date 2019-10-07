@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="读完本书你就入门了:) 本书对象： 不了解计算机网络或者了解很少的人 准备学习计算机网络并且希望有个整体性认知的人  学习资料： 《计算机网络-自顶向下的方法》第六版 国立清华大学配套公开课 观看地址： Youtube Youku 国立清华大学官网     《自顶向下》编程作业，Wireshark实验文档的翻译和解答 Github    经验： 计算机网络(互联网)分为五个层次(应用层，运输层，网">
-<meta name="keywords" content="读书笔记,计算机网络">
+  <meta name="description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
+<meta name="keywords" content="前端,react,react暇谈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何入门计算机网络 -《计算机网络-自顶向下》读后感">
-<meta property="og:url" content="http://iheyunfei.com/posts/如何入门计算机网络 -《计算机网络-自顶向下》读后感.html">
+<meta property="og:title" content="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
+<meta property="og:url" content="http://iheyunfei.com/posts/react暇谈(1)——当我们再谈论render时，我们在谈论什么.html">
 <meta property="og:site_name" content="篝火处">
-<meta property="og:description" content="读完本书你就入门了:) 本书对象： 不了解计算机网络或者了解很少的人 准备学习计算机网络并且希望有个整体性认知的人  学习资料： 《计算机网络-自顶向下的方法》第六版 国立清华大学配套公开课 观看地址： Youtube Youku 国立清华大学官网     《自顶向下》编程作业，Wireshark实验文档的翻译和解答 Github    经验： 计算机网络(互联网)分为五个层次(应用层，运输层，网">
+<meta property="og:description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-07T03:26:05.701Z">
+<meta property="og:updated_time" content="2019-10-07T12:59:36.405Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何入门计算机网络 -《计算机网络-自顶向下》读后感">
-<meta name="twitter:description" content="读完本书你就入门了:) 本书对象： 不了解计算机网络或者了解很少的人 准备学习计算机网络并且希望有个整体性认知的人  学习资料： 《计算机网络-自顶向下的方法》第六版 国立清华大学配套公开课 观看地址： Youtube Youku 国立清华大学官网     《自顶向下》编程作业，Wireshark实验文档的翻译和解答 Github    经验： 计算机网络(互联网)分为五个层次(应用层，运输层，网">
+<meta name="twitter:title" content="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
+<meta name="twitter:description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://iheyunfei.com/posts/如何入门计算机网络 -《计算机网络-自顶向下》读后感">
+  <link rel="canonical" href="http://iheyunfei.com/posts/react暇谈(1)——当我们再谈论render时，我们在谈论什么">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>如何入门计算机网络 -《计算机网络-自顶向下》读后感 | 篝火处</title>
+  <title>react暇谈(1)——当我们再谈论render时，我们在谈论什么 | 篝火处</title>
   
 
 
@@ -356,7 +356,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/如何入门计算机网络 -《计算机网络-自顶向下》读后感.html">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/react暇谈(1)——当我们再谈论render时，我们在谈论什么.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔希(Yunfei He)">
@@ -373,7 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何入门计算机网络 -《计算机网络-自顶向下》读后感
+          <h1 class="post-title" itemprop="name headline">react暇谈(1)——当我们再谈论render时，我们在谈论什么
 
               
             
@@ -399,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2019-06-05 21:47:48" itemprop="dateCreated datePublished" datetime="2019-06-05T21:47:48+08:00">2019-06-05</time>
+              <time title="创建时间：2019-10-02 19:00:03" itemprop="dateCreated datePublished" datetime="2019-10-02T19:00:03+08:00">2019-10-02</time>
             
 
             
@@ -416,7 +416,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-07 11:26:05" itemprop="dateModified" datetime="2019-09-07T11:26:05+08:00">2019-09-07</time>
+                <time title="修改时间：2019-10-07 20:59:36" itemprop="dateModified" datetime="2019-10-07T20:59:36+08:00">2019-10-07</time>
               
             
           </span>
@@ -450,44 +450,53 @@
       
 
       
-        <p><strong>读完本书你就入门了:)</strong></p>
-<h2 id="本书对象："><a href="#本书对象：" class="headerlink" title="本书对象："></a>本书对象：</h2><ul>
-<li>不了解计算机网络或者了解很少的人</li>
-<li>准备学习计算机网络并且希望有个整体性认知的人</li>
+        <h1 id="主旨"><a href="#主旨" class="headerlink" title="主旨"></a>主旨</h1><p>本文旨在讨论 React 中的 render(渲染) 一词的含义？</p>
+<h1 id="术语定义"><a href="#术语定义" class="headerlink" title="术语定义"></a>术语定义</h1><ul>
+<li><strong>render 函数</strong>，本文中指类组件的 render 方法，或者函数组件本身。</li>
+<li><strong>render</strong>、<strong>渲染</strong>，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。</li>
 </ul>
-<h2 id="学习资料："><a href="#学习资料：" class="headerlink" title="学习资料："></a>学习资料：</h2><ul>
-<li>《计算机网络-自顶向下的方法》第六版</li>
-<li>国立清华大学配套公开课<ul>
-<li>观看地址：<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLS0SUwlYe8cyIEjj0quQDnWBDGqQ4Agv3" target="_blank" rel="noopener">Youtube</a></li>
-<li><a href="http://list.youku.com/albumlist/show/id_17517962.html" target="_blank" rel="noopener">Youku</a></li>
-<li><a href="http://ocw.nthu.edu.tw/ocw/index.php?page=course&amp;cid=13&amp;" target="_blank" rel="noopener">国立清华大学官网</a></li>
-</ul>
+<h1 id="react的render到底指什么？"><a href="#react的render到底指什么？" class="headerlink" title="react的render到底指什么？"></a>react的render到底指什么？</h1><p>如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，rerender(重渲染)，等各种与渲染相关的字眼，当我作为一个菜鸟时，我时常为这些字眼发愁，尽管我知道这些词语的本意，但是却不明白它们在 React 中代表什么。现在，经过一定量的学习，我觉得自己终于可以看清一部分，借此分享出来，以期帮助别人，同时也是借此梳理下自己掌握的知识。</p>
+<h2 id="渲染发生的两个时机"><a href="#渲染发生的两个时机" class="headerlink" title="渲染发生的两个时机"></a>渲染发生的两个时机</h2><p>为了理解 render 在 React 中代表什么，我们需要稍微深入下 React 的工作原理，也许你已经知道虚拟DOM，Diff，等各种新奇的词语，不过还是让我们按顺序梳理以下。</p>
+<p>React 进行渲染的 <strong>时机</strong> 有两种(其实也可以算一种，其中一种只是另一种的变体)：</p>
+<ul>
+<li><p>挂载，React 调用类组件 DidComponentMount 生命周期方法时，或者函数组件的useEffect中回调函数第一次执行的时候，可以认为已经发生了挂载。</p>
+</li>
+<li><p>更新，React 调用类组件的 DidComponentUpdate 的时候，或者函数组件被重新执行时，都可以认为是发生了重渲染。</p>
 </li>
 </ul>
+<p>我们首先来看组件更新的情况，然后再回头看挂载的情况，你会发现，后者和前者的差别其实很小，这也是为什么 React 在函数组件里提供的 useEffect hook 不再区分挂载和更新。</p>
+<p>让我们使用经典的计数器例子</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 警告：为了代码的精简的，我省略了 useCallback 包裹回调函数的行为</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [count, setCount] = useState();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;span className=<span class="string">"count"</span>&gt;&#123;count&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;() =&gt; setCount(prev =&gt; prev + 1)&#125;&gt;INC&lt;button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 Counter 挂载后，当你点击了 <strong>INC</strong> 按钮时，就会触发一次 React 的组件的<strong>更新</strong> 或者说是<strong>重渲染</strong>。</p>
+<h2 id="三个渲染阶段"><a href="#三个渲染阶段" class="headerlink" title="三个渲染阶段"></a>三个渲染阶段</h2><p>这里为了讲解的方便，我自作主张的将 React 的一个完整的渲染周期的分为三个阶段，注意不要联想到生命周期，这里没有任何关系。</p>
+<p>三个阶段是：</p>
+<ol>
+<li><p><strong>渲染函数阶段</strong> 或 <strong>render函数阶段</strong>，这个阶段会执行render函数，生成虚拟DOM。</p>
 </li>
-<li>《自顶向下》编程作业，Wireshark实验文档的翻译和解答<ul>
-<li><a href="https://github.com/moranzcw/Computer-Networking-A-Top-Down-Approach-NOTES" target="_blank" rel="noopener">Github</a></li>
+<li><p><strong>tree diff 阶段</strong>，这个阶段 React 会对比新旧的的虚拟DOM，看看是否有变化发生。</p>
+</li>
+<li><p><strong>commit 阶段</strong>，<strong>如果确实发生了变化，才会进入这个阶段</strong>，这个阶段会将虚拟DOM中发生的变化同步到真实DOM上。</p>
+</li>
+</ol>
+<p>一般来说，前两个阶段可以视为一个阶段，因为它们都发生在虚拟DOM层面，并且一旦触发渲染函数阶段，则一定会触发 tree diff 阶段，但是 commit 阶段只在虚拟DOM发生变化的时才可以被触发。</p>
+<p>在了解组件更新的的流程后，我们对比着更新的流程，回过头来看组件挂载的情况：</p>
+<ul>
+<li>挂载有虚拟函数阶段吗？</li>
 </ul>
-</li>
-</ul>
-<h2 id="经验："><a href="#经验：" class="headerlink" title="经验："></a>经验：</h2><ul>
-<li><p>计算机网络(互联网)分为五个层次(应用层，运输层，网络层，链路层，物理层)，对计算机网络的学习，可以说就是对五个层次的学习。</p>
-</li>
-<li><p>本书的优点在于自上而下，通过首先讲解与读者息息相关的HTTP，DNS等协议，勾起读者对相关协议实现的好奇心，后层层往下分解，不断保持读者求知欲。</p>
-</li>
-<li><p>本书配合公开课，在学习计算机网络的 <strong>应用层和运输层以及网络层的部分内容</strong> 讲的非常的深入浅出，然而在网络层讲解IP协议时，对于路由选择这一部分的内容变得复杂起来，因为牵扯到图论相关的算法，最好是有相关算法知识再考虑深入学习这部分知识，否则建议粗略的看下，然后跳过就行了。链路层的讲解只能说凑活，这部分内容我没看公开课，对着书籍过了一遍就完了。后面的选看章节，我都没看。</p>
-</li>
-<li><p>如此学完这本书后，整体上，会对计算机网络有个大概认知。细部上，也能说出部分协议的细节性知识，比如TCP是如何保证提供可靠运输服务，其重传机制在实践上与理论上的一般做法有何不同。</p>
-</li>
-</ul>
-<h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><ul>
-<li>书籍翻译太烂，好在公开课讲解的很好，配合着事先看公开课，在理解书籍意思上不会有什么大碍</li>
-<li>本书的知识体系和层次可能过于一家之言</li>
-</ul>
-<h2 id="最后建议："><a href="#最后建议：" class="headerlink" title="最后建议："></a>最后建议：</h2><ul>
-<li>建议看完本书后，可以考虑学习其他自下向上讲解计算机网络的书籍，从而修补自身有关计算机网络的知识体系可能出现的缺漏</li>
-</ul>
+<p>答案: 肯定有！必须要执行 render 函数，生成虚拟DOM。</p>
+<ol start="2">
+<li>需要tree diff吗？</li>
+</ol>
+<p>答案：这里视场景有不同的答案，不严谨的说，ReactDOM.render() 是没有这个阶段的，因为首次执行还不存在可以进行对比的旧虚拟DOM，会直接跳到 commit 阶段。而其他挂载的情况，被挂载的组件自身也是不会进行 tree diff 的。</p>
+<p>这里为了避免误解多说一点，父组件更新导致某个子组件被挂载或卸载，子组件挂载时自身是不会进行 tree diff 的，视情况会直接跳到 commit 阶段或就此结束。但是父组件进行 tree diff 时会用到这个子组件。你可以认为 null 指是一个特殊的虚拟DOM，React 将它作为占位符使用，在进行 tree diff 的时候也有相关的作用。</p>
+<ol start="3">
+<li>commit阶段</li>
+</ol>
+<p>答案：这点毋庸置疑。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>现在，让我们通过确定 “这个组件发生了渲染/重渲染/无用的重渲染” 是什么意思来解答本小节的问题。</p>
+<p>对于 <strong>…发生了渲染/重渲染</strong> 来说都是指阶段123，也就是整个渲染阶段。生成变化后的虚拟DOM，进行 tree diff，将变化 commit 到真实 DOM 上。如果不是在指明讨论虚拟 DOM 的话，将渲染一词局限1、2阶段时没有意义的。</p>
+<p>而对于 <strong>发生了无效的重渲染</strong> 来说，是指阶段1、2。一般发生在父组件发生了更新，子组件的props却没有变化，所以子组件生成的虚拟dom没有发生改变，在 tree diff 阶段后直接断掉了，没有进入 commit 阶段。</p>
+<p>以后再碰到与 React 渲染相关的问题，可以直接用上文讲解的三个阶段往上套，通过理解上下文，应该可以很容易理解作者想要的强调有关渲染的什么方面。</p>
 
       
     </div>
@@ -511,9 +520,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+            <a href="/tags/前端/" rel="tag"># 前端</a>
           
-            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/react暇谈/" rel="tag"># react暇谈</a>
           
         </div>
       
@@ -526,8 +537,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议.html" rel="next" title="《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
-                <i class="fa fa-chevron-left"></i> 《计算机网络-自顶向下》笔记-第四章-网络层-IP协议
+              <a href="/posts/浅谈可取消的Promise.html" rel="next" title="浅谈可取消的Promise">
+                <i class="fa fa-chevron-left"></i> 浅谈可取消的Promise
               </a>
             
           </div>
@@ -535,10 +546,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/《计算机网络-自顶向下》笔记-第五章-链路层.html" rel="prev" title="《计算机网络-自顶向下》笔记-第五章-链路层">
-                《计算机网络-自顶向下》笔记-第五章-链路层 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -742,7 +749,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本书对象："><span class="nav-number">1.</span> <span class="nav-text">本书对象：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习资料："><span class="nav-number">2.</span> <span class="nav-text">学习资料：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经验："><span class="nav-number">3.</span> <span class="nav-text">经验：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题："><span class="nav-number">4.</span> <span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后建议："><span class="nav-number">5.</span> <span class="nav-text">最后建议：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主旨"><span class="nav-number">1.</span> <span class="nav-text">主旨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语定义"><span class="nav-number">2.</span> <span class="nav-text">术语定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#react的render到底指什么？"><span class="nav-number">3.</span> <span class="nav-text">react的render到底指什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染发生的两个时机"><span class="nav-number">3.1.</span> <span class="nav-text">渲染发生的两个时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三个渲染阶段"><span class="nav-number">3.2.</span> <span class="nav-text">三个渲染阶段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
             
 
           </div>
