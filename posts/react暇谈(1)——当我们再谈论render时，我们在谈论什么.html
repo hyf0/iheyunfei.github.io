@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="篝火处">
 <meta property="og:description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-07T12:59:36.405Z">
+<meta property="og:updated_time" content="2019-10-07T13:09:23.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
 <meta name="twitter:description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
@@ -416,7 +416,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-07 20:59:36" itemprop="dateModified" datetime="2019-10-07T20:59:36+08:00">2019-10-07</time>
+                <time title="修改时间：2019-10-07 21:09:23" itemprop="dateModified" datetime="2019-10-07T21:09:23+08:00">2019-10-07</time>
               
             
           </span>
@@ -480,9 +480,9 @@
 </ol>
 <p>一般来说，前两个阶段可以视为一个阶段，因为它们都发生在虚拟DOM层面，并且一旦触发渲染函数阶段，则一定会触发 tree diff 阶段，但是 commit 阶段只在虚拟DOM发生变化的时才可以被触发。</p>
 <p>在了解组件更新的的流程后，我们对比着更新的流程，回过头来看组件挂载的情况：</p>
-<ul>
+<ol>
 <li>挂载有虚拟函数阶段吗？</li>
-</ul>
+</ol>
 <p>答案: 肯定有！必须要执行 render 函数，生成虚拟DOM。</p>
 <ol start="2">
 <li>需要tree diff吗？</li>
@@ -493,8 +493,8 @@
 <li>commit阶段</li>
 </ol>
 <p>答案：这点毋庸置疑。</p>
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>现在，让我们通过确定 “这个组件发生了渲染/重渲染/无用的重渲染” 是什么意思来解答本小节的问题。</p>
-<p>对于 <strong>…发生了渲染/重渲染</strong> 来说都是指阶段123，也就是整个渲染阶段。生成变化后的虚拟DOM，进行 tree diff，将变化 commit 到真实 DOM 上。如果不是在指明讨论虚拟 DOM 的话，将渲染一词局限1、2阶段时没有意义的。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>现在，让我们通过确定 “这个组件发生了渲染/重渲染/无用的重渲染” 是什么意思来回答文章开头提出的问题。</p>
+<p>对于 <strong>…发生了渲染/重渲染</strong> 来说都是指阶段123，也就是整个渲染阶段。生成变化后的虚拟DOM，进行 tree diff，将变化 commit 到真实 DOM 上。如果不是在指明讨论虚拟 DOM 的话，将渲染一词局限1、2阶段是没有意义的。</p>
 <p>而对于 <strong>发生了无效的重渲染</strong> 来说，是指阶段1、2。一般发生在父组件发生了更新，子组件的props却没有变化，所以子组件生成的虚拟dom没有发生改变，在 tree diff 阶段后直接断掉了，没有进入 commit 阶段。</p>
 <p>以后再碰到与 React 渲染相关的问题，可以直接用上文讲解的三个阶段往上套，通过理解上下文，应该可以很容易理解作者想要的强调有关渲染的什么方面。</p>
 
@@ -546,6 +546,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/react暇谈(2)——react组件更新的原理.html" rel="prev" title="react暇谈(2)——react组件更新的原理">
+                react暇谈(2)——react组件更新的原理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -669,9 +673,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

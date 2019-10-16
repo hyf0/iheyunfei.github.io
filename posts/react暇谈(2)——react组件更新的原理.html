@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="对于互联网的网络层来说，其提供的服务非常简单：  转发 路由选择  网络层可能提供的服务网络服务模型：  确保交付 保证延迟的确保交付 有序交付 确保最小带宽 确保最大时延抖动 安全性服务  那么IP协议提供以上那些服务呢？ 答案就是：一个也不提供  不 确保交付 不 保证延迟的确保交付 不 有序交付 不 确保最小带宽 不 确保最大时延抖动 没有 安全性服务  数据报网络IP协议构建的网络就属于数">
-<meta name="keywords" content="读书笔记,计算机网络">
+  <meta name="description" content="主旨这次本文旨在讨论：  react 组件更新的原理  术语定义 组件更新：组件进行了重渲染，其渲染阶段至少经过了 render 函数和 tree diff 阶段。  react 组件更新的原理首先，我们先阐述下 react 组件更新的策略：一个组件发生了更新，其子组件也会更新，在不进行优化的情况下，这种更新的传递会持续到组件树的叶子组件，即使某个子组件前后props并没有发生改变。 然后，让我们">
+<meta name="keywords" content="前端,react,react暇谈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
-<meta property="og:url" content="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议.html">
+<meta property="og:title" content="react暇谈(2)——react组件更新的原理">
+<meta property="og:url" content="http://iheyunfei.com/posts/react暇谈(2)——react组件更新的原理.html">
 <meta property="og:site_name" content="篝火处">
-<meta property="og:description" content="对于互联网的网络层来说，其提供的服务非常简单：  转发 路由选择  网络层可能提供的服务网络服务模型：  确保交付 保证延迟的确保交付 有序交付 确保最小带宽 确保最大时延抖动 安全性服务  那么IP协议提供以上那些服务呢？ 答案就是：一个也不提供  不 确保交付 不 保证延迟的确保交付 不 有序交付 不 确保最小带宽 不 确保最大时延抖动 没有 安全性服务  数据报网络IP协议构建的网络就属于数">
+<meta property="og:description" content="主旨这次本文旨在讨论：  react 组件更新的原理  术语定义 组件更新：组件进行了重渲染，其渲染阶段至少经过了 render 函数和 tree diff 阶段。  react 组件更新的原理首先，我们先阐述下 react 组件更新的策略：一个组件发生了更新，其子组件也会更新，在不进行优化的情况下，这种更新的传递会持续到组件树的叶子组件，即使某个子组件前后props并没有发生改变。 然后，让我们">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-07T03:26:05.698Z">
+<meta property="og:updated_time" content="2019-10-16T13:45:31.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
-<meta name="twitter:description" content="对于互联网的网络层来说，其提供的服务非常简单：  转发 路由选择  网络层可能提供的服务网络服务模型：  确保交付 保证延迟的确保交付 有序交付 确保最小带宽 确保最大时延抖动 安全性服务  那么IP协议提供以上那些服务呢？ 答案就是：一个也不提供  不 确保交付 不 保证延迟的确保交付 不 有序交付 不 确保最小带宽 不 确保最大时延抖动 没有 安全性服务  数据报网络IP协议构建的网络就属于数">
+<meta name="twitter:title" content="react暇谈(2)——react组件更新的原理">
+<meta name="twitter:description" content="主旨这次本文旨在讨论：  react 组件更新的原理  术语定义 组件更新：组件进行了重渲染，其渲染阶段至少经过了 render 函数和 tree diff 阶段。  react 组件更新的原理首先，我们先阐述下 react 组件更新的策略：一个组件发生了更新，其子组件也会更新，在不进行优化的情况下，这种更新的传递会持续到组件树的叶子组件，即使某个子组件前后props并没有发生改变。 然后，让我们">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议">
+  <link rel="canonical" href="http://iheyunfei.com/posts/react暇谈(2)——react组件更新的原理">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>《计算机网络-自顶向下》笔记-第四章-网络层-IP协议 | 篝火处</title>
+  <title>react暇谈(2)——react组件更新的原理 | 篝火处</title>
   
 
 
@@ -356,7 +356,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/《计算机网络-自顶向下》笔记-第四章-网络层-IP协议.html">
+    <link itemprop="mainEntityOfPage" href="http://iheyunfei.com/posts/react暇谈(2)——react组件更新的原理.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="塔希(Yunfei He)">
@@ -373,7 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">《计算机网络-自顶向下》笔记-第四章-网络层-IP协议
+          <h1 class="post-title" itemprop="name headline">react暇谈(2)——react组件更新的原理
 
               
             
@@ -399,24 +399,12 @@
                 
               
 
-              <time title="创建时间：2019-06-05 20:39:52" itemprop="dateCreated datePublished" datetime="2019-06-05T20:39:52+08:00">2019-06-05</time>
+              <time title="创建时间：2019-10-16 14:44:15 / 修改时间：21:45:31" itemprop="dateCreated datePublished" datetime="2019-10-16T14:44:15+08:00">2019-10-16</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-09-07 11:26:05" itemprop="dateModified" datetime="2019-09-07T11:26:05+08:00">2019-09-07</time>
               
             
           </span>
@@ -450,102 +438,69 @@
       
 
       
-        <p>对于互联网的网络层来说，其提供的服务非常简单：</p>
+        <h1 id="主旨"><a href="#主旨" class="headerlink" title="主旨"></a>主旨</h1><p>这次本文旨在讨论：</p>
 <ul>
-<li>转发</li>
-<li>路由选择</li>
+<li>react 组件更新的原理</li>
 </ul>
-<h2 id="网络层可能提供的服务"><a href="#网络层可能提供的服务" class="headerlink" title="网络层可能提供的服务"></a>网络层可能提供的服务</h2><p>网络服务模型：</p>
+<h1 id="术语定义"><a href="#术语定义" class="headerlink" title="术语定义"></a>术语定义</h1><ul>
+<li>组件更新：组件进行了重渲染，其渲染阶段至少经过了 render 函数和 tree diff 阶段。</li>
+</ul>
+<h1 id="react-组件更新的原理"><a href="#react-组件更新的原理" class="headerlink" title="react 组件更新的原理"></a>react 组件更新的原理</h1><p>首先，我们先阐述下 react 组件更新的策略：<strong>一个组件发生了更新，其子组件也会更新，在不进行优化的情况下，这种更新的传递会持续到组件树的叶子组件，即使某个子组件前后props并没有发生改变</strong>。</p>
+<p>然后，让我们确定下什么可以引起组件更新(针对react 16)：</p>
 <ul>
-<li>确保交付</li>
-<li>保证延迟的确保交付</li>
-<li>有序交付</li>
-<li>确保最小带宽</li>
-<li>确保最大时延抖动</li>
-<li>安全性服务</li>
+<li>useState/useReducer hook</li>
+<li>类组件 this.setState</li>
+<li>父组件更新(props 变化)</li>
 </ul>
-<p>那么IP协议提供以上那些服务呢？</p>
-<p>答案就是：<strong>一个也不提供</strong></p>
+<h2 id="1-useState-useReducer-hook"><a href="#1-useState-useReducer-hook" class="headerlink" title="1. useState/useReducer hook"></a>1. useState/useReducer hook</h2><p>由于 useReducer 的 api 过于繁琐，为了叙述的方便，这里使用 useState 举例子。</p>
+<p>这一节中，我使用 <strong>setState</strong> 指代 useState hook 返回的 setState 函数，而 <strong>this.setState</strong> 指代类组件的 setState 函数。</p>
+<p>关于 useState hook 需要注意的几点：</p>
 <ul>
-<li><strong>不</strong> 确保交付</li>
-<li><strong>不</strong> 保证延迟的确保交付</li>
-<li><strong>不</strong> 有序交付</li>
-<li><strong>不</strong> 确保最小带宽</li>
-<li><strong>不</strong> 确保最大时延抖动</li>
-<li><strong>没有</strong> 安全性服务</li>
-</ul>
-<h2 id="数据报网络"><a href="#数据报网络" class="headerlink" title="数据报网络"></a>数据报网络</h2><p>IP协议构建的网络就属于数据报网络</p>
-<p>特点：</p>
+<li><p>hooks 给了函数组件和类组件一样保存状态的能力，自然而然的，既然可以保存状态就应该可以更改状态，useState 返回的 setState 可以用于改变相关的状态，自此函数组件和类组件一样，同样具有了主动发起更新的能力。</p>
+</li>
+<li><p>react 官方认为 useState hook 应该用于更加细粒度的值，所以 useState 和基本的值类型数据配合良好，但是如果牵扯 object 类型，就需要作出一些额外的考虑：</p>
 <ul>
-<li>无需建立连接，维持状态信息</li>
-<li>使用转发表决定分组输出端口</li>
-<li>通过最长前缀匹配原则进行查询转发表</li>
+<li>useState hook 的 setState 和 this.setState 的行为并不一样，其中很重要的一点，对于 this.setState，会对前后的 state 进行合并，所以当我们 this.setState 时，只要写上更改的数据即可，而 useState hook 的 setState 则是替换。所以，当你使用 useState 来保存 object 时，你可能会需要写上大量的 <strong>…</strong> 运算符。</li>
 </ul>
-<h2 id="路由器工作原理"><a href="#路由器工作原理" class="headerlink" title="路由器工作原理"></a>路由器工作原理</h2><ul>
-<li>输入端口 - 从物理层接收数据，拆封分组、查看相应协议层头部，查询转发表放进发送队列</li>
-<li>交换结构 - 负责发送队列到输出队列的运输</li>
-<li>输出端口 - 拿到输出队列的数据，然后封上相应协议层的头部，送给物理层</li>
-<li>路由选择处理器 - 负责执行路由选择，更新转发表，以及一些控制功能</li>
+</li>
+<li><p>setState 和 this.setState 阻止更新的行为不一样。不同于 this.setState(null)，setState(null) 依旧会触发更新，并且会把 state 赋值成 null。当你使用 setState 时，react 会将前后的 state 进行 === 比较，如果一样，则不会触发更新。所以如果你使用 useState 保存 object，即使新的 object 中的值没有发生变化，但是由于生成了新的引用，依旧会触发更新。这也是为什么尽量不要使用 useState 来储存 object，对于复杂的本地状态，建议使用 useReducer 来管理。</p>
+</li>
 </ul>
-<h2 id="网络层的三个主要组件"><a href="#网络层的三个主要组件" class="headerlink" title="网络层的三个主要组件"></a>网络层的三个主要组件</h2><h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><h4 id="IPV4数据报格式"><a href="#IPV4数据报格式" class="headerlink" title="IPV4数据报格式"></a>IPV4数据报格式</h4><ul>
-<li>版本：规定了IP协议版本</li>
-<li>首部长度</li>
-<li>服务类型：区分不同类型的IP数据报</li>
-<li>数据报长度</li>
-<li>标识、标志、片偏移：用于IP数据报分片</li>
-<li>寿命：一个数据报可以被路由处理的次数</li>
-<li>协议：用于IP的多路复用和分解，即应将数据交付给上层的那个协议，TCP还是UDP。</li>
-<li>首部检验和</li>
-<li>源和目的IP地址</li>
-<li>选项：用于扩展IP首部</li>
-<li>数据</li>
-</ul>
-<h4 id="IPV4编址"><a href="#IPV4编址" class="headerlink" title="IPV4编址"></a>IPV4编址</h4><ul>
-<li>总长度为32位</li>
-<li>一般以8位一组</li>
-<li>子网：具有相同的前半部分地址的一组IP地址构成的网络</li>
-<li>编址方案：<ul>
-<li>无类别域间路由选择</li>
-<li>分类编址</li>
+<h2 id="2-类组件-this-setState"><a href="#2-类组件-this-setState" class="headerlink" title="2. 类组件 this.setState"></a>2. 类组件 this.setState</h2><p>关于 this.setState 需要的注意的是：</p>
+<ul>
+<li><p>设置空对象 this.setState({}) 依旧会触发更新 </p>
+</li>
+<li><p>this.setState(null) 不会触发更新</p>
+</li>
+<li><p>this.setState 同步异步问题：</p>
+<ul>
+<li><p>在事件处理函数，或生命周期函数，react 会对 this.setState 作 batching 优化，此时 this.setState 是异步的。</p>
+</li>
+<li><p>其他时候，例如 setTimeout 或 promise 中，this.setState 是同步的。</p>
+</li>
 </ul>
 </li>
 </ul>
-<h4 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h4><p>是一种用于自动分配IP地址且即插即用的协议，使用UDP作为输运层服务</p>
-<p>对于一个新加入网络的电脑：</p>
-<ol>
-<li>DHCP服务器发现。通过设置源ip地址为0.0.0.0，且目的ip地址为255.255.255.255的UDP分组，在网络中广播</li>
-<li>DHCP服务器提供。DHCP监听到广播，使用一个 <strong>DHCP提供报文</strong> 向客户作出响应(继续以广播的形式发出，因为此时客户依旧没有自己的IP地址)</li>
-<li>DHCP请求。客户得到响应后，发送一个 <strong>DHCP请求报文</strong>，回显响应的配置参数</li>
-<li>DHCP ACK。服务器回应一个 <strong>DHCP ACK报文</strong>，响应客户的请求报文</li>
-</ol>
-<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>从目的来说，NAT技术使得多台电脑可以通过一个公共ip上网，且不发生冲突。</p>
-<p>其行文的核心在于，从路由器(具备公共IP的设备)拦截所有的分组，修改其ip地址和端口，并记录这种修改产生相应的映射，发送修改后的分组，接收时执行相反的步骤。</p>
-<h3 id="路由选择算法"><a href="#路由选择算法" class="headerlink" title="路由选择算法"></a>路由选择算法</h3><p>路由选择的功能是更新路由器中的路由表(转发表)</p>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>全局还是分散：</p>
+<h2 id="3-父组件更新-props-变化"><a href="#3-父组件更新-props-变化" class="headerlink" title="3. 父组件更新(props 变化)"></a>3. 父组件更新(props 变化)</h2><p>这是我想咬文嚼字的一节，在阅读 react 相关文章时，经常会看到 <strong>props变化，导致组件发生了更新</strong>，这听起来彷佛 react 在更新时会对比前后的 props，只有发生了变化时才会更新组件。又或者有过 vue 经验的新人，可能认为 react 对 props 对象进行了监听，所以发生变化时才会更新，然而，以上两种解释都是错误的。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Box</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; count &#125; = props;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&#123;count&#125;&lt;/div&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> [useLessCount, setUseLessCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;Box count=&#123;count&#125; /&gt;</span><br><span class="line">            &lt;button onClick=&#123;() =&gt; setCount(<span class="function"><span class="params">prev</span> =&gt;</span> prev + <span class="number">1</span>)&#125;&gt;INC&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;() =&gt; setUseLessCount(prev =&gt; prev + 1)&#125;&gt;useLess&lt;/</span>button&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>当 INC 按钮被点击时，Box 组件显示的数值加了 1，让我们走一遍这个 <strong>更新</strong> 的流程，看看 props 变化是否导致了组件 <strong>更新</strong></p>
+<p>流程：</p>
 <ul>
-<li>全局式路由选择算法(链路状态算法)：<ul>
-<li>需要事先知道网络总体的分布图</li>
+<li>count = 0</li>
+<li>INC 按钮被点击</li>
+<li>Counter 发生更新，React 执行 Counter 函数生成虚拟DOM</li>
+<li>Counter 函数执行中，count 通过 useState 拿到改变后的新值，此时 count = 1</li>
+<li>React 通过 createElement 创建 Box 组件的虚拟DOM，注意此时的 Box 的 props 中 count 被赋值为 1</li>
+<li>React 以更新后的的 props 调用 Box 函数，生成其虚拟 DOM</li>
+<li>Box 组件的虚拟 DOM 进行 tree diff，发现 count 值改变</li>
+<li>最后 commit 到真实 DOM 上</li>
 </ul>
-</li>
-<li>分散式路由选择算法(距离向量算法)：<ul>
-<li>无需知道网络总体的分布图</li>
-</ul>
-</li>
-</ul>
-<p>动态还是静态：</p>
-<ul>
-<li>静态路由选择</li>
-<li>动态路由选择</li>
-</ul>
-<p>是否负载敏感：</p>
-<ul>
-<li>负载敏感算法</li>
-<li>负载迟钝算法</li>
-</ul>
-<h3 id="因特网控制报文协议-ICMP"><a href="#因特网控制报文协议-ICMP" class="headerlink" title="因特网控制报文协议(ICMP)"></a>因特网控制报文协议(ICMP)</h3><ul>
-<li>用于主机和路由器彼此沟通信息</li>
-<li>构建于IP协议之上(因为其报文位于为IP数据报的数据字段)</li>
-</ul>
+<p>纵观整个流程，react 一直遵循着一个简单的策略 <strong>组件更新，则更新其所有的子组件</strong>，且不断递归的运用这个策略，直到叶子节点。和 props 本身没有任何关系。也就是说，<strong>子组件的更新是由于父组件更新引起的，而非 props 的变化</strong></p>
+<p>另一个更直接的证据是，点击 useLess 按钮，同样会导致 Box 组件更新，即使 count 的值并没有发生改变。</p>
+<p><strong>props 变化，导致组件发生了更新</strong>，犯了一个典型的因果谬误，A 先发生，然后 B 发生了，所以 A 导致了 B 发生。</p>
+<p>这句话的主要问题在于，它会给初学者建立一种错误的心智模型，认为其中有什么 fancy 的 magic 发生，然而本质上只是遵循一个简单更新策略的自然而然的结果。</p>
+<p>最后，任何时候，<strong>props 变化，导致组件发生了更新</strong> 这句话都是错误的，但是对于本小节中的例子来说：<strong>props 变化，导致组件内容发生了变化</strong> 是正确的。</p>
+<p>既然都谈了这么多，我就多说一点，人在交流时，倘若不对一些模棱两可的词语的意思作出规定，非常容易变成大家自说自话，我不同意你的，你不同意我的，谁也说服了不了谁。我本以为这是技术讨论的常识，然而却发现知乎上每天都在发生这样的对话，很少发现充满价值的讨论。</p>
 
       
     </div>
@@ -569,9 +524,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+            <a href="/tags/前端/" rel="tag"># 前端</a>
           
-            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/react暇谈/" rel="tag"># react暇谈</a>
           
         </div>
       
@@ -584,8 +541,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层.html" rel="next" title="《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层">
-                <i class="fa fa-chevron-left"></i> 《计算机网络-自顶向下的方法》阅读笔记-第三章-运输层
+              <a href="/posts/react暇谈(1)——当我们再谈论render时，我们在谈论什么.html" rel="next" title="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
+                <i class="fa fa-chevron-left"></i> react暇谈(1)——当我们再谈论render时，我们在谈论什么
               </a>
             
           </div>
@@ -593,10 +550,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/如何入门计算机网络 -《计算机网络-自顶向下》读后感.html" rel="prev" title="如何入门计算机网络 -《计算机网络-自顶向下》读后感">
-                如何入门计算机网络 -《计算机网络-自顶向下》读后感 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -798,7 +751,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层可能提供的服务"><span class="nav-number">1.</span> <span class="nav-text">网络层可能提供的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据报网络"><span class="nav-number">2.</span> <span class="nav-text">数据报网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由器工作原理"><span class="nav-number">3.</span> <span class="nav-text">路由器工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层的三个主要组件"><span class="nav-number">4.</span> <span class="nav-text">网络层的三个主要组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP协议"><span class="nav-number">4.1.</span> <span class="nav-text">IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV4数据报格式"><span class="nav-number">4.1.1.</span> <span class="nav-text">IPV4数据报格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV4编址"><span class="nav-number">4.1.2.</span> <span class="nav-text">IPV4编址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DHCP"><span class="nav-number">4.1.3.</span> <span class="nav-text">DHCP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NAT"><span class="nav-number">4.1.4.</span> <span class="nav-text">NAT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由选择算法"><span class="nav-number">4.2.</span> <span class="nav-text">路由选择算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">4.2.1.</span> <span class="nav-text">分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#因特网控制报文协议-ICMP"><span class="nav-number">4.3.</span> <span class="nav-text">因特网控制报文协议(ICMP)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主旨"><span class="nav-number">1.</span> <span class="nav-text">主旨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语定义"><span class="nav-number">2.</span> <span class="nav-text">术语定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#react-组件更新的原理"><span class="nav-number">3.</span> <span class="nav-text">react 组件更新的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-useState-useReducer-hook"><span class="nav-number">3.1.</span> <span class="nav-text">1. useState/useReducer hook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-类组件-this-setState"><span class="nav-number">3.2.</span> <span class="nav-text">2. 类组件 this.setState</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-父组件更新-props-变化"><span class="nav-number">3.3.</span> <span class="nav-text">3. 父组件更新(props 变化)</span></a></li></ol></li></ol></div>
             
 
           </div>
