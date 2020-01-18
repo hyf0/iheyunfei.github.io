@@ -15,7 +15,7 @@
 
 
 <html class="theme-next mist use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -99,14 +99,14 @@
   <meta name="description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
 <meta name="keywords" content="前端,react,react暇谈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
+<meta property="og:title" content="react暇谈(1)——当我们在谈论render时，我们在谈论什么">
 <meta property="og:url" content="http://iheyunfei.com/posts/react暇谈(1)——当我们再谈论render时，我们在谈论什么.html">
 <meta property="og:site_name" content="篝火处">
 <meta property="og:description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-07T13:09:23.206Z">
+<meta property="og:updated_time" content="2019-12-27T05:04:57.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="react暇谈(1)——当我们再谈论render时，我们在谈论什么">
+<meta name="twitter:title" content="react暇谈(1)——当我们在谈论render时，我们在谈论什么">
 <meta name="twitter:description" content="主旨本文旨在讨论 React 中的 render(渲染) 一词的含义？ 术语定义 render 函数，本文中指类组件的 render 方法，或者函数组件本身。 render、渲染，我会在文中交替的使用这两个词语，但你应该明白，你随时可以把文中的 render 换成 渲染，反之亦然。  react的render到底指什么？如果你已经接触了 React 一段时间，你经常会看到 render(渲染)，r">
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>react暇谈(1)——当我们再谈论render时，我们在谈论什么 | 篝火处</title>
+  <title>react暇谈(1)——当我们在谈论render时，我们在谈论什么 | 篝火处</title>
   
 
 
@@ -373,7 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">react暇谈(1)——当我们再谈论render时，我们在谈论什么
+          <h1 class="post-title" itemprop="name headline">react暇谈(1)——当我们在谈论render时，我们在谈论什么
 
               
             
@@ -416,7 +416,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-07 21:09:23" itemprop="dateModified" datetime="2019-10-07T21:09:23+08:00">2019-10-07</time>
+                <time title="修改时间：2019-12-27 13:04:57" itemprop="dateModified" datetime="2019-12-27T13:04:57+08:00">2019-12-27</time>
               
             
           </span>
@@ -467,7 +467,7 @@
 <p>我们首先来看组件更新的情况，然后再回头看挂载的情况，你会发现，后者和前者的差别其实很小，这也是为什么 React 在函数组件里提供的 useEffect hook 不再区分挂载和更新。</p>
 <p>让我们使用经典的计数器例子</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 警告：为了代码的精简的，我省略了 useCallback 包裹回调函数的行为</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [count, setCount] = useState();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;span className=<span class="string">"count"</span>&gt;&#123;count&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;() =&gt; setCount(prev =&gt; prev + 1)&#125;&gt;INC&lt;button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 Counter 挂载后，当你点击了 <strong>INC</strong> 按钮时，就会触发一次 React 的组件的<strong>更新</strong> 或者说是<strong>重渲染</strong>。</p>
+<p>在 Counter 挂载后，当你点击了 <strong>INC</strong> 按钮时，就会触发一次 React 的组件的 <strong>更新</strong> 或者说是 <strong>重渲染</strong>。</p>
 <h2 id="三个渲染阶段"><a href="#三个渲染阶段" class="headerlink" title="三个渲染阶段"></a>三个渲染阶段</h2><p>这里为了讲解的方便，我自作主张的将 React 的一个完整的渲染周期的分为三个阶段，注意不要联想到生命周期，这里没有任何关系。</p>
 <p>三个阶段是：</p>
 <ol>
@@ -481,7 +481,7 @@
 <p>一般来说，前两个阶段可以视为一个阶段，因为它们都发生在虚拟DOM层面，并且一旦触发渲染函数阶段，则一定会触发 tree diff 阶段，但是 commit 阶段只在虚拟DOM发生变化的时才可以被触发。</p>
 <p>在了解组件更新的的流程后，我们对比着更新的流程，回过头来看组件挂载的情况：</p>
 <ol>
-<li>挂载有虚拟函数阶段吗？</li>
+<li>挂载有渲染函数阶段吗？</li>
 </ol>
 <p>答案: 肯定有！必须要执行 render 函数，生成虚拟DOM。</p>
 <ol start="2">
@@ -492,7 +492,7 @@
 <ol start="3">
 <li>commit阶段</li>
 </ol>
-<p>答案：这点毋庸置疑。</p>
+<p>答案：肯定有</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>现在，让我们通过确定 “这个组件发生了渲染/重渲染/无用的重渲染” 是什么意思来回答文章开头提出的问题。</p>
 <p>对于 <strong>…发生了渲染/重渲染</strong> 来说都是指阶段123，也就是整个渲染阶段。生成变化后的虚拟DOM，进行 tree diff，将变化 commit 到真实 DOM 上。如果不是在指明讨论虚拟 DOM 的话，将渲染一词局限1、2阶段是没有意义的。</p>
 <p>而对于 <strong>发生了无效的重渲染</strong> 来说，是指阶段1、2。一般发生在父组件发生了更新，子组件的props却没有变化，所以子组件生成的虚拟dom没有发生改变，在 tree diff 阶段后直接断掉了，没有进入 commit 阶段。</p>
@@ -537,8 +537,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/浅谈可取消的Promise.html" rel="next" title="浅谈可取消的Promise">
-                <i class="fa fa-chevron-left"></i> 浅谈可取消的Promise
+              <a href="/posts/译-React-Redux 官方 Hooks 文档说明.html" rel="next" title="译 - React-Redux 官方 Hooks 文档说明">
+                <i class="fa fa-chevron-left"></i> 译 - React-Redux 官方 Hooks 文档说明
               </a>
             
           </div>
@@ -620,7 +620,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -638,6 +638,8 @@
                     
                   
                     
+                    
+                      
                     
                       
                     
@@ -772,7 +774,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -784,7 +786,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 

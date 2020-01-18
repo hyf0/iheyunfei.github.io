@@ -166,15 +166,17 @@ React 提供给我们优化组件渲染的方式有三种：
 2. 类组件：实现 shouldComponentUpdate 方法
 3. 函数组件：React.memo 包裹函数组件
 
-其中前两者的优化方式其实是一样的，shoudComponentUpdate 是 React 提供的一种阻止渲染的方式，在组件挂载后，此后每一次渲染之前 React 都会先调用类组件实例的 shoudComponentUpdate 方法，如果此方法返回 true 则继续渲染，如果是 false，则会停止渲染。
+其中前两者的优化方式其实是一样的，shoudComponentUpdate 是 React 提供的一种阻止渲染的方式，在组件挂载后，此后每一次渲染之前 React 都会先调用类组件实例的 shoudComponentUpdate 方法，如果此方法返回 true 则继续渲染，如果是 false，则会停止渲染。表现的行为是，对于类组件，不会执行其 render 方法，对于函数组件，不会执行其本身。
 
 shoudComponentUpdate 方法的参数是新旧的 props，所以我们可以在 shoudComponentUpdate 通过对比新旧 props 是否不同，来决定是否更新的组件。不过，还记着的那句话吗？过早优化是万恶之源。优化本身也是需要消耗性能，过于复杂 shoudComponentUpdate 实现逻辑一样会拖慢的性能。
 
-React 官方的给出的解决方案是浅比较，这算是一种在性能上和命中率相当平衡的选择。通过对比前后 props 对象 key 的数量，key 的名字， key 对应的属性，来判断前后props是否一样，这里之所以交浅比较，是因为props作为一个对象，只能比较到对象第一层的key，如果某个 key 的值也是一个对象，那么只会比它们的引用，不会比较其内容。
+React 官方的给出的解决方案是浅比较，这算是一种在性能上和命中率相当平衡的选择。通过对比前后 props 对象 key 的数量，key 的名字， key 对应的属性，来判断前后props是否一样，这里之所以叫浅比较，是因为props作为一个对象，这种比较方法只对比对象第一层的属性和值，如果某个属性的值也是一个对象，那么只会比它们的引用，不会比较其内容。
 
 对于类组件来说，凡是继承了 React.PureComponent 的组件，可以认为 React 帮我们实现了浅比较版本的 shouldComponentUpdate 方法。这里稍微提一下，如果你去看 React 源码的话，你会发现在 React.PureComponent 的相关的源码里，并没有 shouldComponentUpdate 实现的细节，仅仅有一个标志的，标志这一个组件是 React.PureComponent 组件，而真正实现的细节在 ReactDOM，当 React 更新时，会先判断一个组件是否是 PureComponent，如果是的话，则会传入浅比较函数作为 shouldComponentUpdate 的逻辑。
 
 当然我们也能自己实现 shouldComponentUpdate 相关的逻辑，不过在我的日常经验中，PureComponent 自带的浅比较实现已经足够了。
 
 React.memo 和 shouldComponentUpdate 的作用是一样的，是 React 提供给函数组件优化的一种方法，memo 函数在函数式编程里是很通常的概念，是一种缓存的手段，对于纯函数来说，相同的参数总是导致相同的输出，所以只要前后的props没变就直接返回上次缓存的结果。React.memo 函数的使用也很简单，第一个参数接受一个函数组件，第二参数解释一个比较函数，可以类比的认为是 shoudComponentUpdate 的实现，如果留空的，React 则会默认使用浅比较来作比较。
+
+接触过函数式的人，可能会误以为 React.memo 是 React 官方实现的函数式编程的 memo 高阶函数，作用是参数输入不变时返回缓存函数的结果，但并不是。React.memo 的返回值是一个特殊的 React 对象。
 
